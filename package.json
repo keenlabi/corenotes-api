@@ -13,6 +13,7 @@
   "description": "the backend (REST API) for the corenotes app",
   "dependencies": {
     "express": "^4.18.2",
+    "mongoose": "^7.0.4",
     "typescript": "^5.0.4"
   },
   "devDependencies": {
