@@ -5,5 +5,6 @@ export interface IUser {
     firstname: String,
     lastname: String,
     role: String,
-    createdAt: Date
+    createdAt: Date,
+    byEmail: Function
 }
