@@ -1,5 +1,6 @@
 import express, { urlencoded } from "express"
 import { createServer } from "http"
+import routes from "./api/v1/routes";
 
 const app = express();
 
@@ -7,7 +8,8 @@ const app = express();
 app.use(express.json())
 // parses incoming string or arrays payloads
 app.use(urlencoded())
-
+// configure routes
+app.use("/api/v1", routes)
 
 const server = createServer(app)
 
