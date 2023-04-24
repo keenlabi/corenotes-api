@@ -1,7 +1,13 @@
-import express from "express"
+import express, { urlencoded } from "express"
 import { createServer } from "http"
 
 const app = express();
+
+// parses incoming JSON payloads
+app.use(express.json())
+// parses incoming string or arrays payloads
+app.use(urlencoded())
+
 
 const server = createServer(app)
 
