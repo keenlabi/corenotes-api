@@ -28,6 +28,6 @@ export default function validateRegisterStaffRequestBody (data:registerStaffRequ
 
 
         // return success if true
-        resolve({ status:true, code:200, message: 'SUCCESS' });
+        resolve({ status:true, code:200, message: 'SUCCESS', requestBody: data });
     })
 }

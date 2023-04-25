@@ -10,5 +10,6 @@ export interface registerStaffRequestBodyType {
 export interface validateRegisterStaffRequestBodyType {
     status:boolean, 
     code:number, 
-    message: 'SUCCESS'|string
+    message: 'SUCCESS'|string,
+    requestBody: registerStaffRequestBodyType
 }
