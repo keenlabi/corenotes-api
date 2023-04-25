@@ -9,7 +9,7 @@ app.use(express.json())
 // parses incoming string or arrays payloads
 app.use(urlencoded())
 // configure routes
-app.use("/api/v1", routes)
+app.use("/api/v1", routes())
 
 const server = createServer(app)
 
