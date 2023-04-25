@@ -3,7 +3,7 @@ import { Response } from "express";
 const sendSuccessResponse = (res:Response, code:number, message:string, data:any) => {
   return res.status(code).json({
     code,
-    status: "success",
+    status: "SUCCESS",
     message,
     data,
   });
@@ -12,7 +12,7 @@ const sendSuccessResponse = (res:Response, code:number, message:string, data:any
 const sendFailureResponse = (res:Response, code:number, message:string) => {
   return res.status(code).json({
     code,
-    status: "error",
+    status: "ERROR",
     message
   });
 };
