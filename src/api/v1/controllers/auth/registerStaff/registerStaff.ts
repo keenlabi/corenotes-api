@@ -10,7 +10,22 @@ export default function registerStaff(req:Request, res:Response) {
         // encrypt user password
         hashPassword(requestBody.password)
         .then((hashedPassword)=> {
-            
+            UserModel.create({
+                email: requestBody.email,
+                firstname: requestBody.firstname,
+                lastname: requestBody.lastname,
+                password: hashedPassword,
+                phoneNumber: requestBody.phoneNumber,
+                role:'STAFF'
+            })
+            .then((createdUser)=> {
+                console.log(`REGISTRATION: New staff registered successfully`)
+                sendSuccessResponse(res, 201, "New staff registered successfully", {})
+            })
+            .catch((error)=> {
+                console.log(`User is attempting to register with existing phone number :`, error);
+                sendFailureResponse(res, 422, "Phone number has been registered by another user.");
+            });
         })
         .catch((error)=> {
             console.log('There was an error hashing user password\n', error);
