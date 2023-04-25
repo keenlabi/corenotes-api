@@ -13,7 +13,7 @@ export default function validateRegisterStaffRequestBody (data:registerStaffRequ
 
         // check if email is registered already and return error if true
         if(!data.email) reject({ status: false, code: 422,  message:'Email field cannot be empty' });
-        if(isEmailValid(data.email)) reject({ status:false, code: 422, message:'Email is invalid' });
+        if(!isEmailValid(data.email)) reject({ status:false, code: 422, message:'Email is invalid' });
         if(await emailExists(data.email)) reject({ status:false, code: 409, message:'Email has been registered by another user' });
 
         // check if phone number is registered and return error if true
