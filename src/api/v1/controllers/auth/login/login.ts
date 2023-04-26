@@ -2,7 +2,10 @@ import { Request, Response } from "express"
 import validateLoginRequestBody from "./validateLoginRequestBody";
 import { UserModel } from "v1/models";
 import { sendFailureResponse } from "v1/utils/serverUtils/response";
-import { verifyPassword } from "v1/utils/authUtils/password";
+import { verifyPassword } from "v1/utils/authUtils/security/password";
+import generateToken from "v1/utils/authUtils/security/token/generateAccessToken";
+import storeAuthToken from "v1/utils/authUtils/security/token/storeAccessToken";
+import { IUser } from "v1/models/UserModel/types";
 
 export default async function logIn(req:Request, res:Response) {
 
@@ -17,11 +20,25 @@ export default async function logIn(req:Request, res:Response) {
                 .then((isVerified)=> {
                     if(!isVerified) return sendFailureResponse(res, 401, 'Oops! The email or password entered does not match our record. Please confirm and try again.');
 
+                    generateToken(foundUser.id, res)
+                    .then((authToken:string)=> {
+                        storeAuthToken(foundUser.id, authToken)
+                        .then((authenticatedUser:IUser)=> {
+                            console.log(authenticatedUser)
+                        })
+                        .catch((error)=> {
+
+                        })
+                    })
+                    .catch((error)=> {
+                        console.log(`There was an error generating authentication token, try logging in`);
+                        sendFailureResponse(res, 422, "There was an error verifing credentials");
+                    })
                     
                 })
                 .catch((error)=> {
                     console.log(`There was an error verifying password, try to log in`);
-                    sendFailureResponse(res, 422, "Account has been created successfully. Couldn't authenticate user, try logging in.");
+                    sendFailureResponse(res, 422, "There was an error verifing credentials");
                 })
         })
         .catch((error)=> {

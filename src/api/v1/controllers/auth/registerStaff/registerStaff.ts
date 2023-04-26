@@ -1,6 +1,6 @@
 import { Request, Response } from "express"
 import validateRegisterRequestBody from "./validateRegisterStaffRequestBody"
-import { hashPassword } from "v1/utils/authUtils/password"
+import { hashPassword } from "v1/utils/authUtils/security/password"
 import { UserModel } from "v1/models"
 import { sendFailureResponse, sendSuccessResponse } from "v1/utils/serverUtils/response"
 

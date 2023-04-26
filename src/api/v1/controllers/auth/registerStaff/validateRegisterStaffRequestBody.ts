@@ -1,5 +1,5 @@
-import { emailExists, isEmailValid } from "v1/utils/authUtils/emailValidator"
-import { phoneExists } from "v1/utils/authUtils/phoneNumberValidator";
+import { emailExists, isEmailValid } from "v1/utils/authUtils/validator/emailValidator"
+import { phoneExists } from "v1/utils/authUtils/validator/phoneNumberValidator";
 import { registerStaffRequestBodyType, validateRegisterStaffRequestBodyType } from "./types";
 
 export default function validateRegisterStaffRequestBody (data:registerStaffRequestBodyType) {
