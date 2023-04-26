@@ -1,7 +1,7 @@
 import { Response } from "express";
 
-const sendSuccessResponse = (res:Response, code:number, message:string, data:any) => {
-  return res.status(code).json({
+export function sendSuccessResponse (res:Response, code:number, message:string, data:any) {
+  res.status(code).json({
     code,
     status: "SUCCESS",
     message,
@@ -9,15 +9,10 @@ const sendSuccessResponse = (res:Response, code:number, message:string, data:any
   });
 };
 
-const sendFailureResponse = (res:Response, code:number, message:string) => {
-  return res.status(code).json({
+export function sendFailureResponse (res:Response, code:number, message:string) {
+  res.status(code).json({
     code,
     status: "ERROR",
     message
   });
 };
-  
-export {
-  sendFailureResponse,
-  sendSuccessResponse
-}
