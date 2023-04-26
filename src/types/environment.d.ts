@@ -3,7 +3,9 @@ declare global {
       interface ProcessEnv {
         PORT: string;
         NODE_ENV: 'development' | 'production';
-        MONGO_URI: string
+        MONGO_URI: string,
+        SESSION_EXP: string,
+        JWT_KEY: string
       }
     }
 }
