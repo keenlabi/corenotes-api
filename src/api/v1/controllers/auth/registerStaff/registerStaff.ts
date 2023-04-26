@@ -34,7 +34,7 @@ export default function registerStaff(req:Request, res:Response) {
     })
     .catch((error)=> {
         // TODO: return error if validation is failed
-        console.log(`VALIDATION ERROR: There was an error validating request body`)
+        console.log(`VALIDATION ERROR: There was an error validating register staff request body`)
         console.log(error)
         sendFailureResponse(res, error.code, error.message);
     })
