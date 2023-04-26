@@ -8,6 +8,10 @@ const userSchema = new Schema<IUser>({
     password: {
         type: String,
     },
+    accessToken: {
+        type: String,
+        default: ""
+    },
     phoneNumber: {
         type: String,
     },
