@@ -7,5 +7,5 @@ export interface IUser {
     lastname: String,
     role: String,
     createdAt: Date,
-    byEmail: Function
+    lastSeen: Date,
 }
