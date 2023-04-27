@@ -1,5 +1,6 @@
 export interface registerStaffRequestBodyType {
     email:string,
+    username:string
     phoneNumber:string,
     firstname:string,
     lastname:string,
