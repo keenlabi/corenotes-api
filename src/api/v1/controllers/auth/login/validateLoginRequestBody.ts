@@ -7,7 +7,7 @@ export default function validateLoginRequestBody(data:loginRequestBodyType) {
         if(Object.keys(data).length === 0) reject({ status: false, code: 422, message:'Input field cannot be empty' })
         
         // check if email is registered already and return error if true
-        if(!data.email ) reject({ status: false, code: 422,  message:'Email field cannot be empty' });
+        if(!data.username ) reject({ status: false, code: 422,  message:'Username field cannot be empty' });
 
         // check if password field is empty, check if password is at least characters long
         if(!data.password) reject({status:false, code:422, message: 'Password field cannot be empty'});

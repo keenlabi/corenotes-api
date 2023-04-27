@@ -11,14 +11,14 @@ export default async function logIn(req:Request, res:Response) {
 
     validateLoginRequestBody(req.body)
     .then(({ requestBody })=> {
-        let query:any = { email: requestBody.email };
+        let query:any = { username: requestBody.username };
 
         UserModel.findOne(query)
         .then((foundUser)=> {
-            if(!foundUser) sendFailureResponse(res, 401, 'Oops! The email or password entered does not match our record. Please confirm and try again.');
+            if(!foundUser) sendFailureResponse(res, 401, 'Oops! The username or password entered does not match our record. Please confirm and try again.');
             else verifyPassword(requestBody.password, foundUser.password)
                 .then((isVerified)=> {
-                    if(!isVerified) return sendFailureResponse(res, 401, 'Oops! The email or password entered does not match our record. Please confirm and try again.');
+                    if(!isVerified) return sendFailureResponse(res, 401, 'Oops! The username or password entered does not match our record. Please confirm and try again.');
 
                     generateToken(foundUser.id, res)
                     .then((authToken:string)=> {

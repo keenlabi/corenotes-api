@@ -1,5 +1,5 @@
 export interface loginRequestBodyType {
-    email:string,
+    username:string,
     password:string
 }
 
