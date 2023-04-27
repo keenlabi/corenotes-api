@@ -14,6 +14,7 @@ export default function registerStaff(req:Request, res:Response) {
                 email: requestBody.email,
                 firstname: requestBody.firstname,
                 lastname: requestBody.lastname,
+                username: requestBody.username,
                 password: hashedPassword,
                 phoneNumber: requestBody.phoneNumber,
                 role:'STAFF'
