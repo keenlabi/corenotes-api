@@ -5,6 +5,9 @@ const userSchema = new Schema<IUser>({
     email: {
         type: String,
     },
+    username: {
+        type: String
+    },
     password: {
         type: String,
     },
