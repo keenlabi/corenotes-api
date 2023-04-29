@@ -29,6 +29,10 @@ const userSchema = new Schema<IUser>({
         enum: ["STAFF", "INDIVIDUAL"],
         default: "INDIVIDUAL"
     },
+    profileImage: {
+        type: String,
+        default: "https://res.cloudinary.com/the-shawn-exchange/image/upload/v1671833458/user-profile_jsze9h.webp"
+    },
     createdAt: {
         type: Date,
         default: Date.now

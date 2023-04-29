@@ -9,4 +9,5 @@ export interface IUser {
     role: String,
     createdAt: Date,
     lastSeen: Date,
+    profileImage: String
 }
