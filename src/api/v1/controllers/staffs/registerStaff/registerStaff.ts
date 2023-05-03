@@ -5,18 +5,46 @@ import { UserModel } from "v1/models"
 import { sendFailureResponse, sendSuccessResponse } from "v1/utils/serverUtils/response"
 
 export default function registerStaff(req:Request, res:Response) {
+
     validateRegisterRequestBody(req.body)
     .then(({ requestBody })=> {
+        
         // encrypt user password
         hashPassword(requestBody.password)
         .then((hashedPassword)=> {
             UserModel.create({
-                email: requestBody.email,
                 firstname: requestBody.firstname,
                 lastname: requestBody.lastname,
+                nickname: requestBody.nickname,
+                initials: requestBody.initials,
+                dob: requestBody.dob,
+                gender: requestBody.gender,
+                address: requestBody.address,
+                city: requestBody.city,
+                state: requestBody.state,
+                zipCode: requestBody.zipCode,
+                phoneNumber: {
+                    work: requestBody.phoneNumber.work,
+                    cell: requestBody.phoneNumber.cell,
+                    other: requestBody.phoneNumber.other
+                },
+                emergencyContact: {
+                    name: requestBody.emergencyContact.name,
+                    relationship: requestBody.emergencyContact.relationship,
+                    phoneNumber: requestBody.emergencyContact.phoneNumber
+                },
+                email: requestBody.email,
+                profileImage: '',
+                
+                // WORK INFORMATION
+                compartment: requestBody.compartment,
+                title: requestBody.title,
+                providerRole: requestBody.providerRole,
+                hiredAt: requestBody.hiredAt,
                 username: requestBody.username,
+                employeeId: requestBody.employeeId,
+                jobSchedule: requestBody.jobSchedule,
                 password: hashedPassword,
-                phoneNumber: requestBody.phoneNumber,
                 role:'STAFF'
             })
             .then((createdUser)=> {
