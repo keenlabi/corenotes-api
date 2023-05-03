@@ -3,6 +3,7 @@ import validateRegisterRequestBody from "./validateRegisterStaffRequestBody"
 import { hashPassword } from "v1/utils/authUtils/security/password"
 import { UserModel } from "v1/models"
 import { sendFailureResponse, sendSuccessResponse } from "v1/utils/serverUtils/response"
+import fetchStaffs from "../fetchStaffs"
 
 export default function registerStaff(req:Request, res:Response) {
 
@@ -47,9 +48,10 @@ export default function registerStaff(req:Request, res:Response) {
                 password: hashedPassword,
                 role:'STAFF'
             })
-            .then((createdUser)=> {
+            .then(()=> {
                 console.log(`REGISTRATION: New staff registered successfully`)
-                sendSuccessResponse(res, 201, "New staff registered successfully", {})
+                fetchStaffs(req, res)
+                // sendSuccessResponse(res, 201, "New staff registered successfully", {})
             })
             .catch((error)=> {
                 console.log(`There was an error creating new staff: `, error);
