@@ -24,8 +24,8 @@ export default function registerStaff(req:Request, res:Response) {
                 sendSuccessResponse(res, 201, "New staff registered successfully", {})
             })
             .catch((error)=> {
-                console.log(`User is attempting to register with existing phone number :`, error);
-                sendFailureResponse(res, 422, "Phone number has been registered by another user.");
+                console.log(`There was an error creating new staff: `, error);
+                sendFailureResponse(res, 422, "There was an error creating new staff");
             });
         })
         .catch((error)=> {
