@@ -5,7 +5,9 @@ declare global {
         NODE_ENV: 'development' | 'production';
         MONGO_URI: string,
         SESSION_EXP: string,
-        JWT_KEY: string
+        JWT_KEY: string,
+        IMAGE_FILE_SIZE_CAT:string,
+        IMAGE_FILE_SIZE:string
       }
     }
 }
