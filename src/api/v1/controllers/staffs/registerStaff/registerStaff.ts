@@ -35,7 +35,6 @@ export default function registerStaff(req:Request, res:Response) {
                     phoneNumber: requestBody.emergencyContact.phoneNumber
                 },
                 email: requestBody.email,
-                profileImage: '',
                 
                 // WORK INFORMATION
                 compartment: requestBody.compartment,

@@ -7,10 +7,15 @@ export default function fetchStaffProfile(req:Request, res:Response) {
 
     const query = { _id: req.params.staffId }
     
-    UserModel.findOne(query)
+    UserModel
+    .findOne(query)
+    .lean()
     .then((foundStaff:IUser)=> {
+        
+        const { password, accessToken, createdAt, ...filteredFoundStaff } = foundStaff  
+
         return sendSuccessResponse(res, 200, "Staff profile retrieved successfully", { 
-            staff: foundStaff
+            staff: filteredFoundStaff
         })
     })
     .catch(()=> {
