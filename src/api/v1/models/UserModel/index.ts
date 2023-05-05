@@ -88,7 +88,24 @@ const userSchema = new Schema<IUser>({
     },
     lastSeen: {
         type: Date
-    }
+    },
+    documents: [{
+        docTitle: {
+            type: String
+        },
+        docType: {
+            type: String
+        },
+        docDate: {
+            type: String
+        },
+        docFileLink: String,
+        docFileName: String,
+        createdAt: {
+            type: Date,
+            default: Date.now,
+        }
+    }]
 })
 
 userSchema.virtual('fullname').get(()=> `${userSchema.obj.firstname} ${userSchema.obj.lastname}`)

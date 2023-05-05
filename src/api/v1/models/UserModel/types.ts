@@ -40,5 +40,15 @@ export interface IUser {
     username: String,
     employeeId: String,
     jobSchedule: String,
-    password: String
+    password: String,
+
+    // DOCUMENTS
+    documents:Array<{
+        docTitle: String,
+        docType: String,
+        docDate: string,
+        docFileLink: String,
+        docFileName: String,
+        createdAt: Date
+    }>
 }
