@@ -7,7 +7,11 @@ declare global {
         SESSION_EXP: string,
         JWT_KEY: string,
         IMAGE_FILE_SIZE_CAT:string,
-        IMAGE_FILE_SIZE:string
+        IMAGE_FILE_SIZE:string,
+        CLOUDINARY_API_NAME:string,
+        CLOUDINARY_API_KEY:string,
+        CLOUDINARY_API_SECRET:string,
+        CLOUDINARY_BASE_FOLDER:string
       }
     }
 }
