@@ -38,7 +38,7 @@ async function isFileImage(file:Express.Multer.File) {
             if(!buffer) return reject(false)
 
             return await validateBufferMIMEType(buffer, {
-                allowMimeTypes: ['image/png', 'image/jpeg', 'image/jpg', 'image/webp']
+                allowMimeTypes: ['image/png', 'image/jpeg', 'image/jpg', 'image/webp', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document', 'application/pdf']
             }).then((result)=> {
                 if(!result.ok) reject(false);
                 else resolve(true)
