@@ -2,6 +2,10 @@ import { model, Schema, models } from "mongoose"
 import { IUser } from "./types"
 
 const userSchema = new Schema<IUser>({
+    active: {
+        type: Boolean,
+        default: false
+    },
     email: {
         type: String,
     },
