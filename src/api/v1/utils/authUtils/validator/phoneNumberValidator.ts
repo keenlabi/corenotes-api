@@ -1,4 +1,4 @@
-import { UserModel } from "src/api/v1/models";
+import { UserModel } from "../../../models";
 
 
 export async function phoneExists(phoneNumber:string) {
