@@ -9,7 +9,7 @@
     "forceConsistentCasingInFileNames": true,            /* Ensure that casing is correct in imports. */
     "paths": {
       /* Support absolute imports with a leading '/' */
-      "v1/*": ["*"]
+      "api/v1/*": ["*"]
     },
 
     /* Type Checking */
