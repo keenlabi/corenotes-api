@@ -27,7 +27,7 @@ export default function uploadStaffDocument(req:Request, res:Response) {
                 { new: true }
             )
             .lean()
-            .then((updatedStaff:IUser)=> {
+            .then(()=> {
                 return fetchStaffDocuments(req, res)
             })
         })
