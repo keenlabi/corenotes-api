@@ -2,7 +2,7 @@ import path from "path";
 import { Readable } from "stream";
 import cloudinary from "../../../../config/cloudinaryConfig";
 import deleteLocalFile from "./deleteLocalFile";
-import { RequestFileType } from "api/v1/middlewares/uploadFile";
+import { RequestFileType } from "../../middlewares/uploadFile";
 
 export default function uploadFileToCloud (file:RequestFileType, folder?:string) {
     return new Promise<string>((resolve, reject) => {
