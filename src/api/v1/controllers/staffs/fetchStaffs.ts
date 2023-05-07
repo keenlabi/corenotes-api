@@ -1,8 +1,7 @@
 import { Request, Response } from "express"
-import { Types } from "mongoose";
-import { UserModel } from "api/v1/models";
-import { IUser } from "api/v1/models/UserModel/types";
-import { sendFailureResponse, sendSuccessResponse } from "api/v1/utils/serverUtils/response";
+import { UserModel } from "../../models";
+import { IUser } from "../../models/UserModel/types";
+import { sendFailureResponse, sendSuccessResponse } from "../../utils/serverUtils/response";
 
 export default function fetchStaffs(req:Request, res:Response) {
     const   pageNumber = parseInt(req.params.pageNumber) - 1 ?? 0,

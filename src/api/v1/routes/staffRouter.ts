@@ -1,14 +1,14 @@
 import { Router } from "express";
-import registerStaff from "api/v1/controllers/staffs/registerStaff/registerStaff";
-import fetchStaffProfile from "api/v1/controllers/staffs/fetchStaffProfile";
-import fetchStaffs from "api/v1/controllers/staffs/fetchStaffs";
-import uploadFile from "api/v1/middlewares/uploadFile";
-import uploadStaffDocument from "api/v1/controllers/staffs/documents/uploadStaffDocument/uploadStaffDocument";
-import fetchStaffDocuments from "api/v1/controllers/staffs/documents/fetchStaffDocuments";
-import resetStaffPassword from "api/v1/controllers/staffs/security/resetStaffPassword";
-import deactivateStaff from "api/v1/controllers/staffs/security/deactivateStaff";
-import validateToken from "api/v1/middlewares/auth/validateToken";
-import activateStaff from "api/v1/controllers/staffs/security/activateStaff";
+import uploadFile from "../middlewares/uploadFile";
+import registerStaff from "../controllers/staffs/registerStaff/registerStaff";
+import fetchStaffProfile from "../controllers/staffs/fetchStaffProfile";
+import fetchStaffDocuments from "../controllers/staffs/documents/fetchStaffDocuments";
+import uploadStaffDocument from "../controllers/staffs/documents/uploadStaffDocument/uploadStaffDocument";
+import resetStaffPassword from "../controllers/staffs/security/resetStaffPassword";
+import validateToken from "../middlewares/auth/validateToken";
+import fetchStaffs from "../controllers/staffs/fetchStaffs";
+import deactivateStaff from "../controllers/staffs/security/deactivateStaff";
+import activateStaff from "../controllers/staffs/security/activateStaff";
 
 const staffRouter = Router();
 
