@@ -1,4 +1,4 @@
-import { emailExists, isEmailValid } from "api/v1/utils/authUtils/validator/emailValidator"
+import { emailExists, isEmailValid } from "../../../utils/authUtils/validator/emailValidator"
 import { registerStaffRequestBodyType, validateRegisterStaffRequestBodyType } from "./types";
 
 export default function validateRegisterStaffRequestBody (data:registerStaffRequestBodyType) {

@@ -1,7 +1,7 @@
 import { NextFunction, Request, Response } from "express"
 import multer from "multer"
-import validateImageFile from "api/v1/utils/FilesUtils/validateImageFile"
-import { sendFailureResponse } from "api/v1/utils/serverUtils/response"
+import validateImageFile from "../utils/FilesUtils/validateImageFile"
+import { sendFailureResponse } from "../utils/serverUtils/response"
 
 interface UploadFileType {
     fileAmount:'single'|'multiple'|'fields',

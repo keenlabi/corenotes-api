@@ -1,7 +1,7 @@
 import { NextFunction, Request, Response } from "express";
 import { verify, sign } from "jsonwebtoken";
 import { UserModel } from "../../models";
-import { sendFailureResponse } from "api/v1/utils/serverUtils/response";
+import { sendFailureResponse } from "../../utils/serverUtils/response";
 
 export default function validateToken (req:Request, res:Response, next:NextFunction) {
     return new Promise((reject)=> {
