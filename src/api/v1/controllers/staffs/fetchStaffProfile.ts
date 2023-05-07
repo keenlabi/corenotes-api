@@ -10,7 +10,7 @@ export default function fetchStaffProfile(req:Request, res:Response) {
     UserModel
     .findOne(query)
     .lean()
-    .then((foundStaff:IUser)=> {
+    .then((foundStaff:any)=> {
         
         const { password, accessToken, createdAt, ...filteredFoundStaff } = foundStaff  
 
