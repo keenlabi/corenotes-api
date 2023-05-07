@@ -8,8 +8,7 @@ export default function resetStaffPassword(req:Request, res:Response) {
 
     hashPassword(newPassword)
     .then((hashedPassword)=> {
-
-        const query = { id: req.params.staffId }
+        const query = { _id: req.params.staffId }
 
         UserModel.findOneAndUpdate(
             query,
