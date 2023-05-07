@@ -1,6 +1,6 @@
 import { Request, Response } from "express"
 import { UserModel } from "../../../models";
-import { sendFailureResponse, sendSuccessResponse } from "src/api/v1/utils/serverUtils/response";
+import { sendFailureResponse, sendSuccessResponse } from "../../../utils/serverUtils/response";
 
 export default function fetchProfile (req:Request, res:Response) {
     
