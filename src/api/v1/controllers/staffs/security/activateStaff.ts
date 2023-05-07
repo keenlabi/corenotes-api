@@ -1,7 +1,7 @@
 import { Request, Response } from "express"
-import { UserModel } from "v1/models"
-import { verifyPassword } from "v1/utils/authUtils/security/password"
-import { sendFailureResponse, sendSuccessResponse } from "v1/utils/serverUtils/response"
+import { UserModel } from "api/v1/models"
+import { verifyPassword } from "api/v1/utils/authUtils/security/password"
+import { sendFailureResponse, sendSuccessResponse } from "api/v1/utils/serverUtils/response"
 
 export default function activateStaff(req:Request, res:Response) {
 

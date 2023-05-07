@@ -1,11 +1,11 @@
 import { Request, Response } from "express"
 import validateLoginRequestBody from "./validateLoginRequestBody";
-import { UserModel } from "v1/models";
-import { sendFailureResponse, sendSuccessResponse } from "v1/utils/serverUtils/response";
-import { verifyPassword } from "v1/utils/authUtils/security/password";
-import generateToken from "v1/utils/authUtils/security/token/generateAccessToken";
-import storeAuthToken from "v1/utils/authUtils/security/token/storeAccessToken";
-import { IUser } from "v1/models/UserModel/types";
+import { UserModel } from "api/v1/models";
+import { sendFailureResponse, sendSuccessResponse } from "api/v1/utils/serverUtils/response";
+import { verifyPassword } from "api/v1/utils/authUtils/security/password";
+import generateToken from "api/v1/utils/authUtils/security/token/generateAccessToken";
+import storeAuthToken from "api/v1/utils/authUtils/security/token/storeAccessToken";
+import { IUser } from "api/v1/models/UserModel/types";
 
 export default async function logIn(req:Request, res:Response) {
 
