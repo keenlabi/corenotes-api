@@ -1,9 +1,8 @@
 import { Request, Response } from "express"
 import validateUploadStaffRequestBody from "./validateUploadStaffDocument"
-import { sendFailureResponse, sendSuccessResponse } from "v1/utils/serverUtils/response"
-import uploadFileToCloud from "v1/utils/FilesUtils/uploadFileToCloud"
-import { UserModel } from "v1/models"
-import { IUser } from "v1/models/UserModel/types"
+import { sendFailureResponse } from "api/v1/utils/serverUtils/response"
+import uploadFileToCloud from "api/v1/utils/FilesUtils/uploadFileToCloud"
+import { UserModel } from "api/v1/models"
 import fetchStaffDocuments from "../fetchStaffDocuments"
 
 export default function uploadStaffDocument(req:Request, res:Response) {

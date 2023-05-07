@@ -1,5 +1,5 @@
-import { UserModel } from "v1/models";
-import { IUser } from "v1/models/UserModel/types";
+import { UserModel } from "api/v1/models";
+import { IUser } from "api/v1/models/UserModel/types";
 
 export default function storeAuthToken (id:string, token:string) {
     return new Promise<IUser>((resolve, reject)=> {

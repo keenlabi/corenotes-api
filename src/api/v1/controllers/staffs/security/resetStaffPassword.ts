@@ -1,7 +1,7 @@
 import { Request, Response } from "express"
-import { UserModel } from "v1/models";
-import { hashPassword } from "v1/utils/authUtils/security/password";
-import { sendFailureResponse, sendSuccessResponse } from "v1/utils/serverUtils/response";
+import { UserModel } from "api/v1/models";
+import { hashPassword } from "api/v1/utils/authUtils/security/password";
+import { sendFailureResponse, sendSuccessResponse } from "api/v1/utils/serverUtils/response";
 
 export default function resetStaffPassword(req:Request, res:Response) {
     const newPassword = req.body.newPassword;
