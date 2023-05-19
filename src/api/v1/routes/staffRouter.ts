@@ -9,6 +9,7 @@ import validateToken from "../middlewares/auth/validateToken";
 import fetchStaffs from "../controllers/staffs/fetchStaffs";
 import deactivateStaff from "../controllers/staffs/security/deactivateStaff";
 import activateStaff from "../controllers/staffs/security/activateStaff";
+import fetchStaffActivities from "../controllers/staffs/activities/fetchStaffActivities";
 
 const staffRouter = Router();
 
@@ -22,4 +23,6 @@ staffRouter.post('/:staffId/deactivate', validateToken, deactivateStaff)
 staffRouter.post('/:staffId/activate', validateToken, activateStaff)
 
 staffRouter.get('/:pageNumber', fetchStaffs)
+
+staffRouter.post('/:staffId/activities/:pageNumber', fetchStaffActivities)
 export default staffRouter;
