@@ -20,8 +20,6 @@ export default function fetchStaffDocuments(req:Request, res:Response) {
 
         const documentsToReturn = documents.reverse().slice(resultOffset, resultsLimit)
 
-        console.log(documentsToReturn.length)
-
         return sendSuccessResponse(res, 200, "Staff documents retrieved successfully", { 
             currentPage: pageNumber + 1,
             totalPages: totalPages,
