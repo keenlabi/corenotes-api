@@ -8,7 +8,9 @@ export default function fetchStaffs(req:Request, res:Response) {
             resultsPerPage = 10, 
             pageOffset = resultsPerPage * pageNumber;
 
-    UserModel.find()
+    const query = { role: 'STAFF' }
+
+    UserModel.find(query)
     .skip(pageOffset)
     .limit(resultsPerPage)
     .sort({ createdAt: -1 })
