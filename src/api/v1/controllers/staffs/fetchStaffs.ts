@@ -36,6 +36,6 @@ export default function fetchStaffs(req:Request, res:Response) {
         })
     })
     .catch(()=> {
-        return sendFailureResponse(res, 200, "There was an error fetching staff list")
+        return sendFailureResponse(res, 500, "There was an error fetching staff list")
     })
 }
