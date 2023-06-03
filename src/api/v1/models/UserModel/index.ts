@@ -109,10 +109,71 @@ const userSchema = new Schema<IUser>({
             type: Date,
             default: Date.now,
         }
+    }],
+    middlename: {
+        type:String
+    },
+    contact: {
+        name:{
+            type:String
+        },
+        email:{
+            type:String
+        },
+        phoneNumber:{
+            type:String
+        }
+    },
+    religion: {
+        type:String
+    },
+    ssn: {
+        type:String
+    },
+    weight: {
+        type:Number
+    },
+    medicaidNumber: {
+        type:Number
+    },
+    maritalStatus: {
+        type:String
+    },
+    codeAlert: {
+        type: [String]
+    },
+    requestedServices: [{
+        service:String,
+        startDate:String
+    }],
+    diet: [String],
+    allergies: {
+        food: [String],
+        med: [String],
+        other: [String]
+    },
+    assessments: [{
+        assessmentId: {
+            type:String,
+        },
+        status: {
+            enum: ['PENDING', 'IN-PROGRESS', 'COMPLETED'],
+            type:String
+        },
+        questions:[{
+            question:{ type: String },
+            answer:{ 
+                enum:['YES','NO'],
+                type:String
+            },
+            comment:{ type: String }
+        }],
+        createdAt: {
+            type: Date,
+            default: Date.now
+        }
     }]
 })
-
-userSchema.virtual('fullname').get(()=> `${userSchema.obj.firstname} ${userSchema.obj.lastname}`)
 
 export default models.users || model<IUser>('users', userSchema);
 
