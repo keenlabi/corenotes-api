@@ -51,5 +51,41 @@ export interface IUser {
         docFileLink: String,
         docFileName: String,
         createdAt: Date
+    }>,
+
+    // Individual fields
+    middlename:String,
+    contact: {
+        name:String,
+        email:String,
+        phoneNumber:String
+    },
+    religion: String,
+    ssn: String,
+    weight: Number,
+    medicaidNumber: Number,
+    maritalStatus: String,
+    codeAlert: Array<String>
+    requestedServices: Array<{
+        service:String,
+        startDate:String
+    }>,
+    diet: Array<String>,
+    allergies: {
+        food: Array<String>,
+        med: Array<String>,
+        other: Array<String>
+    },
+    assessments:Array<{
+        _id:Types.ObjectId,
+        assessmentId:Types.ObjectId|String,
+        status:'PENDING'|'IN-PROGRESS'|'COMPLETED',
+        questions:Array<{
+            _id:Types.ObjectId,
+            question:string,
+            answer:'YES'|'NO',
+            comment:string
+        }>,
+        createdAt:Date
     }>
 }
