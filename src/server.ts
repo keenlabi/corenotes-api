@@ -1,7 +1,7 @@
 import express, { urlencoded } from "express"
 import { createServer } from "http"
-import routes from "./api/v1/routes";
 import cors from "cors";
+import routes from "./api/routes";
 
 const app = express();
 
