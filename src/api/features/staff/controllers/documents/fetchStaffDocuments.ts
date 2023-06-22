@@ -1,13 +1,13 @@
 import { sendFailureResponse, sendSuccessResponse } from "@globals/server/serverResponse";
 import { IUser } from "@user/models/types";
+import userModel from "@user/models/user.model";
 import { Request, Response } from "express"
-import { UserModel } from "src/api/v1/models";
 
 export default function fetchStaffDocuments(req:Request, res:Response) {
 
     const query = { _id: req.params.staffId }
     
-    UserModel
+    userModel
     .findOne(query)
     .then(({documents}:IUser)=> {
         const documentsCount = documents.length;

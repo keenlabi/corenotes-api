@@ -54,8 +54,6 @@ export default function uploadFileToCloud (file:RequestFileType, folder?:string)
                         console.log(`Error deleting file with path ${absPath} has from disk`)
                     })
                     .finally(()=> {
-                        console.log(result)
-                        console.log(result.url)
                         resolve(result?.secure_url)
                     })
                 })
