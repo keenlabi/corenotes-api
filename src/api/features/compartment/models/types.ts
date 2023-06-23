@@ -4,8 +4,12 @@ export interface ICompartment {
     _id:ObjectId;
     compartmentId:number;
     title:string;
-    image:String,
+    image:string;
     staffRoles:Array<string>;
     assignedIndividuals:Array<string>;
-    createdAt:Date
+    meta: {
+        bgColor:string,
+        labelColor:string
+    },
+    createdAt:Date;
 }

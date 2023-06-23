@@ -7,9 +7,9 @@ export default function fetchCompartments(req:Request, res:Response) {
     .then((paginatedCompartments)=> {
         sendSuccessResponse({ 
             res,
-            statusCode: 200, 
-            message:"Compartments retrieved successfully", 
-            data: { compartments: paginatedCompartments } 
+            statusCode: 200,
+            message:"Compartments retrieved successfully",
+            data: { compartments: paginatedCompartments }
         });
     })
     .catch((error)=> {

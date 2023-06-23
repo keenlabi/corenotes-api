@@ -1,6 +1,6 @@
 import { Request, Response } from "express"
 import validateCreateCompartmentRequest, { ICreateCompRequestBody } from "../services/validateCreateCompartmentRequest"
-import createNewCompartment, { INewCompartment } from "../services/createNewCompartment"
+import createNewCompartment, { INewCompartmentData } from "../services/createNewCompartment"
 import { sendFailureResponse } from "@globals/server/serverResponse"
 import fetchCompartments from "./fetchCompartments"
 import uploadFileToCloud from "@services/fileSystem/uploadFileToCloud"
@@ -17,9 +17,18 @@ export default function createCompartment(req:Request, res:Response) {
         uploadFileToCloud(requestBody.image, 'Compartments')
         .then((fileURL)=> {
             
-            const newData:INewCompartment = { ...data, image: fileURL }
+            const newCompartmentData:INewCompartmentData = Object.freeze({
+                title: data.title,
+                image: fileURL,
+                staffRoles: data.staffRoles,
+                assignedIndividuals: data.assignedIndividuals,
+                meta: {
+                    bgColor: data.bgColor,
+                    labelColor: data.labelColor
+                }
+            })
 
-            createNewCompartment(newData)
+            createNewCompartment(newCompartmentData)
             .then(()=> fetchCompartments(req, res))
             .catch((error)=> {
                 console.log('CREATE COMPARTMENT: There was an error creating compartments')

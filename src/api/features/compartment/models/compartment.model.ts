@@ -8,6 +8,10 @@ export = Model<ICompartment> = models.compartments || model<ICompartment>('compa
     image:{ type:String }, 
     staffRoles:[String],
     assignedIndividuals:[String],
+    meta: {
+        bgColor: { type:String },
+        labelColor: { type:String }
+    },
     createdAt:{
         type:Date,
         default:Date.now

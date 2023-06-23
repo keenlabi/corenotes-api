@@ -3,11 +3,15 @@ import { ICreateCompRequestBody } from "./validateCreateCompartmentRequest";
 import { ICompartment } from "../models/types";
 import { ICompartmentFormat } from "./types";
 
-export interface INewCompartment extends Omit<ICreateCompRequestBody, 'image'> {
+export interface INewCompartmentData extends Omit<ICreateCompRequestBody, 'bgColor'|'labelColor'|'image'> {
     image:string,
+    meta: {
+        bgColor:string,
+        labelColor:string
+    }
 }
 
-export default function createNewCompartment(newCompartmentData:INewCompartment) {
+export default function createNewCompartment(newCompartmentData:INewCompartmentData) {
     return new Promise<ICompartmentFormat>((resolve, reject)=> {
 
         compartmentModel.create(newCompartmentData)
@@ -20,6 +24,7 @@ export default function createNewCompartment(newCompartmentData:INewCompartment)
                 image: createdCompartmentDocument.image,
                 staffRoles: createdCompartmentDocument.staffRoles,
                 assignedIndividuals: createdCompartmentDocument.assignedIndividuals,
+                meta: createdCompartmentDocument.meta,
                 createdAt: createdCompartmentDocument.createdAt.toString()
             })
 
