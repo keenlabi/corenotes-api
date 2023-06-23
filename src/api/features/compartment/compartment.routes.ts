@@ -5,7 +5,7 @@ import uploadFile from "@globals/middlewares/uploadFile";
 
 const compartmentRouter = Router();
 
-compartmentRouter.get('/', validateToken, compartmentControllers.fetchCompartments);
+compartmentRouter.get('/:pageNumber', validateToken, compartmentControllers.fetchCompartments);
 compartmentRouter.post('/', validateToken, uploadFile('single', 'compartmentImage'), compartmentControllers.createCompartment);
 
 export default compartmentRouter;
