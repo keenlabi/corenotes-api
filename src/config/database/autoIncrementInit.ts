@@ -1,5 +1,6 @@
 import { connection } from "mongoose";
-import autoIncrement from "mongoose-auto-increment";
-autoIncrement.initialize(connection)
+import { initialize, plugin } from "./mongoose-auto-increment";
 
-export default autoIncrement.plugin;
+initialize(connection);
+
+export default plugin;
