@@ -11,7 +11,13 @@ declare global {
         CLOUDINARY_API_NAME:string,
         CLOUDINARY_API_KEY:string,
         CLOUDINARY_API_SECRET:string,
-        CLOUDINARY_BASE_FOLDER:string
+        CLOUDINARY_BASE_FOLDER:string,
+        TXN_MAIL_SENDER_EMAIL:string,
+        TXN_MAIL_SENDER_NAME:string,
+        TERMII_API_URL:string,
+        TERMII_API_KEY:string,
+        TERMII_SENDER_ID:string,
+        TERMII_CHANNEL:string
       }
     }
 }
