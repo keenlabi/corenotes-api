@@ -1,6 +1,6 @@
 import { Model, Schema, model, models } from "mongoose";
 import { ICompartment } from "./types";
-import autoIncrementPlugin from "src/config/database/autoIncrementInit";
+import autoIncrementPlugin from "src/config/database/autoIncrementInit"
 
 export = Model<ICompartment> = models.compartments || model<ICompartment>('compartments', new Schema<ICompartment>({
     compartmentId:{ type:Number },
