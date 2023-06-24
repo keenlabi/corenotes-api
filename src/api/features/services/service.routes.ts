@@ -4,7 +4,7 @@ import serviceControllers from "./controllers";
 
 const serviceRouter = Router();
 
-serviceRouter.get('/', validateToken, serviceControllers.fetchServices);
+serviceRouter.get('/:pageNumber', validateToken, serviceControllers.fetchServices);
 serviceRouter.post('/', validateToken, serviceControllers.createService);
 
 export default serviceRouter;

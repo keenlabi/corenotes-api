@@ -7,10 +7,7 @@ import uploadFileToCloud from "@services/fileSystem/uploadFileToCloud"
 
 export default function createCompartment(req:Request, res:Response) {
 
-    const requestBody:ICreateCompRequestBody = {
-        ...req.body, 
-        image: req.file
-    }
+    const requestBody:ICreateCompRequestBody = { ...req.body, image: req.file }  
 
     validateCreateCompartmentRequest(requestBody)
     .then((data)=> {
@@ -39,6 +36,7 @@ export default function createCompartment(req:Request, res:Response) {
     })
     .catch((error)=> {
         console.log('VALIDATION ERROR: There was an error validating create compartment request body')
+        console.log(error)
         sendFailureResponse({ res, statusCode: 500, message:"There was a validation error" })
     })
 }
