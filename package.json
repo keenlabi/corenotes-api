@@ -6,7 +6,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "nodemon -r dotenv/config ./src",
     "build": "npm install && tsc --project tsconfig.json && tsc-alias -p tsconfig.json",
-    "start": "node dist"
+    "start": "node dist/src"
   },
   "author": "Labi Lawal",
   "license": "ISC",
