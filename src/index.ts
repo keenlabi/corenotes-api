@@ -1,2 +1,2 @@
 import "./server"
-import "./config/databaseConnection"
+import "./config/database/connect";
