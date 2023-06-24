@@ -1,9 +1,10 @@
+import userModel from "@user/models/user.model";
 import serviceModel from "../models/service.model";
 import { IService } from "../models/types";
-import { IServiceResponseFormat } from "./types";
+import { IServiceListItem, IServicesResponseFormat } from "./types";
 
 export default function fetchAllServices(pageNumber:number) {
-    return new Promise<IServiceResponseFormat[]>((resolve, reject)=> {
+    return new Promise<IServicesResponseFormat>((resolve, reject)=> {
 
         const queryPageNumber = pageNumber - 1 ?? 0,
         resultsPerPage = 10, 
@@ -15,19 +16,28 @@ export default function fetchAllServices(pageNumber:number) {
         .sort({ createdAt: -1 })
         .then((foundServices:IService[])=> {
 
-            const formattedServices:IServiceResponseFormat[] = foundServices.map((service)=> {
+            const formattedServices:IServiceListItem[] = foundServices.map((service)=> {
                 return {
                     id: service._id.toString(),
                     serviceId: service.serviceId,
                     compartments: service.compartments,
                     title: service.title,
-                    staffRoles: service.staffRoles,
-                    assignedIndividuals: service.assignedIndividuals,
+                    staffRolesCount: service.staffRoles.length,
+                    assignedIndividualsCount: service.assignedIndividuals.length,
                     createdAt: service.createdAt
                 }
             })
 
-            resolve(formattedServices)
+            userModel.count()
+            .then((totalStaffCount:number)=> {
+                const totalPageNumber = Math.ceil(totalStaffCount / resultsPerPage);
+
+                resolve({
+                    currentPage: queryPageNumber,
+                    totalPages: totalPageNumber,
+                    services: formattedServices
+                })
+            })
         })
         .catch((error)=> {
             console.log('SERVICE ERROR: There was an error fetching all services')

@@ -9,7 +9,7 @@ export default function fetchServices(req:Request, res:Response) {
             res,
             statusCode: 200,
             message:"Services retrieved successfully",
-            data: { services: paginatedServices }
+            data: paginatedServices
         });
     })
     .catch((error)=> {

@@ -1,12 +1,12 @@
 import { IUser } from "@user/models/types";
-import { UserModel } from "src/api/v1/models";
+import userModel from "@user/models/user.model";
 
 
 export default function storeAuthToken (id:string, token:string) {
     return new Promise<IUser>((resolve, reject)=> {
         const query = { _id: id };
         
-        UserModel.findOneAndUpdate(
+        userModel.findOneAndUpdate(
             query,
             {
                 $set: {

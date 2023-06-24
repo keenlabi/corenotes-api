@@ -62,8 +62,6 @@ export default function uploadFile(fileAmount:UploadFileType['fileAmount'], fiel
             if(fileAmount === 'fields') {
                 file = upload.fields(fieldProperties!)
             }
-        } else {
-            console.log('ksadf')
         }
 
         return file(req, res, async (error:any) => {
@@ -125,6 +123,7 @@ export default function uploadFile(fileAmount:UploadFileType['fileAmount'], fiel
                     isFileError = true;
                     uploadError = 'Invalid image file please select another file and try again.'
                     console.log('ERROR UPLOADING IMAGES, INVALID IMAGE FILE')
+                    console.log(error)
                     return sendFailureResponse({res, statusCode: 417, message: 'Invalid image file please select another file and try again.'})
                 }
                 
