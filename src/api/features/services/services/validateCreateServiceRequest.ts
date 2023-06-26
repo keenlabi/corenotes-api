@@ -17,6 +17,9 @@ export default function validateCreateServiceRequest(data:ICreateServiceRequestB
             reject({ code: 500, message:"There was a server error validating create service request, try again." })
         })
 
+        if(!data.category) reject({ code: 422, message:'Service category field cannot be empty' })
+        if(data.category.toLowerCase() !== 'REQUESTED' || data.category.toLowerCase() !== 'PROVIDED') reject({ code: 422, message:"Service category field has an invalid value. The possible values are 'REQUESTED' and 'PROVIDED'" })
+
         const newData = { ...data, title: data.title.toLocaleLowerCase() }
 
         // return success if true

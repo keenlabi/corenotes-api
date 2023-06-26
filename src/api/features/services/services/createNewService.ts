@@ -5,7 +5,7 @@ import { ICreateServiceRequestBody, IServiceListItem } from "./types"
 export default function createNewService(newServiceData:ICreateServiceRequestBody) {
     return new Promise<IServiceListItem>((resolve, reject)=> {
 
-        serviceModel.create(newServiceData)
+        serviceModel.create(newServiceData) 
         .then((createdServiceDocument:IService)=> {
 
             const createdService:IServiceListItem = Object.freeze({
