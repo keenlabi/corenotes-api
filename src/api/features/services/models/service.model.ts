@@ -13,7 +13,7 @@ export = Model<IService> = models.services || model<IService>('services', new Sc
     },
     category: {
         type:String,
-        enum:['REQUESTED','PROVIDED'],
+        enum:['requested','provided'],
     },
     compartments:[String],
     staffRoles:[String],
