@@ -12,6 +12,7 @@ export interface IServiceListItem {
     id:string;
     serviceId:number;
     title:string;
+    category:string;
     compartments:Array<string>;
     staffRolesCount:number;
     assignedIndividualsCount:number;
