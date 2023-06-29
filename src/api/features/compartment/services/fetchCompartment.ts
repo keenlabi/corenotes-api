@@ -1,12 +1,13 @@
 import getCompartmentByCompartmentId from "./db/getCompartmentByCompartmentId";
+import fetchServicesDetails from "./fetchServicesDetails";
 
 export interface IFetchCompartment {
     id:string,
     compartmentId:number,
     title:string;
-    requestedServices:Array<{
+    services:Array<{
+        serviceId:number,
         title:string,
-        staffRoles:Array<string>,
         individuals:Array<string>
     }>,
     image:string;
@@ -18,17 +19,18 @@ export interface IFetchCompartment {
 export default function fetchCompartment(compartmentId:number) {
     return new Promise<IFetchCompartment>((resolve, reject)=> {
         getCompartmentByCompartmentId(compartmentId)
-        .then((foundCompartment)=> {
-            resolve({
+        .then(async (foundCompartment)=> {
+            const compartment:IFetchCompartment = {
                 id: foundCompartment._id.toString(),
                 compartmentId: foundCompartment.compartmentId,
                 title: foundCompartment.title,
-                requestedServices: foundCompartment.requestedServices,
+                services: await fetchServicesDetails(foundCompartment.services),
                 image: foundCompartment.image,
                 staffRoles: foundCompartment.staffRoles,
                 assignedIndividuals: foundCompartment.assignedIndividuals,
                 createdAt: foundCompartment.createdAt
-            })
+            }
+            resolve(compartment)
         })
         .catch((error)=> reject(error))
     })
