@@ -1,7 +1,7 @@
 import { Types } from "mongoose"
 
 export interface IUser {
-    id: Types.ObjectId,
+    _id:Types.ObjectId,
     active: boolean,
     // ACCOUNT INFO
     accessToken: string,
