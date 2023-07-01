@@ -1,4 +1,4 @@
-import updateCompartmentServicesById from "@services/db/compartment.service";
+import {updateCompartmentServicesById} from "@services/db/compartment.service";
 
 export function addServiceIdToCompartment({compartmentObjectId, serviceObjectId}:{compartmentObjectId:string, serviceObjectId:string}) {
     return new Promise((resolve, reject)=> {
