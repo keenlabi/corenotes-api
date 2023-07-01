@@ -7,9 +7,7 @@ import { sendFailureResponse } from "@globals/server/serverResponse";
 
 export default function registerIndividual (req:Request, res:Response) {
     validateRegisterIndividual({...req.body, ...req.file})
-    .then(({ requestBody }:validateRegisterIndividualRequestBodyType) => {    
-        
-        console.log(requestBody)
+    .then(({ requestBody }:validateRegisterIndividualRequestBodyType) => {  
 
         userModel.create({
             role:'INDIVIDUAL',
@@ -34,6 +32,7 @@ export default function registerIndividual (req:Request, res:Response) {
             maritalStatus: requestBody.maritalStatus,
 
             codeAlert: requestBody.codeAlert,
+            compartment: requestBody.compartment,
             requestedServices: requestBody.requestedServices,
             diet: requestBody.diet,
             allergies: {
@@ -45,10 +44,8 @@ export default function registerIndividual (req:Request, res:Response) {
         .then((user)=> {
             console.log(`REGISTRATION: New individual registered successfully`)
             fetchIndividuals(req, res)
-            // sendSuccessResponse(res, 201, "New staff registered successfully", {})
         })
         .catch((error)=> {
-            // console.log(`There was an error creating new individual: `, error);
             sendFailureResponse({res, statusCode: 422, message: error.message ?? "There was an error creating new individual"});
         });
     })

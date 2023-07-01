@@ -19,6 +19,7 @@ export interface registerIndividualRequestBodyType {
         phoneNumber: string
     },
     // NEW HEALTH INFORMATION
+    compartment:string;
     requestedServices: Array<{
         service:string,
         startDate:string

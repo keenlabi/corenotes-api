@@ -8,6 +8,7 @@ import saveIndividualAssessmentSession from "../controllers/assessments/saveIndi
 import completeIndividualAssessmentSession from "../controllers/assessments/completeIndividualAssessmentSession";
 import validateToken from "@globals/middlewares/validateToken";
 import fetchIndividualServices from "../controllers/fetchIndividualServices";
+import assignIndividualServices from "../controllers/assignIndividualServices";
 
 const individualRouter = Router();
 
@@ -16,6 +17,7 @@ individualRouter.patch('/assessments/:assessmentId/session', validateToken, save
 individualRouter.post('/assessments/:assessmentId/session', validateToken, completeIndividualAssessmentSession)
 
 individualRouter.get('/:individualId/services', validateToken, fetchIndividualServices)
+individualRouter.post('/:individualId/services', validateToken, assignIndividualServices)
 
 individualRouter.get('/:pageNumber', fetchIndividuals)
 individualRouter.get('/profile/:id', fetchIndividualProfile)
