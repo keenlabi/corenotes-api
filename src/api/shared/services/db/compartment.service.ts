@@ -18,7 +18,9 @@ export function getCompartmentById(compartmentId:string) {
         const query = { _id: compartmentId };
     
         compartmentModel.findOne(query)
-        .then((foundService:ICompartment)=> resolve(foundService))
+        .then((foundCompartment:ICompartment)=> {
+            resolve(foundCompartment)
+        })
         .catch((error)=> reject(error))
     })
 }

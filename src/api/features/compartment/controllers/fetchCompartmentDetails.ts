@@ -16,7 +16,12 @@ export default function fetchCompartmentDetails(req:Request, res:Response) {
     .catch((error)=> {
         console.log("There was an error fetching compartment")
         console.log(error)
+        
+        if(error.statusCode) {
+            return sendFailureResponse({ res, statusCode: error.statusCode,  message: error.message });    
+        }
+
         const serverError = new ServerError();
-        sendFailureResponse({ res, statusCode: serverError.statusCode,  message: serverError.message });
+        return sendFailureResponse({ res, statusCode: serverError.statusCode,  message: serverError.message });
     })
 }

@@ -39,7 +39,7 @@ export default function validateRegisterStaffRequestBody (data:registerStaffRequ
         // if(data.password !== String) reject({status:false, code:422, message: 'Password has to be string'});
         if(data.password?.length < 8) reject({status:false, code:422, message:'Password has to be 8 characters and more'});
 
-        if(!data.compartment) reject({ status: false, code: 422,  message:'Compartment field cannot be empty' });
+        // if(!data.compartment) reject({ status: false, code: 422,  message:'Compartment field cannot be empty' });
         if(!data.title) reject({ status: false, code: 422,  message:'Staff title field cannot be empty' });
         if(!data.providerRole) reject({ status: false, code: 422,  message:'Staff provider role field cannot be empty' });
         if(!data.hiredAt) reject({ status: false, code: 422,  message:'Hire date field cannot be empty' });

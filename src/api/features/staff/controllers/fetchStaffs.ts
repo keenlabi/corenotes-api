@@ -3,18 +3,18 @@ import UserModel from "@user/models/user.model"
 import { IUser } from "@user/models/types";
 import { sendFailureResponse, sendSuccessResponse } from "@globals/server/serverResponse";
 import { getCompartmentById } from "@services/db/compartment.service";
+import { getStaffRoleById } from "@services/db/staff.service";
 
 interface staffList {
-    id: string; 
-    profileImage: string; 
-    firstname: string; 
-    lastname: string; 
-    dob: string; 
+    id:string; 
+    profileImage:string; 
+    firstname:string; 
+    lastname:string; 
+    dob:string; 
     role:string;
-    gender: string; 
+    gender:string; 
     phoneNumber:string;
-    compartment: string; 
-    medicaidNumber: Number
+    lastSeen:Date;
 }
 
 export default function fetchStaffs(req:Request, res:Response) {
@@ -39,11 +39,10 @@ export default function fetchStaffs(req:Request, res:Response) {
                 firstname: staff.firstname,
                 lastname: staff.lastname,
                 dob: staff.dob,
-                role: staff.role,
+                role: (await getStaffRoleById(staff.providerRole)).title,
                 phoneNumber: staff.phoneNumber.work,
                 gender: staff.gender,
-                compartment: (await getCompartmentById(staff.compartment)).title,
-                medicaidNumber: staff.medicaidNumber
+                lastSeen: staff.lastSeen
             })
         }
 
@@ -57,7 +56,8 @@ export default function fetchStaffs(req:Request, res:Response) {
             }})
         })
     })
-    .catch(()=> {
+    .catch((error)=> {
+        console.log(error)
         return sendFailureResponse({ res, statusCode: 500, message: "There was an error fetching staff list" })
     })
 }

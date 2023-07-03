@@ -23,6 +23,8 @@
       "@user/*": ["src/api/features/user/*"],
       "@assessment/*": ["src/api/features/assessment/*"],
       "@activity/*": ["src/api/features/activity/*"],
+      "@staff/*": ["src/api/features/staff/*"],
+      "@individual/*": ["src/api/features/individual/*"],
       "@services/*": ["src/api/shared/services/*"],
       "@globals/*": ["src/api/shared/globals/*"]
     }

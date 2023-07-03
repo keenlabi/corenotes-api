@@ -3,4 +3,6 @@ import { initialize, plugin } from "./mongoose-auto-increment";
 
 initialize(connection);
 
-export default plugin;
+const autoIncrementPlugin = plugin;
+
+export default autoIncrementPlugin;

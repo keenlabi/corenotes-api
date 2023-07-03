@@ -1,4 +1,4 @@
-import { model, Schema, models } from "mongoose"
+import { model, Schema, models, Model } from "mongoose"
 import { IUser } from "./types"
 
 const userSchema = new Schema<IUser>({
@@ -175,5 +175,5 @@ const userSchema = new Schema<IUser>({
     }]
 })
 
-export default models.users || model<IUser>('users', userSchema);
+export = Model<IUser> =  models.users || model<IUser>('users', userSchema);
 

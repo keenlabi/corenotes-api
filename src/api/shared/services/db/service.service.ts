@@ -10,3 +10,14 @@ export function getServiceByObjectId(serviceObjectId:string){
         .catch((error)=> reject(error))
     })
 }
+
+export function updateServiceAssignedIndividualsById(serviceId:string, individualId:string) {
+    return new Promise<IService>((resolve, reject)=> {
+        const query = { _id: serviceId }
+        const updateObj = { $push: { assignedIndividuals:  individualId } }
+
+        serviceModel.findOneAndUpdate(query, updateObj, { new: true })
+        .then((updatedService:IService)=> resolve(updatedService))
+        .catch((error)=> reject(error))
+    })
+}

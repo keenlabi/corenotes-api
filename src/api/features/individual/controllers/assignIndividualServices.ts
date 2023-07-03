@@ -17,7 +17,6 @@ export default function assignIndividualServices(req:Request, res:Response) {
             })
         })
         .catch((error)=> {
-            console.log(error);
             if(error.statusCode === 404) {
                 return sendFailureResponse({ res, statusCode: error.statusCode, message: error.message })
             }

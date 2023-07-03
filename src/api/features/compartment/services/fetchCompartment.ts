@@ -1,3 +1,4 @@
+import { NotFoundError } from "@globals/server/Error";
 import getCompartmentByCompartmentId from "./db/getCompartmentByCompartmentId";
 import fetchServicesDetails from "./fetchServicesDetails";
 
@@ -20,6 +21,11 @@ export default function fetchCompartment(compartmentId:number) {
     return new Promise<IFetchCompartment>(async (resolve, reject)=> {
         await getCompartmentByCompartmentId(compartmentId)
         .then(async (foundCompartment)=> {
+            if(!foundCompartment) {
+                const notFoundError = new NotFoundError('Compartment not found');
+                reject(notFoundError)
+            }
+
             const compartment:IFetchCompartment = {
                 id: foundCompartment._id.toString(),
                 compartmentId: foundCompartment.compartmentId,
@@ -30,6 +36,7 @@ export default function fetchCompartment(compartmentId:number) {
                 assignedIndividuals: foundCompartment.assignedIndividuals,
                 createdAt: foundCompartment.createdAt
             }
+
             resolve(compartment)
         })
         .catch((error)=> reject(error))
