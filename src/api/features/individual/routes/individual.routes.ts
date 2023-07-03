@@ -6,12 +6,18 @@ import fetchIndividualProfile from "../controllers/fetchIndividualProfile";
 import fetchIndividualAssessmentSession from "../controllers/assessments/fetchIndividualAssessmentSession";
 import saveIndividualAssessmentSession from "../controllers/assessments/saveIndividualAssessmentSession";
 import completeIndividualAssessmentSession from "../controllers/assessments/completeIndividualAssessmentSession";
+import validateToken from "@globals/middlewares/validateToken";
+import fetchIndividualServices from "../controllers/fetchIndividualServices";
+import assignIndividualServices from "../controllers/assignIndividualServices";
 
 const individualRouter = Router();
 
-individualRouter.get('/assessments/:assessmentId/session', fetchIndividualAssessmentSession)
-individualRouter.patch('/assessments/:assessmentId/session', saveIndividualAssessmentSession)
-individualRouter.post('/assessments/:assessmentId/session', completeIndividualAssessmentSession)
+individualRouter.get('/assessments/:assessmentId/session', validateToken, fetchIndividualAssessmentSession)
+individualRouter.patch('/assessments/:assessmentId/session', validateToken, saveIndividualAssessmentSession)
+individualRouter.post('/assessments/:assessmentId/session', validateToken, completeIndividualAssessmentSession)
+
+individualRouter.get('/:individualId/services', validateToken, fetchIndividualServices)
+individualRouter.post('/:individualId/services', validateToken, assignIndividualServices)
 
 individualRouter.get('/:pageNumber', fetchIndividuals)
 individualRouter.get('/profile/:id', fetchIndividualProfile)

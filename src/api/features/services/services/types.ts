@@ -2,6 +2,7 @@ export interface ICreateServiceRequestBody {
     id:string,
     serviceId:number,
     title:string,
+    category:string;
     compartments:Array<string>,
     staffRoles:Array<string>
     assignedIndividuals:Array<string>
@@ -11,6 +12,7 @@ export interface IServiceListItem {
     id:string;
     serviceId:number;
     title:string;
+    category:string;
     compartments:Array<string>;
     staffRolesCount:number;
     assignedIndividualsCount:number;

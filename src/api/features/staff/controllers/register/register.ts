@@ -6,7 +6,6 @@ import { sendFailureResponse } from "../../../../shared/globals/server/serverRes
 import fetchStaffs from "../fetchStaffs"
 
 export default function register(req:Request, res:Response) {
-    console.log('here')
     validateRegisterRequestBody(req.body)
     .then(({ requestBody })=> {
         
@@ -14,15 +13,15 @@ export default function register(req:Request, res:Response) {
         hashPassword(requestBody.password)
         .then((hashedPassword)=> {
             UserModel.create({
-                firstname: requestBody.firstname,
-                lastname: requestBody.lastname,
-                nickname: requestBody.nickname,
-                initials: requestBody.initials,
+                firstname: requestBody.firstname.toLowerCase(),
+                lastname: requestBody.lastname.toLowerCase(),
+                nickname: requestBody.nickname.toLowerCase(),
+                initials: requestBody.initials.toLowerCase(),
                 dob: requestBody.dob,
-                gender: requestBody.gender,
+                gender: requestBody.gender.toLowerCase(),
                 address: requestBody.address,
-                city: requestBody.city,
-                state: requestBody.state,
+                city: requestBody.city.toLowerCase(),
+                state: requestBody.state.toLowerCase(),
                 zipCode: requestBody.zipCode,
                 phoneNumber: {
                     work: requestBody.phoneNumber.work,
@@ -30,18 +29,17 @@ export default function register(req:Request, res:Response) {
                     other: requestBody.phoneNumber.other
                 },
                 emergencyContact: {
-                    name: requestBody.emergencyContact.name,
-                    relationship: requestBody.emergencyContact.relationship,
+                    name: requestBody.emergencyContact.name.toLowerCase(),
+                    relationship: requestBody.emergencyContact.relationship.toLowerCase(),
                     phoneNumber: requestBody.emergencyContact.phoneNumber
                 },
-                email: requestBody.email,
+                email: requestBody.email.toLowerCase(),
                 
                 // WORK INFORMATION
-                compartment: requestBody.compartment,
-                title: requestBody.title,
+                title: requestBody.title.toLowerCase(),
                 providerRole: requestBody.providerRole,
                 hiredAt: requestBody.hiredAt,
-                username: requestBody.username,
+                username: requestBody.username.toLowerCase(),
                 employeeId: requestBody.employeeId,
                 jobSchedule: requestBody.jobSchedule,
                 password: hashedPassword,

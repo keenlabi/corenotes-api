@@ -8,4 +8,6 @@ const compartmentRouter = Router();
 compartmentRouter.get('/:pageNumber', validateToken, compartmentControllers.fetchCompartments);
 compartmentRouter.post('/', validateToken, uploadFile('single', 'compartmentImage'), compartmentControllers.createCompartment);
 
+compartmentRouter.get('/details/:compartmentId', validateToken, compartmentControllers.fetchCompartmentDetails);
+
 export default compartmentRouter;

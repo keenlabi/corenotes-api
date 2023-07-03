@@ -6,6 +6,7 @@ export = Model<ICompartment> = models.compartments || model<ICompartment>('compa
     compartmentId:{ type:Number },
     title:{ type:String },
     image:{ type:String }, 
+    services:Array<String>,
     staffRoles:[String],
     assignedIndividuals:[String],
     meta: {

@@ -20,15 +20,16 @@ export default function fetchAllServices(pageNumber:number) {
                 return {
                     id: service._id.toString(),
                     serviceId: service.serviceId,
-                    compartments: service.compartments,
                     title: service.title,
+                    category: service.category,
+                    compartments: service.compartments,
                     staffRolesCount: service.staffRoles.length,
                     assignedIndividualsCount: service.assignedIndividuals.length,
                     createdAt: service.createdAt
                 }
             })
 
-            userModel.count()
+            serviceModel.count()
             .then((totalStaffCount:number)=> {
                 const totalPageNumber = Math.ceil(totalStaffCount / resultsPerPage);
 

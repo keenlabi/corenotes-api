@@ -27,6 +27,7 @@ export default function validateRegisterIndividual(data:registerIndividualReques
         
         if(!data.codeAlert.length) reject({ status: false, code: 422,  message:'Code alert field cannot be empty' });
 
+        if(!data.compartment) reject({ status: false, code: 422,  message:'Compartment field cannot be empty' });
         if(!data.requestedServices.length) reject({ status: false, code: 422,  message:'Requested services field cannot be empty' });
         
         if(!data.diet) reject({ status: false, code: 422,  message:'Diet field cannot be empty' });

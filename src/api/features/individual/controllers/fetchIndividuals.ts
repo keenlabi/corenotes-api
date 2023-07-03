@@ -1,6 +1,8 @@
 import { sendFailureResponse, sendSuccessResponse } from "@globals/server/serverResponse";
 import userModel from "@user/models/user.model";
 import { Request, Response } from "express";
+import fetchCompartment from "../../compartment/services/fetchCompartment";
+import { getCompartmentById } from "@services/db/compartment.service";
 
 export default function fetchIndividuals(req:Request, res:Response) {
 
@@ -14,22 +16,27 @@ export default function fetchIndividuals(req:Request, res:Response) {
     .skip(pageOffset)
     .limit(resultsPerPage)
     .sort({ createdAt: -1 })
-    .then((foundIndividuals)=> {
-        const mappedIndividuals = foundIndividuals.map( foundIndividual => ({
-            id:foundIndividual._id,
-            profileImage: foundIndividual.profileImage,
-            firstName: foundIndividual.firstname,
-            lastName: foundIndividual.lastname,
-            dob: foundIndividual.dob,
-            gender: foundIndividual.gender,
-            compartment: foundIndividual.compartment,
-            medicaidNumber: foundIndividual.medicaidNumber
-        }))
+    .then(async (foundIndividuals)=> {
+        
+        const mappedIndividuals = [];
 
-        sendSuccessResponse({res, statusCode:200, message: "Individuals retrieved successfully", data: { individuals: mappedIndividuals }})
+        for await ( const individual of foundIndividuals ) {
+            mappedIndividuals.push({
+                id:individual._id,
+                profileImage: individual.profileImage,
+                firstName: individual.firstname,
+                lastName: individual.lastname,
+                dob: individual.dob,
+                gender: individual.gender,
+                compartment: (await getCompartmentById(individual.compartment)).title,
+                medicaidNumber: individual.medicaidNumber
+            })
+        }
+
+        return sendSuccessResponse({res, statusCode:200, message: "Individuals retrieved successfully", data: { individuals: mappedIndividuals }})
     })
     .catch((error)=> {
         console.log(`USER FETCH ERROR: There was an error retrieving individuals. `, error)
-        sendFailureResponse({res, statusCode: 500, message:"There was an error retrieving individuals"});
+        return sendFailureResponse({res, statusCode: 500, message:"There was an error retrieving individuals"});
     })
 }
