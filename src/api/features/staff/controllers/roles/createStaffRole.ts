@@ -1,9 +1,9 @@
 import { Request, Response } from "express";
-import validateCreateStaffRoleRequest from "../../services/validateCreateStaffRoleRequest";
-import insertStaffRoleToDB from "../../services/db/insertStaffRoleToDb";
 import { ServerError, ValidationError } from "@globals/server/Error";
 import { sendFailureResponse, sendSuccessResponse } from "@globals/server/serverResponse";
-import fetchAllStaffRoles from "../../services/fetchAllStaffRoles";
+import insertStaffRoleToDB from "@staff/services/db/insertStaffRoleToDB";
+import fetchAllStaffRoles from "@staff/services/fetchAllStaffRoles";
+import validateCreateStaffRoleRequest from "@staff/services/validateCreateStaffRoleRequest";
 
 export default function createStaffRole(req:Request, res:Response) {
     validateCreateStaffRoleRequest({...req.body})

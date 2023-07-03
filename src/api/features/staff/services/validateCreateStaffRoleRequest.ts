@@ -1,4 +1,4 @@
-import { INewStaffRole } from "./db/insertStaffRoleToDb";
+import { INewStaffRole } from "./db/insertStaffRoleToDB";
 
 interface ICreateStaffRoleRequestBody {
     title:string;
