@@ -1,9 +1,9 @@
 import { Request, Response } from "express"
 import ActivityModel from "@activity/model";
 import { IActivity } from "@activity/model/types";
-import UserModel from "@user/models/user.model";
-import { IUser } from "@user/models/types";
 import { sendFailureResponse, sendSuccessResponse } from "@globals/server/serverResponse";
+import { IUser } from "@staff/model/types";
+import staffModel from "@staff/model/staff.model";
 
 
 export default function fetchStaffActivities(req:Request, res:Response) {
@@ -26,7 +26,7 @@ export default function fetchStaffActivities(req:Request, res:Response) {
         for await (const activity of foundActivities) {
             const query = { _id: activity.host }
 
-            UserModel.findOne(query)
+            staffModel.findOne(query)
             .then((foundUser:IUser)=> {
                 activity.host = `${foundUser.firstname} ${foundUser.lastname}`;
                 foundActivitiesWithHostInfo.unshift(activity)

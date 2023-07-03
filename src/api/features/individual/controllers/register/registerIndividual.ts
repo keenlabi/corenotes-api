@@ -4,12 +4,12 @@ import { validateRegisterIndividualRequestBodyType } from "./types";
 import fetchIndividuals from "../fetchIndividuals";
 import userModel from "@user/models/user.model";
 import { sendFailureResponse } from "@globals/server/serverResponse";
+import addServiceToIndividual from "../../services/addServiceToIndividual";
+import { updateServiceAssignedIndividualsById } from "@services/db/service.service";
 
 export default function registerIndividual (req:Request, res:Response) {
     validateRegisterIndividual({...req.body, ...req.file})
-    .then(({ requestBody }:validateRegisterIndividualRequestBodyType) => {    
-        
-        console.log(requestBody)
+    .then(({ requestBody }:validateRegisterIndividualRequestBodyType) => {  
 
         userModel.create({
             role:'INDIVIDUAL',
@@ -34,6 +34,7 @@ export default function registerIndividual (req:Request, res:Response) {
             maritalStatus: requestBody.maritalStatus,
 
             codeAlert: requestBody.codeAlert,
+            compartment: requestBody.compartment,
             requestedServices: requestBody.requestedServices,
             diet: requestBody.diet,
             allergies: {
@@ -42,13 +43,15 @@ export default function registerIndividual (req:Request, res:Response) {
                 other: requestBody.allergies.other
             }
         })
-        .then((user)=> {
+        .then((newIndividual)=> {
             console.log(`REGISTRATION: New individual registered successfully`)
-            fetchIndividuals(req, res)
-            // sendSuccessResponse(res, 201, "New staff registered successfully", {})
+
+            // requestBody.requestedServices.forEach(async (service)=> {
+            //     await updateServiceAssignedIndividualsById(service.service, newIndividual._id.toString())
+            //     .finally(()=> fetchIndividuals(req, res));
+            // })
         })
         .catch((error)=> {
-            // console.log(`There was an error creating new individual: `, error);
             sendFailureResponse({res, statusCode: 422, message: error.message ?? "There was an error creating new individual"});
         });
     })

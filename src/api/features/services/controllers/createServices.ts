@@ -12,12 +12,12 @@ export default function createService(req:Request, res:Response) {
         .catch((error)=> {
             console.log('CREATE SERVICES: There was an error creating service')
             console.log(error)
-            sendFailureResponse({ res, statusCode: 500, message:"There was an error creating new service" })
+            return sendFailureResponse({ res, statusCode: 500, message:"There was an error creating new service" })
         })
     })
     .catch((error)=> {
         console.log('VALIDATION ERROR: There was an error validating create service request body')
         console.log(error)
-        sendFailureResponse({ res, statusCode: 500, message:"There was a validation error" })
+        return sendFailureResponse({ res, statusCode: error.code, message:error.message })
     })
 }

@@ -4,6 +4,7 @@ export interface ICompartment {
     _id:ObjectId;
     compartmentId:number;
     title:string;
+    services:Array<string>;
     image:string;
     staffRoles:Array<string>;
     assignedIndividuals:Array<string>;

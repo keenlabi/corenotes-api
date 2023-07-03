@@ -1,6 +1,7 @@
 import { ObjectId } from "mongoose";
 import { IUser } from "../../../features/user/models/types";
 import userModel from "../../../features/user/models/user.model";
+import { NotFoundError } from "@globals/server/Error";
 
 export function getAuthUserById(id:string) {
     return new Promise<IUser>((resolve, reject)=> {
@@ -52,9 +53,16 @@ export function getAuthUserByAuthAccessToken(userDocumentId:ObjectId, accessToke
 
         userModel.findOne(query)
         .then((foundUser:IUser)=> {
-            if(foundUser) resolve({ id: foundUser.id.toString(), email: foundUser.email, firstname: foundUser.firstname });
-            reject();
+            if(!foundUser) {
+                const notFoundError = new NotFoundError('User not found');
+                reject(notFoundError);
+            }
+            resolve({ 
+                id: foundUser._id.toString(), 
+                email: foundUser.email, 
+                firstname: foundUser.firstname 
+            });
         })
-        .catch(()=> reject())
+        .catch((error)=> reject(error))
     })
 }
