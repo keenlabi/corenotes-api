@@ -1,6 +1,6 @@
 import { Types } from "mongoose"
 
-export interface IUser {
+export interface IIndividualDocument {
     _id:Types.ObjectId,
     active:boolean,
 
