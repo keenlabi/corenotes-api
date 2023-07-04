@@ -2,6 +2,16 @@ import staffModel from "@staff/model/staff.model";
 import staffroleModel from "src/api/features/staff/model/staffrole.model";
 import { IStaffDocument, IStaffRole } from "src/api/features/staff/model/types";
 
+export function getStaffUserByUserId(userId:string) {
+    return new Promise<IStaffDocument>((resolve, reject)=> {
+        const query = { user: userId };
+
+        staffModel.findOne(query)
+        .then((foundStaffUser:IStaffDocument)=> resolve(foundStaffUser))
+        .catch((error)=> reject(error))
+    })
+}
+
 export function getStaffUserByStaffId(staffId:number) {
     return new Promise<IStaffDocument>((resolve, reject)=> {
         const query = { staffId: staffId };
