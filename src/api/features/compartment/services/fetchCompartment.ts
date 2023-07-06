@@ -3,14 +3,15 @@ import getCompartmentByCompartmentId from "./db/getCompartmentByCompartmentId";
 import fetchServicesDetails from "./fetchServicesDetails";
 
 export interface IFetchCompartment {
-    id:string,
-    compartmentId:number,
+    id:string;
+    compartmentId:number;
     title:string;
     services:Array<{
-        serviceId:number,
-        title:string,
-        individuals:Array<string>
-    }>,
+        serviceId:number;
+        title:string;
+        individuals:Array<string>;
+        category:string;
+    }>;
     image:string;
     staffRoles:Array<string>;
     assignedIndividuals:Array<string>;
