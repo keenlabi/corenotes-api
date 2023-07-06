@@ -21,7 +21,7 @@ export default function createNewService(newServiceData:ICreateServiceRequestBod
                 createdAt: createdServiceDocument.createdAt
             })
 
-            if(createdService.category.toLowerCase() === 'requested') {
+            // if(createdService.category.toLowerCase() === 'requested') {
                 createdServiceDocument.compartments.forEach(compartment => {
                     addServiceIdToCompartment({
                         compartmentObjectId: compartment,
@@ -32,7 +32,7 @@ export default function createNewService(newServiceData:ICreateServiceRequestBod
                         reject(error)
                     })
                 })
-            }
+            // }
 
             resolve(createdService)
         })

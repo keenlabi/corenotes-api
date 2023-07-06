@@ -12,9 +12,11 @@ import fetchStaffActivities from "../controllers/activities/fetchStaffActivities
 import register from "../controllers/register/register";
 import createStaffRole from "../controllers/roles/createStaffRole";
 import fetchStaffRoles from "../controllers/roles/fetchStaffRoles";
+import fetchStaffRolesDetails from "@staff/controllers/roles/fetchStaffRoleDetails";
 
 const staffRouter = Router();
 
+staffRouter.get('/roles/details/:roleId', validateToken, fetchStaffRolesDetails)
 staffRouter.post('/roles', validateToken, createStaffRole)
 staffRouter.get('/roles/:pageNumber', validateToken, fetchStaffRoles)
 

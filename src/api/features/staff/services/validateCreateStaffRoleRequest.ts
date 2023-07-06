@@ -2,6 +2,7 @@ import { INewStaffRole } from "./db/insertStaffRoleToDB";
 
 interface ICreateStaffRoleRequestBody {
     title:string;
+    privileges:{unknown:any}
 }
 
 export default function validateCreateStaffRoleRequest(data:ICreateStaffRoleRequestBody) {
@@ -12,7 +13,8 @@ export default function validateCreateStaffRoleRequest(data:ICreateStaffRoleRequ
         if(!data.title) reject({ code: 422, message:'Service title field cannot be empty' })
 
         const newData:INewStaffRole = Object.freeze({
-            title: data.title
+            title: data.title,
+            privileges: data.privileges
         })
 
         resolve(newData)

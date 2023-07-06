@@ -12,5 +12,7 @@ export interface ICompartmentFormat {
 }
 
 export interface ICompartmentsListType extends Omit<ICompartmentFormat, 'staffRoles'|'assignedIndividuals'> {
-
+    servicesCount:number;
+    staffRolesCount:number;
+    assignedIndividualsCount:number;
 }

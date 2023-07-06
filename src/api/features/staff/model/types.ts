@@ -58,4 +58,9 @@ export interface IStaffDocument extends Document {
 export interface IStaffRole {
     _id:Types.ObjectId;
     title:string;
+    privileges:{
+        staff_profile_view:boolean;
+        staff_registration:boolean;
+        staff_document_upload:boolean;
+    }
 }

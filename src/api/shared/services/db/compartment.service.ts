@@ -3,7 +3,7 @@ import compartmentModel from "src/api/features/compartment/models/compartment.mo
 import { ICompartment } from "src/api/features/compartment/models/types";
 
 export function updateCompartmentServicesById({compartmentId, serviceId}:{compartmentId:string, serviceId:string}) {
-    return new Promise((resolve, reject)=> {
+    return new Promise<ICompartment>((resolve, reject)=> {
         const query = { _id: compartmentId };
         const updateObj = { $push: { services: serviceId } }
     

@@ -3,6 +3,7 @@ import { sendFailureResponse, sendSuccessResponse } from "src/api/shared/globals
 import userModel from "../models/user.model";
 import staffModel from "@staff/model/staff.model";
 import { IStaffDocument } from "@staff/model/types";
+import { getStaffRoleById } from "@services/db/staff.service";
 
 export default function fetchProfile (req:Request, res:Response) {
     
@@ -13,12 +14,17 @@ export default function fetchProfile (req:Request, res:Response) {
         if(!foundUser) return sendFailureResponse({res, statusCode: 404, message: "User profile doesn't exist"});
 
         staffModel.findOne({ _id: foundUser.staff  })
-        .then((foundStaff:IStaffDocument)=> {
+        .then(async (foundStaff:IStaffDocument)=> {
             
+            const staffRole = await getStaffRoleById(foundStaff.providerRole)
+
             const user = {
                 id: foundUser.id,
                 active: foundUser.active,
-                role: foundUser.role,
+                role: {
+                    title: staffRole.title,
+                    privileges: staffRole.privileges
+                },
                 lastSeen: foundUser.lastSeen,
                 firstname: foundStaff.firstname,
                 lastname: foundStaff.lastname,
