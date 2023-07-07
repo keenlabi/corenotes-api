@@ -1,5 +1,5 @@
 export interface registerIndividualRequestBodyType {
-    role:'INDIVIDUAL',
+    role:'individual',
     firstname: string,
     middlename: string,
     lastname: string,
@@ -20,7 +20,7 @@ export interface registerIndividualRequestBodyType {
     },
     // NEW HEALTH INFORMATION
     compartment:string;
-    requestedServices: Array<{
+    services: Array<{
         service:string,
         startDate:string
     }>,

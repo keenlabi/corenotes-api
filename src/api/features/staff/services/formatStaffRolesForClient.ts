@@ -1,15 +1,34 @@
 import { IStaffRole } from "../model/types";
+import getStaffsCountByProviderRole from "./getStaffsCountByProviderRole";
 
 export interface IStaffRoleForClient {
     id:string;
     title:string;
+    staffCount:number;
 }
 
 export default function formatStaffRolesForClient(staffRoles:Array<IStaffRole>) {
-    return new Promise<Array<IStaffRoleForClient>>((resolve, reject)=> {
-        resolve(staffRoles.map(staffRole => ({
-            id: staffRole._id.toString(),
-            title: staffRole.title
-        })))
+    return new Promise<Array<IStaffRoleForClient>>(async (resolve, reject)=> {
+
+        const staffRolesResponse:Array<IStaffRoleForClient> = []
+
+        try {
+
+            for await ( const role of staffRoles ) {
+
+                const staffsCountRes = await getStaffsCountByProviderRole(role._id.toString());
+
+                staffRolesResponse.push({
+                    id: role._id.toString(),
+                    title: role.title,
+                    staffCount: staffsCountRes,
+                })
+            }
+
+            resolve(staffRolesResponse)
+
+        } catch (error) {
+            reject(error)
+        }
     })
 }

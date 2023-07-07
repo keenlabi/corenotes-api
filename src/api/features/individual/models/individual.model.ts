@@ -2,7 +2,7 @@ import { model, Schema, models, Types } from "mongoose"
 import { IIndividualDocument } from "./types"
 import autoIncrementPlugin from "src/config/database/autoIncrementInit";
 
-const staffSchema = new Schema<IIndividualDocument>({
+const individualSchema = new Schema<IIndividualDocument>({
     active:{
         type:Boolean,
         default:true,
@@ -66,7 +66,11 @@ const staffSchema = new Schema<IIndividualDocument>({
         startDate:String
     }>,
     diet:Array<String>,
-    allergies:Array<String>,
+    allergies:{
+        food: Array<String>,
+        med: Array<String>,
+        other: Array<String>
+    },
     documents:[{
         docTitle: {
             type: String
@@ -111,5 +115,5 @@ const staffSchema = new Schema<IIndividualDocument>({
     startAt: 1,
 });
 
-export default models.staffs || model<IIndividualDocument>('staffs', staffSchema);
+export default models.individuals || model<IIndividualDocument>('individuals', individualSchema);
 

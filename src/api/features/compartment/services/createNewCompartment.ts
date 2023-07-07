@@ -5,10 +5,10 @@ import { ICompartmentFormat } from "./types";
 
 export interface INewCompartmentData extends Omit<ICreateCompRequestBody, 'bgColor'|'labelColor'|'image'> {
     image:string,
-    meta: {
-        bgColor:string,
-        labelColor:string
-    }
+    // meta: {
+    //     bgColor:string,
+    //     labelColor:string
+    // }
 }
 
 export default function createNewCompartment(newCompartmentData:INewCompartmentData) {

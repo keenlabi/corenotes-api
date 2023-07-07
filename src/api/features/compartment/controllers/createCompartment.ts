@@ -1,9 +1,9 @@
 import { Request, Response } from "express"
 import validateCreateCompartmentRequest, { ICreateCompRequestBody } from "../services/validateCreateCompartmentRequest"
 import createNewCompartment, { INewCompartmentData } from "../services/createNewCompartment"
-import { sendFailureResponse } from "@globals/server/serverResponse"
-import fetchCompartments from "./fetchCompartments"
+import { sendFailureResponse, sendSuccessResponse } from "@globals/server/serverResponse"
 import uploadFileToCloud from "@services/fileSystem/uploadFileToCloud"
+import fetchAllCompartments from "../services/fetchAllCompartments"
 
 export default function createCompartment(req:Request, res:Response) {
 
@@ -18,25 +18,40 @@ export default function createCompartment(req:Request, res:Response) {
                 title: data.title,
                 image: fileURL,
                 staffRoles: data.staffRoles,
-                assignedIndividuals: data.assignedIndividuals,
-                meta: {
-                    bgColor: data.bgColor,
-                    labelColor: data.labelColor
-                }
+                // assignedIndividuals: data.assignedIndividuals,
+                // meta: {
+                //     bgColor: data.bgColor,
+                //     labelColor: data.labelColor
+                // }
             })
 
             createNewCompartment(newCompartmentData)
-            .then(()=> fetchCompartments(req, res))
+            .then(()=> {
+                fetchAllCompartments(parseInt(req.params.pageNumber) ?? 1)
+                .then((paginatedCompartments)=> {
+                    return sendSuccessResponse({ 
+                        res,
+                        statusCode: 200,
+                        message:"Compartments retrieved successfully",
+                        data: { compartments: paginatedCompartments }
+                    });
+                })
+                .catch((error)=> {
+                    console.log('There was an error fetching all compartments')
+                    console.log(error)
+                    return sendFailureResponse({ res, statusCode: 500, message: "There was a server error, not your fault, we're on it"});
+                })
+            })
             .catch((error)=> {
                 console.log('CREATE COMPARTMENT: There was an error creating compartments')
                 console.log(error)
-                sendFailureResponse({ res, statusCode: 500, message:"There was a validation error" })
+                return sendFailureResponse({ res, statusCode: 500, message:"There was a validation error" })
             })
         })
     })
     .catch((error)=> {
         console.log('VALIDATION ERROR: There was an error validating create compartment request body')
         console.log(error)
-        sendFailureResponse({ res, statusCode: 500, message:"There was a validation error" })
+        return sendFailureResponse({ res, statusCode: 500, message:"There was a validation error" })
     })
 }

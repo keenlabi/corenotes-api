@@ -19,10 +19,10 @@ individualRouter.post('/assessments/:assessmentId/session', validateToken, compl
 individualRouter.get('/:individualId/services', validateToken, fetchIndividualServices)
 individualRouter.post('/:individualId/services', validateToken, assignIndividualServices)
 
+individualRouter.get('/profile/:individualId', fetchIndividualProfile)
 individualRouter.get('/:pageNumber', fetchIndividuals)
-individualRouter.get('/profile/:id', fetchIndividualProfile)
-individualRouter.post('/', uploadFile('single', 'profileImage'), registerIndividual)
 
+individualRouter.post('/', uploadFile('single', 'profileImage'), registerIndividual)
 
 
 export default individualRouter;

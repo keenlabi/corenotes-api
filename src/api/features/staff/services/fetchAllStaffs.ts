@@ -66,6 +66,7 @@ export default function fetchAllStaffs(pageNumber:number) {
                     staffs: mappedStaffs
                 })
             })
+            .catch((error)=> reject(error))
         })
         .catch((error)=> {
             console.log(error)

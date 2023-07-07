@@ -1,25 +1,52 @@
-import { NotFoundError } from "@globals/server/Error";
-import { IUserDocument } from "@user/models/types";
-import userModel from "@user/models/user.model";
+import { ConflictError, NotFoundError } from "@globals/server/Error";
+import individualModel from "@individual/models/individual.model";
+import { IIndividualDocument } from "@individual/models/types";
 
-export default function updateIndividualServicesById({individualId, serviceId, startDate}:{individualId:string, serviceId:string, startDate:string}) {
-    return new Promise<IUserDocument>((resolve, reject)=> {
+export function getIndividualByIndividualId(individualId:number) {
+    return new Promise<IIndividualDocument>((resolve, reject)=> {
+        const query = { individualId };
+
+        individualModel.findOne(query)
+        .then((foundIndividual)=> {
+            if(!foundIndividual) {
+                const notFoundError = new NotFoundError("Individual not found");
+                reject(notFoundError);
+            }
+
+            resolve(foundIndividual)
+        })
+        .catch((error)=> reject(error))
+    })
+}
+
+export function updateIndividualServicesById({individualId, serviceId, startDate}:{individualId:string, serviceId:string, startDate:string}) {
+    return new Promise<IIndividualDocument>((resolve, reject)=> {
 
         const query = { _id: individualId };
 
         const newService = {
-            service: serviceId,
+            serviceId: serviceId,
             startDate: startDate
         }
-        const updateObj = { $push: { requestedServices: newService } }
-    
-        userModel.findOneAndUpdate(query, updateObj, { new: true })
-        .then((updatedIndividual:IUserDocument)=> {
-            if(!updatedIndividual) {
-                const notFoundError = new NotFoundError("Individual not found")
-                reject(notFoundError);
+
+        individualModel.findOne(query)
+        .then((foundIndividual:IIndividualDocument)=> {
+            if(foundIndividual.services.filter(service => service.serviceId === newService.serviceId)) {
+                const conflictEror = new ConflictError("Service has previously been added to individual");
+                reject(conflictEror);
             }
-            resolve(updatedIndividual)
+
+            const updateObj = { $push: { services: newService } }
+    
+            individualModel.findOneAndUpdate(query, updateObj, { new: true })
+            .then((updatedIndividual:IIndividualDocument)=> {
+                if(!updatedIndividual) {
+                    const notFoundError = new NotFoundError("Individual not found")
+                    reject(notFoundError);
+                }
+                resolve(updatedIndividual)
+            })
+            .catch((error)=> reject(error))
         })
         .catch((error)=> reject(error))
     })
