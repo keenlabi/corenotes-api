@@ -1,10 +1,10 @@
 import { Request, Response } from "express";
-import fetchAllIndividualServices, { IIndividualServicesList } from "../services/fetchAllIndividualServices";
+import fetchAllIndividualServices from "../services/fetchAllIndividualServices";
 import { sendFailureResponse, sendSuccessResponse } from "@globals/server/serverResponse";
 import { ServerError } from "@globals/server/Error";
 
 export default function fetchIndividualServices(req:Request, res:Response) {
-    fetchAllIndividualServices(req.params.individualId)
+    fetchAllIndividualServices(parseInt(req.params.individualId))
     .then((individualServices)=> {
         return sendSuccessResponse({
             res, statusCode: 200, 

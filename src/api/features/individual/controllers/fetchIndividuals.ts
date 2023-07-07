@@ -10,7 +10,7 @@ export default function fetchIndividuals(req:Request, res:Response) {
             res, 
             statusCode:200, 
             message: "Individuals retrieved successfully", 
-            data: { individuals: responseIndividuals }
+            data: responseIndividuals
         })
     })
     .catch((error)=> {

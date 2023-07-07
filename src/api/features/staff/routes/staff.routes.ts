@@ -13,8 +13,11 @@ import register from "../controllers/register/register";
 import createStaffRole from "../controllers/roles/createStaffRole";
 import fetchStaffRoles from "../controllers/roles/fetchStaffRoles";
 import fetchStaffRolesDetails from "@staff/controllers/roles/fetchStaffRoleDetails";
+import updateStaffProfile from "@staff/controllers/updateStaffProfile";
 
 const staffRouter = Router();
+
+staffRouter.patch('/update', validateToken, updateStaffProfile)
 
 staffRouter.get('/roles/details/:roleId', validateToken, fetchStaffRolesDetails)
 staffRouter.post('/roles', validateToken, createStaffRole)

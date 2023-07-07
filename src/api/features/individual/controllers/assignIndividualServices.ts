@@ -7,7 +7,7 @@ import addServiceToIndividual from "../services/addServiceToIndividual";
 export default function assignIndividualServices(req:Request, res:Response) {
     validateAssignIndividualServiceRequest({...req.body, ...req.params})
     .then((requestBody)=> {
-        addServiceToIndividual(requestBody)
+        addServiceToIndividual({...requestBody})
         .then((individualServices)=> {
             return sendSuccessResponse({ 
                 res, 
@@ -17,7 +17,7 @@ export default function assignIndividualServices(req:Request, res:Response) {
             })
         })
         .catch((error)=> {
-            if(error.statusCode === 404) {
+            if(error.statusCode !== 500) {
                 return sendFailureResponse({ res, statusCode: error.statusCode, message: error.message })
             }
 
@@ -26,6 +26,8 @@ export default function assignIndividualServices(req:Request, res:Response) {
         })
     })
     .catch((error)=> {
+
+        console.log(error)
         const validationError = new ValidationError(error.message)
         return sendFailureResponse({ res, statusCode: validationError.statusCode, message: validationError.message })
     })

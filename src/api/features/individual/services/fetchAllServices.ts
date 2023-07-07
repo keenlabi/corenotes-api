@@ -1,5 +1,7 @@
+import calcAge from "@globals/helpers/calcAge";
 import { NotFoundError } from "@globals/server/Error";
 import individualModel from "@individual/models/individual.model";
+import { IIndividualDocument } from "@individual/models/types";
 import { getCompartmentById } from "@services/db/compartment.service";
 
 export interface IFetchIndividualResponse {
@@ -10,10 +12,11 @@ export interface IFetchIndividualResponse {
 
 export interface IIndividualListItem {
     id:string;
+    individualId:number;
     profileImage:string;
     firstname:string;
     lastname:string;
-    dob:string;
+    age:number;
     gender:string;
     compartment:string;
     medicaidNumber:number;
@@ -31,7 +34,7 @@ export default function fetchAllIndividuals(pageNumber:number) {
         .skip(pageOffset)
         .limit(resultsPerPage)
         .sort({ createdAt: -1 })
-        .then(async (foundIndividuals)=> {
+        .then(async (foundIndividuals:IIndividualDocument[])=> {
         
             if(!foundIndividuals.length) {
                 const notFoundError = new NotFoundError('No individuals found');
@@ -42,11 +45,12 @@ export default function fetchAllIndividuals(pageNumber:number) {
 
             for await ( const individual of foundIndividuals ) {
                 mappedIndividuals.push({
-                    id:individual._id,
+                    id: individual._id.toString(),
+                    individualId: individual.individualId,
                     profileImage: individual.profileImage,
                     firstname: individual.firstname,
                     lastname: individual.lastname,
-                    dob: individual.dob,
+                    age: calcAge(individual.dob),
                     gender: individual.gender,
                     compartment: (await getCompartmentById(individual.compartment)).title,
                     medicaidNumber: individual.medicaidNumber

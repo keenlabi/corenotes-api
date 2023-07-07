@@ -3,6 +3,7 @@ import getServiceByServiceId from "./db/getServiceByServiceId"
 import individualModel from "@individual/models/individual.model";
 import { getCompartmentById } from "@services/db/compartment.service";
 import { IFetchIndividualResponse, IIndividualListItem } from "@individual/services/fetchAllServices";
+import calcAge from "@globals/helpers/calcAge";
 
 export default function getServiceIndividuals(serviceId:number, pageNumber:number){
     return new Promise<IFetchIndividualResponse>((resolve, reject)=> {
@@ -33,10 +34,11 @@ export default function getServiceIndividuals(serviceId:number, pageNumber:numbe
                 for await ( const individual of foundIndividuals ) {
                     mappedIndividuals.push({
                         id:individual._id,
+                        individualId: individual.individualId,
                         profileImage: individual.profileImage,
                         firstname: individual.firstname,
                         lastname: individual.lastname,
-                        dob: individual.dob,
+                        age: calcAge(individual.dob),
                         gender: individual.gender,
                         compartment: (await getCompartmentById(individual.compartment)).title,
                         medicaidNumber: individual.medicaidNumber

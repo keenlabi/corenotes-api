@@ -66,7 +66,11 @@ const individualSchema = new Schema<IIndividualDocument>({
         startDate:String
     }>,
     diet:Array<String>,
-    allergies:Array<String>,
+    allergies:{
+        food: Array<String>,
+        med: Array<String>,
+        other: Array<String>
+    },
     documents:[{
         docTitle: {
             type: String
