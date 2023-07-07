@@ -4,6 +4,7 @@ export interface IFetchCompartmentServiceDetails {
     id:string;
     serviceId:number,
     title:string,
+    category:string,
     individuals:Array<string>
 }
 
@@ -20,6 +21,7 @@ export default function fetchCompartmentServicesDetails(services:Array<string>) 
                         id: foundService._id.toString(),
                         serviceId: foundService.serviceId,
                         title: foundService.title,
+                        category: foundService.category,
                         individuals: foundService.assignedIndividuals
                     })
                 }

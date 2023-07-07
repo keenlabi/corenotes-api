@@ -1,9 +1,9 @@
-import { IUser } from "@user/models/types";
+import { IUserDocument } from "@user/models/types";
 import userModel from "@user/models/user.model";
 
 
 export default function storeAuthToken (id:string, token:string) {
-    return new Promise<IUser>((resolve, reject)=> {
+    return new Promise<IUserDocument>((resolve, reject)=> {
         const query = { _id: id };
         
         userModel.findOneAndUpdate(
@@ -16,7 +16,7 @@ export default function storeAuthToken (id:string, token:string) {
             },
             { new: true }
 
-        ).then((updatedUser:IUser)=> {
+        ).then((updatedUser:IUserDocument)=> {
             console.log(`Auth token successfully stored for user ${id}`)
             resolve(updatedUser);
         })

@@ -1,5 +1,6 @@
+import { getIndividualByIndividualId } from "@services/db/individual.service";
 import { getServiceByObjectId } from "@services/db/service.service";
-import { IUser } from "@user/models/types";
+import { IUserDocument } from "@user/models/types";
 import userModel from "@user/models/user.model";
 
 export interface IIndividualServicesList {
@@ -10,16 +11,16 @@ export interface IIndividualServicesList {
     startDate:string;
 }
 
-export default function fetchAllIndividualServices(individualObjectId:string) {
+export default function fetchAllIndividualServices(individualId:number) {
     return new Promise<IIndividualServicesList[]>((resolve, reject)=> {
-        const query = { _id: individualObjectId }
-
-        userModel.findOne(query)
-        .then(async (foundUser:IUser)=> {
+    
+        getIndividualByIndividualId(individualId)
+        .then(async (foundIndividual)=> {
+            
             const servicesDetails:IIndividualServicesList[] = [];
             
-            for await ( const service of foundUser.requestedServices.reverse() ) {
-                await getServiceByObjectId(service.service)
+            for await ( const service of foundIndividual.services.reverse() ) {
+                await getServiceByObjectId(service.serviceId)
                 .then((foundService)=> {
                     servicesDetails.push({
                         id: foundService._id.toString(),

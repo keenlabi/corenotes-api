@@ -1,5 +1,3 @@
-import { Types } from "mongoose";
-
 export interface UploadStaffRequestBodyType {
     docTitle:string,
     docType:string,
@@ -16,13 +14,20 @@ export interface ValidateUploadStaffRequestBodyType {
     requestBody: UploadStaffRequestBodyType
 }
 
+export interface INewDocument {
+    docTitle:string;
+    docType:string;
+    docDate:string;
+    docFileLink:string;
+    docFileName:string;
+}
+
 export default function validateUploadStaffRequestBody(data:UploadStaffRequestBodyType) {
     return new Promise<ValidateUploadStaffRequestBodyType>((resolve, reject)=> {
         // check if any field is empty and return error if true
         if(Object.keys(data).length === 0) reject({ status: false, code: 422, message:'Input field cannot be empty' })
 
         if(!data.staffId) reject({ status: false, code: 422,  message:'Staff id parameter cannot be empty' });
-        if(!Types.ObjectId.isValid(data.staffId)) reject({ status: false, code: 422,  message:'Staff id parameter is not valid' });
         if(!data.docTitle) reject({ status: false, code: 422,  message:'Document title field cannot be empty' });
         if(!data.docType) reject({ status: false, code: 422,  message:'Document type field cannot be empty' });
         if(!data.docDate) reject({ status: false, code: 422,  message:'Document date field cannot be empty' });

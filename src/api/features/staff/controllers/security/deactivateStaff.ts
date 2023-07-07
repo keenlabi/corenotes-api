@@ -1,45 +1,54 @@
 import { Request, Response } from "express"
-import UserModel from "@user/models/user.model"
 import { verifyPassword } from "@services/security/password"
 import { sendFailureResponse, sendSuccessResponse } from "@globals/server/serverResponse"
+import { IStaffDocument } from "@staff/model/types"
+import { getStaffUserById, getStaffUserByUserId } from "@services/db/staff.service"
+import { NotAuthorizedError } from "@globals/server/Error"
+import deactivateStaffUser from "@staff/services/deactivateStaff"
 
 export default function deactivateStaff(req:Request, res:Response) {
 
-    const query = { _id: req.params.staffId }
-
-    UserModel.findOne({_id: req.currentUser.id})
-    .then((foundUser)=> {
-        verifyPassword(req.body.password, foundUser.password)
-        .then((isVerified)=> { 
+    getStaffUserByUserId(req.currentUser.id!)
+    .then((foundStaff:IStaffDocument)=> {
+    
+        verifyPassword(req.body.password, foundStaff.password!)
+        .then((isVerified:boolean)=> {
+             
             if(!isVerified) {
-                return sendFailureResponse({res, statusCode: 401, message: 'The password entered does not match our record. Please confirm and try again.'});
+                const notAuthorizedError = new NotAuthorizedError('The password entered does not match our record. Please confirm and try again.');
+                return sendFailureResponse({
+                    res, 
+                    statusCode: notAuthorizedError.statusCode, 
+                    message: notAuthorizedError.message
+                });
             }
-            
-            UserModel.findOneAndUpdate(
-                query,
-                {
-                    $set: {
-                        active: false
-                    }
-                },
-                { new: true }
-            ).then((updatedStaff)=> {
+
+            deactivateStaffUser(parseInt(req.params.staffId))
+            .then((deactivatedStaff:IStaffDocument)=> {
+
                 console.log("Staff has been deactivated successfully")
-                sendSuccessResponse({res, statusCode: 200, message: "Staff account has been deactivated successfully",  data: { staff: updatedStaff }})
+                return sendSuccessResponse({
+                    res, 
+                    statusCode: 200, 
+                    message: "Staff account has been deactivated successfully",  
+                    data: { staff: deactivatedStaff }
+                })
             })
             .catch((error)=> {
-                // TODO: return error if validation is failed
-                console.log(`USER UPDATE ERROR: There was an error deactivating`)
+                console.log(`USER UPDATE ERROR: There was an error deactivating staff account`)
                 console.log(error)
                 sendFailureResponse({res,statusCode:500, message: "There was an error deactivating staff"});
             })
         })
         .catch((error)=> {
-
+            console.log(`There was an error deactivating`)
+            console.log(error)
+            sendFailureResponse({res,statusCode:500, message: "There was an error deactivating staff"});
         })
     })
-    .catch(()=> {
-        console.log('DATABASE QUERY ERROR: There was an error finding your profile');
-        sendFailureResponse({res, statusCode: 200, message: "There was an error finding your profile"})
+    .catch((error)=> {
+        console.log(`There was an error deactivating staff`)
+        console.log(error)
+        sendFailureResponse({res,statusCode:500, message: "There was an error deactivating staff"});
     })
 }

@@ -1,9 +1,8 @@
 import { model, Schema, models, Types } from "mongoose"
-import { IUser } from "./types"
+import { IIndividualDocument } from "./types"
 import autoIncrementPlugin from "src/config/database/autoIncrementInit";
 
-const staffSchema = new Schema<IUser>({
-    _id:Types.ObjectId,
+const individualSchema = new Schema<IIndividualDocument>({
     active:{
         type:Boolean,
         default:true,
@@ -67,7 +66,11 @@ const staffSchema = new Schema<IUser>({
         startDate:String
     }>,
     diet:Array<String>,
-    allergies:Array<String>,
+    allergies:{
+        food: Array<String>,
+        med: Array<String>,
+        other: Array<String>
+    },
     documents:[{
         docTitle: {
             type: String
@@ -105,11 +108,12 @@ const staffSchema = new Schema<IUser>({
         type:Date,
         default:Date.now
     },
+    
 }).plugin(autoIncrementPlugin, {
     model: 'individuals',
     field: 'individualId',
     startAt: 1,
 });
 
-export default models.staffs || model<IUser>('staffs', staffSchema);
+export default models.individuals || model<IIndividualDocument>('individuals', individualSchema);
 

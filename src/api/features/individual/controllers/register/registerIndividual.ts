@@ -4,16 +4,13 @@ import { validateRegisterIndividualRequestBodyType } from "./types";
 import fetchIndividuals from "../fetchIndividuals";
 import userModel from "@user/models/user.model";
 import { sendFailureResponse } from "@globals/server/serverResponse";
-import addServiceToIndividual from "../../services/addServiceToIndividual";
 import { updateServiceAssignedIndividualsById } from "@services/db/service.service";
+import individualModel from "@individual/models/individual.model";
 
 export default function registerIndividual (req:Request, res:Response) {
     validateRegisterIndividual({...req.body, ...req.file})
     .then(({ requestBody }:validateRegisterIndividualRequestBodyType) => {  
-
-        userModel.create({
-            role:'INDIVIDUAL',
-
+        individualModel.create({
             firstname: requestBody.firstname,
             middlename: requestBody.middlename,
             lastname: requestBody.lastname,
@@ -35,7 +32,7 @@ export default function registerIndividual (req:Request, res:Response) {
 
             codeAlert: requestBody.codeAlert,
             compartment: requestBody.compartment,
-            requestedServices: requestBody.requestedServices,
+            services: requestBody.services,
             diet: requestBody.diet,
             allergies: {
                 food: requestBody.allergies.food,
@@ -44,19 +41,21 @@ export default function registerIndividual (req:Request, res:Response) {
             }
         })
         .then((newIndividual)=> {
+            
             console.log(`REGISTRATION: New individual registered successfully`)
 
-            // requestBody.requestedServices.forEach(async (service)=> {
-            //     await updateServiceAssignedIndividualsById(service.service, newIndividual._id.toString())
-            //     .finally(()=> fetchIndividuals(req, res));
-            // })
+            requestBody.services.forEach(async (service)=> {
+                await updateServiceAssignedIndividualsById(service.service, newIndividual._id.toString())
+                .finally(()=> fetchIndividuals(req, res));
+            })
         })
         .catch((error)=> {
-            sendFailureResponse({res, statusCode: 422, message: error.message ?? "There was an error creating new individual"});
+            console.log(error)
+            return sendFailureResponse({res, statusCode: 422, message: error.message ?? "There was an error creating new individual"});
         });
     })
     .catch((error)=> {
         console.log(error)
-        sendFailureResponse({res, statusCode: 422, message: error.message ?? "There was an error creating new individual"});
+        return sendFailureResponse({res, statusCode: 422, message: error.message ?? "There was an error creating new individual"});
     })
 }

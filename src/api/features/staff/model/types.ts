@@ -1,14 +1,14 @@
-import { Types } from "mongoose";
+import { IUserDocument } from "@user/models/types";
+import { Document, PopulatedDoc, Types } from "mongoose";
 
-export interface IUser {
+export interface IStaffDocument extends Document {
     _id:Types.ObjectId;
+    user:string;
     active: boolean;
-    
     lastSeen:Date;
     createdAt:Date;
-
     staffId:number;
-    
+
     // PERSONAL INFORMATION
     firstname: string;
     lastname: string;
@@ -40,10 +40,11 @@ export interface IUser {
     username:string;
     employeeId:string;
     jobSchedule:string;
-    password:string;
+    password?:string;
 
     // DOCUMENTS
     documents:Array<{
+        _id:Types.ObjectId;
         docTitle: string;
         docType: string;
         docDate: string;
@@ -57,4 +58,9 @@ export interface IUser {
 export interface IStaffRole {
     _id:Types.ObjectId;
     title:string;
+    privileges:{
+        staff_profile_view:boolean;
+        staff_registration:boolean;
+        staff_document_upload:boolean;
+    }
 }

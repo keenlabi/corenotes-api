@@ -22,6 +22,7 @@ export default function fetchAllCompartments(pageNumber:number) {
                     compartmentId: compartment.compartmentId,
                     title: compartment.title,
                     image: compartment.image,
+                    servicesCount: compartment.services.length,
                     staffRolesCount: compartment.staffRoles.length,
                     assignedIndividualsCount: compartment.assignedIndividuals.length,
                     meta: compartment.meta,

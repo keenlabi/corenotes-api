@@ -1,8 +1,15 @@
-import { model, Schema, models } from "mongoose"
-import { IUser } from "./types"
+import { model, Schema, models, Model, Types } from "mongoose"
+import { IStaffDocument } from "./types"
 import autoIncrementPlugin from "src/config/database/autoIncrementInit";
 
-const staffSchema = new Schema<IUser>({
+const staffSchema = new Schema<IStaffDocument>({
+    active:{
+        type:Boolean,
+        default:true
+    },
+    user:{
+        type:String
+    },
     staffId: {
         type:Number
     },
@@ -96,15 +103,20 @@ const staffSchema = new Schema<IUser>({
     maritalStatus: {
         type:String
     },
+    lastSeen: {
+        type: Date,
+        default: Date.now
+    },
     createdAt: {
         type: Date,
         default: Date.now
     },
+    
 }).plugin(autoIncrementPlugin, {
     model: 'staffs',
     field: 'staffId',
     startAt: 1,
 });
 
-export default models.staffs || model<IUser>('staffs', staffSchema);
+export = Model<IStaffDocument> = models.staffs || model<IStaffDocument>('staff', staffSchema);
 
