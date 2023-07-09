@@ -2,30 +2,32 @@ import { Request, Response } from "express"
 import fetchAssessmentCategoryDetails from "./utils/fetchAssessmentCategoryDetails";
 import fetchAssessmentQuestionCategoryDetails from "./utils/fetchAssessmentQuestionCategoryDetails";
 import { Types } from "mongoose";
-import { IAssessment } from "@assessment/model/assessment.model.ts/types";
-import { AssessmentModel } from "@assessment/model/assessment.model.ts";
 import userModel from "@user/models/user.model";
 import { IUserDocument } from "@user/models/types";
 import { sendFailureResponse, sendSuccessResponse } from "@globals/server/serverResponse";
-
-interface IAssessmentMapped extends Omit<IAssessment, '_id'|'createdAt'|'assignees'> {
-    id:Types.ObjectId|String,
-    status:'PENDING'|'IN-PROGRESS'|'COMPLETED'    
-}
+import { IAssessmentDocument } from "@assessment/model/assessment.model.ts/types";
+import fetchAllAssessments from "@assessment/services/fetchAllAssessments";
 
 export default function fetchAssessments(req:Request, res:Response) {
+    fetchAllAssessments(parseInt(req.params.pageNumber))
+    .then((assessmentResponse)=> {
+        
+        console.log(assessmentResponse)
 
-    const   pageNumber = parseInt(req.params.pageNumber) - 1 ?? 0,
-            resultsPerPage = 10, 
-            pageOffset = resultsPerPage * pageNumber,
-
-            query = { $or: [
-                    { 'assignees.assigneesType': 'ALL' },
-                    { 'assignees.assigneesList': req.params.individualId }
-                ]
-            };
+        return sendSuccessResponse({
+            res, 
+            statusCode: 200, 
+            message: "Assessments retrieved successfully", 
+            data: assessmentResponse 
+        })
+    })
+    .catch((error)=> {
+        console.log(`QUERY ERROR: There was an error fetching all assessments`)
+        console.log(error)
+        return sendFailureResponse({res, statusCode:500, message:"There was an error fetching assessments"})
+    })
             
-    // AssessmentModel.find(query)
+    // assessmentModel.find(query)
     // .skip(pageOffset)
     // .limit(resultsPerPage)
     // .sort({ createdAt: -1 })
@@ -81,7 +83,7 @@ export default function fetchAssessments(req:Request, res:Response) {
     //     ).then((updatedUser)=> {
     //         console.log('INDIVIDUAL PROFILE: New Individual assessments added successfully')
 
-    //         AssessmentModel.count(query)
+    //         assessmentModel.count(query)
     //         .then((totalAssessments)=> {
     //             const totalPageNumber = Math.ceil(totalAssessments / resultsPerPage);
     //             return sendSuccessResponse({res, statusCode:200, message:"Assessments retrieved successfully", data:{ 

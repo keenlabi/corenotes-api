@@ -1,13 +1,14 @@
-import { model, Schema, models } from "mongoose"
-import { IAssessment, IAssessmentCategory, IAssessmentQuestionCategory } from "./types";
+import { model, Schema, models, Model } from "mongoose"
+import { IAssessmentCategoryDocument, IAssessmentDocument, IAssessmentQuestionCategoryDocument } from "./types";
 
-const assessmentSchema = new Schema<IAssessment>({
+const assessmentSchema = new Schema<IAssessmentDocument>({
     title:{ type:String },
     category:{ type:String },
     questions:[{
         question:{ type:String },
         category:{ type:String }
     }],
+    assignedTo:{ type:String },
     assignees:{
         assigneesType:{ 
             type:String,
@@ -21,9 +22,9 @@ const assessmentSchema = new Schema<IAssessment>({
     }
 })
 
-export const AssessmentModel = models.assessments || model<IAssessment>('assessments', assessmentSchema);
+export const assessmentModel:Model<IAssessmentDocument> = models.assessments || model<IAssessmentDocument>('assessments', assessmentSchema);
 
-const assessmentCategorySchema = new Schema<IAssessmentCategory>({
+const assessmentCategorySchema = new Schema<IAssessmentCategoryDocument>({
     name:{ type:String },
     createdAt: {
         type:Date,
@@ -31,9 +32,9 @@ const assessmentCategorySchema = new Schema<IAssessmentCategory>({
     }
 })
 
-export const AssessmentCategoryModel = models["assessment-categories"] || model<IAssessment>('assessment-categories', assessmentCategorySchema);
+export const AssessmentCategoryModel = models["assessment-categories"] || model<IAssessmentCategoryDocument>('assessment-categories', assessmentCategorySchema);
 
-const assessmentQuestionsCategorySchema = new Schema<IAssessmentQuestionCategory>({
+const assessmentQuestionsCategorySchema = new Schema<IAssessmentQuestionCategoryDocument>({
     name:{ type:String },
     createdAt: {
         type:Date,
@@ -41,5 +42,5 @@ const assessmentQuestionsCategorySchema = new Schema<IAssessmentQuestionCategory
     }
 })
 
-export const AssessmentQuestionsCategoryModel = models["assessment-question-categories"] || model<IAssessment>('assessment-question-categories', assessmentQuestionsCategorySchema);
+export const AssessmentQuestionsCategoryModel = models["assessment-question-categories"] || model<IAssessmentQuestionCategoryDocument>('assessment-question-categories', assessmentQuestionsCategorySchema);
 

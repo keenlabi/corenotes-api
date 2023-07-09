@@ -1,5 +1,5 @@
 import fetchAssessmentCategoryDetails from "@assessment/controllers/utils/fetchAssessmentCategoryDetails";
-import { AssessmentModel } from "@assessment/model/assessment.model.ts";
+import { assessmentModel } from "@assessment/model/assessment.model.ts";
 import { sendFailureResponse, sendSuccessResponse } from "@globals/server/serverResponse";
 import { IUserDocument } from "@user/models/types";
 import userModel from "@user/models/user.model";
@@ -21,7 +21,7 @@ export default function saveIndividualAssessmentSession(req:Request, res:Respons
     //     const assessmentSession = updatedUser.assessments.filter(assessment => assessment._id.toString() === req.params.assessmentId)[0]
 
     //     const findAssessmentQuery = { _id: assessmentSession.assessmentId }
-    //     AssessmentModel.findOne(findAssessmentQuery)
+    //     assessmentModel.findOne(findAssessmentQuery)
     //     .then(async (foundAssessment)=> {
     //         const modifiedUpdatedAssessment = {
     //             id: assessmentSession._id,
