@@ -6,7 +6,6 @@ import { Request, Response } from "express";
 export default function getIndividualMedications(req:Request, res:Response) {
     fetchIndividualMedications(parseInt(req.params.individualId), parseInt(req.params.pageNumber))
     .then((response)=> {
-        console.log(response.medications)
         return sendSuccessResponse({
             res,
             statusCode: 200,

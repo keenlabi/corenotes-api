@@ -63,7 +63,6 @@ export interface IIndividualDocument {
         createdAt:Date
     }>,
     medications:Array<{
-        individualId: Promise<unknown>;
         _id:Types.ObjectId;
         active:boolean;
         medicationId:string;

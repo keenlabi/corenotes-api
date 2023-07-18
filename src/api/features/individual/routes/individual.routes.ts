@@ -11,11 +11,13 @@ import fetchIndividualServices from "../controllers/fetchIndividualServices";
 import assignIndividualServices from "../controllers/assignIndividualServices";
 import postMedicationToIndividual from "@individual/controllers/medications/postMedicationToIndividual";
 import getIndividualMedications from "@individual/controllers/medications/getIndividualMedications";
+import patchIndividualMedicationAllocatedAmount from "@individual/controllers/medications/patchIndividualMedicationAmount";
 
 const individualRouter = Router();
 
 individualRouter.get('/:individualId/medications/:pageNumber', validateToken, getIndividualMedications)
 individualRouter.post('/:individualId/medications', validateToken, postMedicationToIndividual)
+individualRouter.patch('/:individualId/medications/pills-allocation', validateToken, patchIndividualMedicationAllocatedAmount)
 
 individualRouter.get('/assessments/:assessmentId/session', validateToken, fetchIndividualAssessmentSession)
 individualRouter.patch('/assessments/:assessmentId/session', validateToken, saveIndividualAssessmentSession)
