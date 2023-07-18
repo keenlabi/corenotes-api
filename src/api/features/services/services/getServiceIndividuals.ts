@@ -14,7 +14,7 @@ export default function getServiceIndividuals(serviceId:number, pageNumber:numbe
                 reject(notFoundError)
             }
 
-            const serviceObjectId = foundService._id.toString();
+            const serviceObjectId = foundService!._id.toString();
 
             const   queryPageNumber = pageNumber - 1 ?? 0,
             resultsPerPage = 10, 

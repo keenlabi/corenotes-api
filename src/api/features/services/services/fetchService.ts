@@ -16,14 +16,14 @@ export default function fetchService(serviceId:number) {
         getServiceByServiceId(serviceId)
         .then((foundService)=> {
             resolve({
-                id: foundService._id.toString(),
-                serviceId: foundService.serviceId,
-                title: foundService.title,
-                category: foundService.category,
-                compartments: foundService.compartments,
-                staffRoles: foundService.staffRoles,
-                assignedIndividuals: foundService.assignedIndividuals,
-                createdAt: foundService.createdAt
+                id: foundService!._id.toString(),
+                serviceId: foundService!.serviceId,
+                title: foundService!.title,
+                category: foundService!.category,
+                compartments: foundService!.compartments,
+                staffRoles: foundService!.staffRoles,
+                assignedIndividuals: foundService!.assignedIndividuals,
+                createdAt: foundService!.createdAt
             })
         })
         .catch((error)=> {
