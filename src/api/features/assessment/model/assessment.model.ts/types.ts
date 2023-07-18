@@ -1,19 +1,21 @@
 import { Types } from "mongoose"
 
 export interface IAssessmentDocument {
-    _id:Types.ObjectId|String,
-    title:String,
-    category:String,
+    _id:Types.ObjectId;
+    assessmentId:number;
+    title:string;
+    category:string;
     questions:Array<{
-        question:String,
-        category:String
+        _id:Types.ObjectId;
+        question:string;
+        category:string;
     }>,
     assignedTo:string;
     assignees:{
-        assigneesType:'ALL'|'SPECIFIC',
-        assigneesList:Array<String>
+        assigneesType:'ALL'|'SPECIFIC';
+        assigneesList:Array<string>;
     };
-    createdAt:Date
+    createdAt:Date;
 }
 
 export interface IAssessmentCategoryDocument {

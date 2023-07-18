@@ -11,9 +11,6 @@ import fetchAllAssessments from "@assessment/services/fetchAllAssessments";
 export default function fetchAssessments(req:Request, res:Response) {
     fetchAllAssessments(parseInt(req.params.pageNumber))
     .then((assessmentResponse)=> {
-        
-        console.log(assessmentResponse)
-
         return sendSuccessResponse({
             res, 
             statusCode: 200, 

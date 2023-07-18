@@ -7,7 +7,7 @@ interface IAssessmentsResponse {
     assessments:IMappedAssessment[];
 }
 
-interface IMappedAssessment {
+export interface IMappedAssessment {
     id:string;
     title:string;
     category:string;
@@ -35,6 +35,7 @@ export default function fetchAllAssessments(pageNumber:number) {
             for await (const assessment of foundAssessments) {
                 mappedAssessments.push({
                     id:assessment._id,
+                    assessmentId:assessment.assessmentId,
                     title: assessment.title,
                     category: await fetchAssessmentCategoryDetails(assessment.category),
                     questionsCount: assessment.questions.length,
