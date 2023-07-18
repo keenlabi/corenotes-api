@@ -61,6 +61,22 @@ export interface IIndividualDocument {
             comment:string
         }>,
         createdAt:Date
+    }>,
+    medications:Array<{
+        individualId: Promise<unknown>;
+        _id:Types.ObjectId;
+        active:boolean;
+        medicationId:string;
+        schedule:{
+            startDate:string;
+            frequency:string;
+            frequencyAttr:number;
+            time:string;
+        };
+        amount:{
+            allocated:number;
+            current:number;
+            administered:number;
+        }
     }>
-    
 }

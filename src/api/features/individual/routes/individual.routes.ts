@@ -9,8 +9,13 @@ import completeIndividualAssessmentSession from "../controllers/assessments/comp
 import validateToken from "@globals/middlewares/validateToken";
 import fetchIndividualServices from "../controllers/fetchIndividualServices";
 import assignIndividualServices from "../controllers/assignIndividualServices";
+import postMedicationToIndividual from "@individual/controllers/medications/postMedicationToIndividual";
+import getIndividualMedications from "@individual/controllers/medications/getIndividualMedications";
 
 const individualRouter = Router();
+
+individualRouter.get('/:individualId/medications/:pageNumber', validateToken, getIndividualMedications)
+individualRouter.post('/:individualId/medications', validateToken, postMedicationToIndividual)
 
 individualRouter.get('/assessments/:assessmentId/session', validateToken, fetchIndividualAssessmentSession)
 individualRouter.patch('/assessments/:assessmentId/session', validateToken, saveIndividualAssessmentSession)

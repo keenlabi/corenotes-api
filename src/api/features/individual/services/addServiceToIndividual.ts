@@ -12,19 +12,22 @@ export default function addServiceToIndividual(data:IAssignServiceToIndividualRe
 
                 updateServiceAssignedIndividualsById(data.serviceId, data.individualId)
                 .finally(async ()=> {
+
                     const servicesDetails:IIndividualServicesList[] = [];
                 
-                    for await ( const service of updatedIndividual.services.reverse() ) {
+                    for await ( const service of updatedIndividual!.services.reverse() ) {
 
                         await getServiceByObjectId(service.serviceId)
                         .then((foundService)=> {
-                            servicesDetails.push({
-                                id: foundService._id.toString(),
-                                serviceId: foundService.serviceId,
-                                title: foundService.title,
-                                category: foundService.category,
-                                startDate: service.startDate
-                            })
+                            if(foundService) {
+                                servicesDetails.push({
+                                    id: foundService._id.toString(),
+                                    serviceId: foundService.serviceId,
+                                    title: foundService.title,
+                                    category: foundService.category,
+                                    startDate: service.startDate
+                                })
+                            }
                         })
                     }
 

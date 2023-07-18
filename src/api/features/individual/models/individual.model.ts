@@ -3,6 +3,9 @@ import { IIndividualDocument } from "./types"
 import autoIncrementPlugin from "src/config/database/autoIncrementInit";
 
 const individualSchema = new Schema<IIndividualDocument>({
+    individualId: {
+        type:Number
+    },
     active:{
         type:Boolean,
         default:true,
@@ -99,6 +102,43 @@ const individualSchema = new Schema<IIndividualDocument>({
             comment:string
         }>,
         createdAt:Date
+    }>,
+    medications:Array<{
+        _id:Types.ObjectId,
+        active:{
+            type:Boolean,
+            default:true
+        },
+        medicationId:{
+            type:String
+        },
+        schedule:{
+            startDate:{
+                type:String
+            },
+            frequency:{
+                type:String
+            },
+            frequencyAttr:{
+                type:number
+            },
+            time:{
+                type:String
+            },
+        };
+        amount:{
+            allocated:{ 
+                type:Number 
+            },
+            current:{ 
+                type:Number,
+                default:0
+            },
+            administered:{ 
+                type:Number,
+                default:0
+            }
+        }
     }>,
     lastSeen:{
         type:Date,
