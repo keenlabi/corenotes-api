@@ -11,3 +11,14 @@ export function getAssessmentByTitle(title:string) {
         .catch(error => reject(error))
     })
 }
+
+export function getAssessmentById(assessmentId:number) {
+    return new Promise<IAssessmentDocument|null>((resolve, reject)=> {
+        
+        const query = { assessmentId }
+
+        assessmentModel.findOne(query)
+        .then((foundAssessment)=> resolve(foundAssessment))
+        .catch(error => reject(error))
+    })
+}
