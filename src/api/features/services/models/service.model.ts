@@ -18,6 +18,7 @@ export = Model<IService> = models.services || model<IService>('services', new Sc
     compartments:[String],
     staffRoles:[String],
     assignedIndividuals:[String],
+    medications:Array<String>,
     createdAt:{
         type:Date,
         default:Date.now

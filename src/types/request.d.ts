@@ -3,6 +3,8 @@ declare global {
         interface Request {
             currentUser: {
                 id?:string;
+                staffObjectId?:string;
+                staffId?:number;
                 email?:string;
                 firstname?:string;
                 role?:string;

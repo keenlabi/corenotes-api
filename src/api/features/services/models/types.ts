@@ -8,5 +8,6 @@ export interface IService {
     compartments:Array<string>;
     staffRoles:Array<string>;
     assignedIndividuals:Array<string>;
+    medications:Array<string>;
     createdAt:Date
 }

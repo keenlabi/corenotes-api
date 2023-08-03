@@ -7,6 +7,8 @@ import assessmentRouter from "./features/assessment/routes/assessment.routes";
 import compartmentRouter from "./features/compartment/compartment.routes";
 import serviceRouter from "./features/services/service.routes";
 import privilegeRouter from "./features/privileges/routes/privilege.routes";
+import medicationRouter from "./features/medication/medication.routes";
+import taskRouter from "./features/task/task.routes";
 
 export default function routes() {
     const router = Router();
@@ -19,6 +21,8 @@ export default function routes() {
     router.use('/compartments', compartmentRouter);
     router.use('/services', serviceRouter);
     router.use('/privileges', privilegeRouter);
+    router.use('/medications', medicationRouter);
+    router.use('/tasks', taskRouter);
 
     return router;
 }

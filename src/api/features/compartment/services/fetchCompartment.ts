@@ -23,8 +23,8 @@ export default function fetchCompartment(compartmentId:number) {
         await getCompartmentByCompartmentId(compartmentId)
         .then(async (foundCompartment)=> {
             if(!foundCompartment) {
-                const notFoundError = new NotFoundError('Compartment not found');
-                reject(notFoundError)
+                new NotFoundError('Compartment not found');
+                reject(NotFoundError)
             }
 
             const compartment:IFetchCompartment = {

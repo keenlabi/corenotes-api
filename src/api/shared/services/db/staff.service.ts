@@ -23,11 +23,11 @@ export function getStaffUserByStaffId(staffId:number) {
 }
 
 export function getStaffUserById(staffObjectId:string) {
-    return new Promise<IStaffDocument>((resolve, reject)=> {
+    return new Promise<IStaffDocument|null>((resolve, reject)=> {
         const query = { _id: staffObjectId };
     
         staffModel.findOne(query)
-        .then((foundStaffUser:IStaffDocument)=> resolve(foundStaffUser))
+        .then((foundStaffUser)=> resolve(foundStaffUser))
         .catch((error)=> reject(error))
     })
 }
