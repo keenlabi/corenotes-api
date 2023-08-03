@@ -1,6 +1,6 @@
 import { NotFoundError } from "@globals/server/Error"
 import getServiceByServiceId from "./db/getServiceByServiceId"
-import individualModel from "@individual/models/individual.model";
+import { individualModel } from "@individual/models/individual.model";
 import { getCompartmentById } from "@services/db/compartment.service";
 import { IFetchIndividualResponse, IIndividualListItem } from "@individual/services/fetchAllServices";
 import calcAge from "@globals/helpers/calcAge";
@@ -33,7 +33,7 @@ export default function getServiceIndividuals(serviceId:number, pageNumber:numbe
 
                 for await ( const individual of foundIndividuals ) {
                     mappedIndividuals.push({
-                        id:individual._id,
+                        id: individual._id.toString(),
                         individualId: individual.individualId,
                         profileImage: individual.profileImage,
                         firstname: individual.firstname,
