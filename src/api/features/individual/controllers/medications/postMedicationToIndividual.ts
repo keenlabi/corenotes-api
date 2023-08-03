@@ -1,14 +1,23 @@
-import { ConflictError, ServerError } from "@globals/server/Error";
+import { Request, Response } from "express";
+import { ConflictError, NotFoundError, ServerError } from "@globals/server/Error";
 import { sendFailureResponse, sendSuccessResponse } from "@globals/server/serverResponse";
 import fetchIndividualMedications from "@individual/services/fetchIndividualMedications";
 import { getIndividualByIndividualId, updateIndividualMedicationsByIndividualId } from "@services/db/individual.service";
-import { Request, Response } from "express";
 import createNewMedicationTask from "src/api/features/task/services/medication/createNewMedicationTask";
 
 export default function postMedicationToIndividual(req:Request, res:Response) {
     getIndividualByIndividualId(parseInt(req.params.individualId))
     .then((foundIndividual)=> {
-        const match = foundIndividual.medications?.filter(medication => medication.medicationId === req.body.medicationId);
+        if(!foundIndividual) {
+            const notFoundError = new NotFoundError('Individual not found');
+            return sendFailureResponse({
+                res,
+                statusCode: notFoundError.statusCode,
+                message: notFoundError.message
+            })
+        }
+        
+        const match = foundIndividual!.medications?.filter(medication => medication.medicationId === req.body.medicationId);
         
         if(match?.length) {
             const conflictError = new ConflictError('This medication has already been assigned to user');
@@ -22,8 +31,9 @@ export default function postMedicationToIndividual(req:Request, res:Response) {
         updateIndividualMedicationsByIndividualId({
             individualId: parseInt(req.params.individualId), 
             medicationId: req.body.medicationId,
+            pharmacy: req.body.pharmacy,
             schedule: req.body.schedule,
-            amountAllocated: req.body.amountAllocated
+            amountAllocated: req.body.amountAllocated ?? 0
         })
         .then((updatedIndividual)=> {
             if(!updatedIndividual) {
@@ -34,12 +44,12 @@ export default function postMedicationToIndividual(req:Request, res:Response) {
                 })
             }
 
-            const newMedication = updatedIndividual.medications?.filter(medication => medication.medicationId === req.body.medicationId);
+            const newMedication = updatedIndividual.medications?.filter(medication => medication.medicationId === req.body.medicationId)[0];
 
-            createNewMedicationTask({
-                ...newMedication[0],
-                individualId: foundIndividual._id.toString()
-            })
+            const rawTaskData:any = newMedication;
+            rawTaskData.individualId = foundIndividual!._id.toString();
+
+            createNewMedicationTask(rawTaskData)
             .then(()=> {
                 console.log("New medication task created successfully")
             })
