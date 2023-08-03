@@ -12,6 +12,7 @@ interface ITasksListResponse {
 interface ITask {
     id:string;
     taskId:number;
+    status:string;
     desc:string;
     service:{
         title:string;
@@ -54,14 +55,15 @@ export default function fetchTasks(pageNumber:number) {
                         mappedTasks.push({
                             id: task._id.toString(),
                             taskId: task.taskId,
+                            status: task.status,
                             desc: `${foundMedication?.name!} ${foundMedication?.strength!}`,
                             service: {
                                 title: (await getServiceByObjectId(task.serviceId))?.title!
                             },
                             individual: {
-                                firstname: individual.firstname,
-                                lastname: individual.lastname,
-                                profileImage: individual.profileImage
+                                firstname: individual?.firstname ?? "",
+                                lastname: individual?.lastname ?? "",
+                                profileImage: individual?.profileImage ?? ""
                             },
                             schedule: {
                                 startAt: task.schedule.startAt,

@@ -11,6 +11,11 @@ export const taskModel:Model<ITaskDocument> = models.tasks || model<ITaskDocumen
         type:Boolean,
         unique:true
     },
+    status:{
+        type:String,
+        enum:['TODO', 'COMPLETED', 'DECLINED'],
+        default:'TODO'
+    },
     taskType:{
         enum:['medication-administration'],
         type:String
