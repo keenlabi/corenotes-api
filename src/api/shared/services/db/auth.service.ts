@@ -45,7 +45,7 @@ export function getAuthUserByEmailOrUsername(data:string) {
 }
 
 export function getAuthUserByAuthAccessToken(userDocumentId:ObjectId, accessToken:string) {
-    return new Promise<{ id:string, email:string, firstname:string }>((resolve, reject)=> {
+    return new Promise<{ id:string, staffObjectId:string, staffId:number, email:string, firstname:string }>((resolve, reject)=> {
         const query = {
             $and: [
                 { _id: userDocumentId },
@@ -69,6 +69,8 @@ export function getAuthUserByAuthAccessToken(userDocumentId:ObjectId, accessToke
 
                 resolve({ 
                     id: foundUser.id,
+                    staffObjectId: foundStaff._id.toString(),
+                    staffId: foundStaff.staffId,
                     email: foundStaff.email,
                     firstname: foundStaff.firstname
                 });

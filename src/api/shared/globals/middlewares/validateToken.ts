@@ -40,6 +40,8 @@ export default function validateToken (req:Request, res:Response, next:NextFunct
             
             req.currentUser = {
                 id: foundUser.id,
+                staffObjectId: foundUser.staffObjectId,
+                staffId: foundUser.staffId,
                 email: foundUser.email,
                 firstname: foundUser.firstname
             }

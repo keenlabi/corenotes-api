@@ -1,6 +1,7 @@
 import { getIndividualByIndividualId } from "@services/db/individual.service"
 import { getMedicationByObjectId } from "@services/db/medication.service";
 import detMedSchedule from "./detMedSchedule";
+import { NotFoundError } from "@globals/server/Error";
 
 interface IFetchIndividualMedicationsResponse {
     currentPage:number;
@@ -10,8 +11,11 @@ interface IFetchIndividualMedicationsResponse {
 
 interface IIndividualMedication {
     id:string;
+    active:boolean;
     medicationId:number;
+    barcode:string;
     name:string;
+    category:string;
     strength:string;
     amount:{
         current:number;
@@ -26,24 +30,31 @@ export default function fetchIndividualMedications(individualId:number, pageNumb
     return new Promise<IFetchIndividualMedicationsResponse>((resolve, reject)=> {
         getIndividualByIndividualId(individualId)
         .then(async (foundIndividual)=> {
+
+            if(!foundIndividual) {
+                const notFoundError = new NotFoundError('Individual not found')
+                reject(notFoundError)
+            }
             
             const   queryPageNumber = pageNumber - 1 ?? 0,
             resultsPerPage = 10, 
             pageOffset = resultsPerPage * queryPageNumber,
             pageEndIndex = pageOffset + resultsPerPage;
             
-            const medications= foundIndividual.medications?.slice(pageOffset, pageEndIndex).reverse()!;
+            const medications= foundIndividual!.medications?.slice(pageOffset, pageEndIndex).reverse()!;
             
             const mappedMedications:Array<IIndividualMedication> = [];
 
             for await ( const medication of medications ) {
                 await getMedicationByObjectId(medication.medicationId)
                 .then((foundMedication)=> {
-
                     mappedMedications.push({
                         id: foundMedication?._id.toString()!,
+                        active: medication?.active!,
                         medicationId: foundMedication?.medicationId!,
+                        barcode: medication.barcode,
                         name: foundMedication?.name!,
+                        category: foundMedication?.category!,
                         strength: foundMedication?.strength!,
                         amount:{
                             current: medication?.amount.current!,
@@ -59,7 +70,7 @@ export default function fetchIndividualMedications(individualId:number, pageNumb
 
             resolve({
                 currentPage: pageNumber,
-                totalPages: Math.ceil(foundIndividual.medications!.length / resultsPerPage),
+                totalPages: Math.ceil(foundIndividual!.medications!.length / resultsPerPage),
                 medications: mappedMedications
             })
 

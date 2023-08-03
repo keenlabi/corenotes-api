@@ -1,10 +1,14 @@
 import { NotFoundError } from "@globals/server/Error";
-import individualModel from "@individual/models/individual.model";
+import { individualModel } from "@individual/models/individual.model";
 import { IIndividualDocument } from "@individual/models/types";
 import { getIndividualByIndividualId } from "@services/db/individual.service";
 import { getMedicationByMedicationId } from "@services/db/medication.service";
+import { Types } from "mongoose";
 
-export default function addToIndividualMedicationAllocatedAmount(individualId:number, medicationId:string, newAllocatedAmount:number) {
+export default function completeSupervisoryMedicationReview({
+    individualId, medicationId, newPharmacy, newAllocatedAmount, staffObjectId
+
+}:{individualId:number, medicationId:string, newPharmacy:string, newAllocatedAmount:number, staffObjectId?:string}) {
     return new Promise<IIndividualDocument|null>((resolve, reject)=> {
         getIndividualByIndividualId(individualId)
         .then((foundIndividual)=> {
@@ -22,17 +26,33 @@ export default function addToIndividualMedicationAllocatedAmount(individualId:nu
                     reject(notFoundError)
                 }
 
-                const medicationToUpdate = foundIndividual.medications.filter(medication => medication.medicationId === foundMedication?._id.toString())[0]
+                const medicationToUpdate = foundIndividual!.medications.filter(medication => medication.medicationId === foundMedication?._id.toString())[0]
             
                 const query = { individualId, "medications.medicationId": foundMedication?._id.toString() };
 
                 const totalAllocatedAmount = medicationToUpdate.amount.allocated + newAllocatedAmount;
                 const totalCurrentAmount = medicationToUpdate.amount.current + newAllocatedAmount;
 
+                const calcCurrentMonthIndex = new Date().getUTCMonth();
+
+                // get the month of the last completed review
+                const lastReviewMonthDateIndex = medicationToUpdate.supervisoryReviews[medicationToUpdate.supervisoryReviews?.length-1]?.monthIndex;
+
+                const review = { 
+                    _id: new Types.ObjectId(),
+                    monthIndex: lastReviewMonthDateIndex ? lastReviewMonthDateIndex + 1 :calcCurrentMonthIndex,
+                    signedBy: staffObjectId,
+                    dateReviewed: Date.now,
+                }
+
                 const updateObj = { 
                     $set: {
+                        "medications.$.pharmacy": newPharmacy,
                         "medications.$.amount.allocated": totalAllocatedAmount,
                         "medications.$.amount.current": totalCurrentAmount
+                    },
+                    $push: {
+                        "medications.$.supervisoryReviews": review,
                     }
                 }
 

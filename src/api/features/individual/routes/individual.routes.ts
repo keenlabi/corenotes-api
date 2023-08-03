@@ -11,18 +11,28 @@ import fetchIndividualServices from "../controllers/fetchIndividualServices";
 import assignIndividualServices from "../controllers/assignIndividualServices";
 import postMedicationToIndividual from "@individual/controllers/medications/postMedicationToIndividual";
 import getIndividualMedications from "@individual/controllers/medications/getIndividualMedications";
-import patchIndividualMedicationAllocatedAmount from "@individual/controllers/medications/patchIndividualMedicationAmount";
+import addGoalTrackingService from "@individual/controllers/services/addGoalTrakingService";
+import fetchIndividualGoalsTrackingServices from "@individual/controllers/services/fetchIndividualGoalsTrackingServices";
+import getIndividualMedicationSupervisoryReview from "@individual/controllers/medications/getIndividualMedicationSupervisoryReviews";
+import patchIndividualMedicationSupervisoryReview from "@individual/controllers/medications/patchIndividualMedicationSupervisoryReview";
+import patchDiscontinueMedication from "@individual/controllers/medications/patchDiscontinueMedication";
+import postPRNMedicationToIndividual from "@individual/controllers/medications/postPRNMedicationToIndividual";
 
 const individualRouter = Router();
 
-individualRouter.get('/:individualId/medications/:pageNumber', validateToken, getIndividualMedications)
+individualRouter.post('/:individualId/medications/prn-medication', validateToken, postPRNMedicationToIndividual)
+individualRouter.get('/:individualId/medications/:medicationId/supervisory-medication-review/:pageNumber', validateToken, getIndividualMedicationSupervisoryReview)
+individualRouter.patch('/:individualId/medications/supervisory-medication-review', validateToken, patchIndividualMedicationSupervisoryReview)
+individualRouter.patch('/:individualId/medications/toggle', validateToken, patchDiscontinueMedication)
 individualRouter.post('/:individualId/medications', validateToken, postMedicationToIndividual)
-individualRouter.patch('/:individualId/medications/pills-allocation', validateToken, patchIndividualMedicationAllocatedAmount)
+individualRouter.get('/:individualId/medications/:pageNumber', validateToken, getIndividualMedications)
 
 individualRouter.get('/assessments/:assessmentId/session', validateToken, fetchIndividualAssessmentSession)
 individualRouter.patch('/assessments/:assessmentId/session', validateToken, saveIndividualAssessmentSession)
 individualRouter.post('/assessments/:assessmentId/session', validateToken, completeIndividualAssessmentSession)
 
+individualRouter.get('/:individualId/services/goal-tracking/:pageNumber', validateToken, fetchIndividualGoalsTrackingServices)
+individualRouter.post('/:individualId/services/goal-tracking', validateToken, addGoalTrackingService)
 individualRouter.get('/:individualId/services', validateToken, fetchIndividualServices)
 individualRouter.post('/:individualId/services', validateToken, assignIndividualServices)
 
