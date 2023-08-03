@@ -19,7 +19,7 @@ export default function createMedication(req:Request, res:Response) {
 
             saveMedication(newMedData)
             .then(()=> {
-                fetchMedicationsList(1)
+                fetchMedicationsList("", 1)
                 .then((response)=> {
                     return sendSuccessResponse({
                         res,

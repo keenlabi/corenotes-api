@@ -19,7 +19,23 @@ export interface IMedicationDocument {
         allocated:number;
         administered:number;
     };
-    barCode:number;
+    barcode?:number;
     services:Array<string>;
+    createdAt?:Date;
+}
+
+export type IMedicationType = ""|"PRN"|"SCHEDULED"
+
+export interface IMedicationAdministrationHistoryDocument {
+    _id:Types.ObjectId;
+    historyId?:number;
+    individualRef:number;
+    individualMedicationRef:string;
+    medicationId:string;
+    staffRef:number;
+    title:string;
+    imageURL?:string;
+    amountAdministered:number
+    note:string;
     createdAt?:Date;
 }

@@ -11,7 +11,7 @@ medicationRouter.patch('/:medicationId/services', validateToken, medicationContr
 medicationRouter.get('/details/:medicationId', validateToken, medicationControllers.fetchMedicationDetails);
 
 medicationRouter.post('/', validateToken, medicationControllers.createMedication);
-medicationRouter.get('/:pageNumber', validateToken, medicationControllers.fetchMedications);
+medicationRouter.get('/', validateToken, medicationControllers.fetchMedications);
 
 
 

@@ -4,7 +4,11 @@ import { sendFailureResponse, sendSuccessResponse } from "@globals/server/server
 import { ServerError } from "@globals/server/Error";
 
 export default function fetchMedications(req:Request, res:Response) {
-    fetchMedicationsList(parseInt(req.params.pageNumber))
+    
+    const medType:string = req.query.medType?.toString()! || "";
+    const pageNumber:number = parseInt(req.query.pageNumber?.toString()!);
+
+    fetchMedicationsList(medType, pageNumber)
     .then((response)=> {
         return sendSuccessResponse({
             res,

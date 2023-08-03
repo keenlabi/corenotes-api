@@ -8,7 +8,8 @@ export const medicationModel:Model<IMedicationDocument> = models.medications || 
         default:false
     },
     medicationId:{
-        type:Number
+        type:Number,
+        unique:true
     },
     name:{
         type:String,
@@ -52,9 +53,6 @@ export const medicationModel:Model<IMedicationDocument> = models.medications || 
             type:Number,
             default:0
         },
-    },
-    barCode:{
-        type:Number,
     },
     services:{
         type:Array<String>

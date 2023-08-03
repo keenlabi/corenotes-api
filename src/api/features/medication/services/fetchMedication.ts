@@ -1,8 +1,6 @@
 import { NotFoundError } from "@globals/server/Error"
 import { getMedicationByMedicationId } from "@services/db/medication.service"
-import { IServiceListItem } from "../../services/services/types";
 import { getServiceByObjectId } from "@services/db/service.service";
-import { IFetchCompartmentServiceDetails } from "../../compartment/services/fetchServicesDetails";
 import { getIndividualsByMedicationObjectId } from "@services/db/individual.service";
 
 export interface IMedicationDetails {
@@ -23,7 +21,7 @@ export interface IMedicationDetails {
         startWith:number;
         administered:number;
     };
-    barCode:number;
+    barcode:number;
     services:Array<IMedicationService>;
     createdAt:Date;
 }
@@ -58,7 +56,7 @@ export default function fetchMedication(medicationId:number) {
                         serviceId: foundService.serviceId,
                         title: foundService.title,
                         category: foundService.category,
-                        individualsCount: foundIndividuals.length
+                        individualsCount: foundIndividuals.length,
                     })
                 }
             }
@@ -81,7 +79,7 @@ export default function fetchMedication(medicationId:number) {
                     startWith: foundMedication?.amount.allocated!,
                     administered: foundMedication?.amount.administered!
                 },
-                barCode: foundMedication?.barCode!,
+                barcode: foundMedication?.barcode!,
                 services: mappedServices,
                 createdAt: foundMedication?.createdAt!
             })

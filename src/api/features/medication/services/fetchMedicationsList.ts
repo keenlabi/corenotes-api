@@ -1,5 +1,5 @@
 import { medicationModel } from "../model/medication.model";
-import { IMedicationDocument } from "../model/types";
+import { IMedicationDocument, IMedicationType } from "../model/types";
 
 export interface IFetchMedicationsList {
     currentPage:number;
@@ -18,13 +18,16 @@ export interface IMedication {
     barCode:number;
 }
 
-export default function fetchMedicationsList(pageNumber:number) {
+export default function fetchMedicationsList(medType:IMedicationType|string, pageNumber:number) {
     return new Promise<IFetchMedicationsList>((resolve, reject)=> {
         const   queryPageNumber = pageNumber - 1 ?? 0,
         resultsPerPage = 10, 
         pageOffset = resultsPerPage * queryPageNumber;
 
-        medicationModel.find()
+        let query:any = { };
+        if(medType) query['medType'] = medType
+
+        medicationModel.find(query)
         .skip(pageOffset)
         .limit(resultsPerPage)
         .sort({ createdAt: -1 })
@@ -41,7 +44,7 @@ export default function fetchMedicationsList(pageNumber:number) {
                     medType: medication.medType,
                     category: medication.category,
                     currentAmount: medication.amount.current,
-                    barCode:medication.barCode 
+                    barCode: medication.barcode!
                 })
             }
 
