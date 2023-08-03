@@ -9,6 +9,7 @@ interface IAssessmentsResponse {
 
 export interface IMappedAssessment {
     id:string;
+    assessmentId:number;
     title:string;
     category:string;
     questionsCount:number;

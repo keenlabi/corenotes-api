@@ -1,11 +1,5 @@
 import { Request, Response } from "express"
-import fetchAssessmentCategoryDetails from "./utils/fetchAssessmentCategoryDetails";
-import fetchAssessmentQuestionCategoryDetails from "./utils/fetchAssessmentQuestionCategoryDetails";
-import { Types } from "mongoose";
-import userModel from "@user/models/user.model";
-import { IUserDocument } from "@user/models/types";
 import { sendFailureResponse, sendSuccessResponse } from "@globals/server/serverResponse";
-import { IAssessmentDocument } from "@assessment/model/assessment.model.ts/types";
 import fetchAllAssessments from "@assessment/services/fetchAllAssessments";
 
 export default function fetchAssessments(req:Request, res:Response) {
