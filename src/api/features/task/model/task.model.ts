@@ -17,7 +17,7 @@ export const taskModel:Model<ITaskDocument> = models.tasks || model<ITaskDocumen
         default:'TODO'
     },
     taskType:{
-        enum:['medication-administration'],
+        enum:['medication-administration', 'goal-tracking'],
         type:String
     },
     serviceId:{
@@ -27,6 +27,9 @@ export const taskModel:Model<ITaskDocument> = models.tasks || model<ITaskDocumen
         type:String,
     },
     medicationId:{
+        type:String
+    },
+    goalTrackingId:{
         type:String
     },
     schedule:{

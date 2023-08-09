@@ -215,6 +215,13 @@ const individualSchema = new Schema<IIndividualDocument>({
                 type:String
             },
         },
+        history:[{
+            _id:Types.ObjectId,
+            timeTakenInMinutes:{type:Number},
+            wasGoalMet:{type:String},
+            note:{type:String},
+            createdAt:{type:Date},
+        }],
         createdAt:{
             type:String
         },

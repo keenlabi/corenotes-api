@@ -1,8 +1,8 @@
 import { Request, Response } from "express";
-import validateAssignIndividualServiceRequest from "../services/validateAssignIndividualServiceRequest";
+import validateAssignIndividualServiceRequest from "../../services/validateAssignIndividualServiceRequest";
 import { ServerError, ValidationError } from "@globals/server/Error";
 import { sendFailureResponse, sendSuccessResponse } from "@globals/server/serverResponse";
-import addServiceToIndividual from "../services/addServiceToIndividual";
+import addServiceToIndividual from "../../services/addServiceToIndividual";
 
 export default function assignIndividualServices(req:Request, res:Response) {
     validateAssignIndividualServiceRequest({...req.body, ...req.params})

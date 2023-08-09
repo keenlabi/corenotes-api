@@ -1,10 +1,10 @@
 import deductFromIndividualMedicationAmount from "@individual/controllers/medications/deductFromIndividualMedicationAmount";
 import { Request, Response } from "express";
-import validateAdministerMedicationTaskRequest from "../services/validateAdministerMedicationTaskRequest";
+import validateAdministerMedicationTaskRequest from "../../services/validateAdministerMedicationTaskRequest";
 import { ServerError, ValidationError } from "@globals/server/Error";
 import { sendFailureResponse, sendSuccessResponse } from "@globals/server/serverResponse";
-import completeTask from "../services/completeTask";
-import fetchTaskDetails from "../services/fetchTaskDetails";
+import completeTask from "../../services/completeTask";
+import fetchTaskDetails from "../../services/fetchTaskDetails";
 
 export default function administerMedicationTask(req:Request, res:Response) {
     validateAdministerMedicationTaskRequest({ ...req.body, ...req.params})

@@ -74,7 +74,16 @@ export interface IIndividualGoaltrackingSubDocument {
         frequency:string;
         frequencyAttr:number;
     },
+    history:Array<IIndividualGoaltrackingHistorySubDocument>,
     createdAt:Date;
+}
+
+export interface IIndividualGoaltrackingHistorySubDocument {
+    _id:Types.ObjectId;
+    timeTakenInMinutes:number;
+    wasGoalMet:string;
+    note:string;
+    createdAt?:Date;
 }
 
 export interface IIndividualServicesSubDocument {
