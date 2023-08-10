@@ -4,15 +4,15 @@ import { sendFailureResponse, sendSuccessResponse } from "@globals/server/server
 import fetchTaskDetails from "../../services/fetchTaskDetails";
 import declineTask from "../../services/declineTask";
 
-export default function declineSkinIntegrityTask(req:Request, res:Response) {
+export default function declineBowelMovementTask(req:Request, res:Response) {
 
     const requestData = {
         taskId: parseInt(req.params.taskId),
     }
 
-    validateDeclineSkinIntegrityTaskRequest(requestData)
+    validateDeclineBowelMovementTaskRequest(requestData)
     .then((data)=> {
-        // create skin integrity history within individual skin integrity field
+        // create skin tntegrity history within individual skin tntegrity field
         declineTask(data.taskId)
         .then((declinedTask)=> {
             if(!declinedTask) {
@@ -22,8 +22,8 @@ export default function declineSkinIntegrityTask(req:Request, res:Response) {
 
             fetchTaskDetails(declinedTask.taskId)
             .then((foundTask)=> {
-                console.log("Skin integrity task decline successfully");
-                return sendSuccessResponse({ res, statusCode: 201, message:"Skin integrity task declined successfully", data: { task: foundTask } })  
+                console.log("Bowel movement task decline successfully");
+                return sendSuccessResponse({ res, statusCode: 201, message:"Bowel movement task declined successfully", data: { task: foundTask } })  
             })
             .catch((error)=> {
                 console.log(error);
@@ -41,12 +41,12 @@ export default function declineSkinIntegrityTask(req:Request, res:Response) {
     });
 }
 
-export interface IDeclineSkinIntegrityTaskRequest {
+export interface IDeclineBowelMovementTaskRequest {
     taskId:number
 }
 
-export function validateDeclineSkinIntegrityTaskRequest(data:IDeclineSkinIntegrityTaskRequest) {
-    return new Promise<IDeclineSkinIntegrityTaskRequest>((resolve, reject)=> {
+export function validateDeclineBowelMovementTaskRequest(data:IDeclineBowelMovementTaskRequest) {
+    return new Promise<IDeclineBowelMovementTaskRequest>((resolve, reject)=> {
         if(!Object.keys(data).length) reject({ code:401, message:"Request body cannot be empty" });
 
         if(!data.taskId) reject({ code:401, message:"Task id parameter must be provided" });

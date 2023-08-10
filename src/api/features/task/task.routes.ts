@@ -10,8 +10,13 @@ import completeGoalTrackingService from "./controllers/goal-tracking/completeGoa
 import declineGoalTrackingTask from "./controllers/goal-tracking/declineGoalTrackingTask";
 import declineSkinIntegrityTask from "./controllers/skin-integrity/declineSkinIntegrityTask";
 import completeSkinIntegrityTask from "./controllers/skin-integrity/completeSkinIntegrityTask";
+import declineBowelMovementTask from "./controllers/bowel-movement/declineBowelMovementTask";
+import completeBowelMovementTask from "./controllers/bowel-movement/completeBowelMovementTask";
 
 const taskRouter = Router();
+
+taskRouter.post('/:taskId/decline-bowel-movement', validateToken, declineBowelMovementTask)
+taskRouter.post('/:taskId/complete-bowel-movement', validateToken, completeBowelMovementTask)
 
 taskRouter.post('/:taskId/decline-skin-integrity', validateToken, declineSkinIntegrityTask)
 taskRouter.post('/:taskId/complete-skin-integrity', validateToken, completeSkinIntegrityTask)

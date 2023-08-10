@@ -61,9 +61,15 @@ export interface IIndividualDocument {
     }>,
     medications:Array<IIndividualMedication>;
     goalTracking:Array<IIndividualGoaltrackingSubDocument>;
-    skinIntegrity:{
-        history:Array<IIndividualSkinIntegrityHistorySubDocument>
-    }
+    skinIntegrity:{ history:Array<IIndividualSkinIntegrityHistorySubDocument> };
+    bowelMovement:{ history:Array<IIndividualBowelMovementHistorySubDocument> };
+}
+
+export interface IIndividualBowelMovementHistorySubDocument {
+    _id:Types.ObjectId;
+    amount:number;
+    note:string;
+    createdAt?:Date;
 }
 
 export interface IIndividualSkinIntegrityHistorySubDocument {
