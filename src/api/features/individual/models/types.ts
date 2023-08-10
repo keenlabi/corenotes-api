@@ -59,8 +59,18 @@ export interface IIndividualDocument {
         }>,
         createdAt:Date
     }>,
-    medications:Array<IIndividualMedication>,
-    goalTracking:Array<IIndividualGoaltrackingSubDocument>
+    medications:Array<IIndividualMedication>;
+    goalTracking:Array<IIndividualGoaltrackingSubDocument>;
+    skinIntegrity:{
+        history:Array<IIndividualSkinIntegrityHistorySubDocument>
+    }
+}
+
+export interface IIndividualSkinIntegrityHistorySubDocument {
+    _id:Types.ObjectId;
+    timeTakenInMinutes:number;
+    note:string;
+    createdAt?:Date;
 }
 
 export interface IIndividualGoaltrackingSubDocument {
@@ -74,7 +84,16 @@ export interface IIndividualGoaltrackingSubDocument {
         frequency:string;
         frequencyAttr:number;
     },
+    history:Array<IIndividualGoaltrackingHistorySubDocument>,
     createdAt:Date;
+}
+
+export interface IIndividualGoaltrackingHistorySubDocument {
+    _id:Types.ObjectId;
+    timeTakenInMinutes:number;
+    wasGoalMet:string;
+    note:string;
+    createdAt?:Date;
 }
 
 export interface IIndividualServicesSubDocument {

@@ -9,6 +9,8 @@ export interface ITaskDocument {
     serviceId:string;
     individualId:string;
     medicationId?:string;
+    goalTrackingId?:string;
+    skinIntegrity?:boolean;
     schedule:{
         startAt:Date;
         endAt:Date;

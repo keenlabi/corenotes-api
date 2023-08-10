@@ -1,13 +1,13 @@
 import { Request, Response } from "express";
 import { ServerError, ValidationError } from "@globals/server/Error";
 import { sendFailureResponse, sendSuccessResponse } from "@globals/server/serverResponse";
-import completeTask from "../services/completeTask";
-import fetchTaskDetails from "../services/fetchTaskDetails";
 
 import { RequestFileType } from "@globals/middlewares/uploadFile";
-import createTaskHistory from "../services/createTaskHistory";
 import { getIndividualByObjectId } from "@services/db/individual.service";
 import uploadFileToCloud from "@services/fileSystem/uploadFileToCloud";
+import completeTask from "../../services/completeTask";
+import createTaskHistory from "../../services/createTaskHistory";
+import fetchTaskDetails from "../../services/fetchTaskDetails";
 
 export interface IAdministerMedicationTaskRequest {
     taskId:number;

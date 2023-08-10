@@ -1,10 +1,10 @@
 import { Types } from "mongoose";
 import getServiceByRefName from "src/api/features/services/services/db/getServiceByRefName";
+import getServiceByServiceId from "src/api/features/services/services/db/getServiceByServiceId";
 
-export interface IIndividualMedication {
-    _id: Types.ObjectId;
-    medicationId:string;
+export interface IIMakeSkinIntegrityTaskDets {
     individualId:string;
+    skinIntegrity:boolean;
     schedule: {
         startDate: string;
         frequency: string;
@@ -13,16 +13,16 @@ export interface IIndividualMedication {
     };
 }
 
-export default function makeMedicationTask(medication:IIndividualMedication) {
+export default function makeSkinIntegrityTask(skinIntegrityDets:IIMakeSkinIntegrityTaskDets) {
     return new Promise(async (resolve, reject)=> {
         const newTaskObjectId = new Types.ObjectId();
 
-        const service = await getServiceByRefName('medication-administration');
+        const service = await getServiceByRefName("skin-integrity");
 
-        const splitDate = medication.schedule.startDate.split('-'),
-        year = parseInt(splitDate[0]), month= parseInt(splitDate[1]), date = parseInt(splitDate[2]),
+        const splitDate = skinIntegrityDets.schedule.startDate.split('-'),
+        year = parseInt(splitDate[0]), month= parseInt(splitDate[1]) - 1, date = parseInt(splitDate[2]),
 
-        splitTime = medication.schedule.time.split(':'),
+        splitTime = skinIntegrityDets.schedule.time.split(':'),
         hour = parseInt(splitTime[0]), minutes = parseInt(splitTime[1]);
 
         const startDateTimeFormat = new Date(year, month, date, hour, minutes);
@@ -33,8 +33,8 @@ export default function makeMedicationTask(medication:IIndividualMedication) {
             _id: newTaskObjectId,
             taskType: service?.title.replace(' ', '-'),
             serviceId: service?._id.toString(),
-            individualId: medication.individualId,
-            medicationId: medication.medicationId,
+            individualId: skinIntegrityDets.individualId,
+            skinIntegrity: skinIntegrityDets.skinIntegrity,
             schedule:{
                 startAt: startDateTimeFormat,
                 endAt: endDateTimeFormat,

@@ -5,6 +5,7 @@ import { getServiceByObjectId } from "@services/db/service.service";
 import { getMedicationByObjectId } from "@services/db/medication.service";
 import getPRNMedicationHistoryByIndividualMedicationRef from "@individual/services/getPRNMedicationHistoryByIndividualMedicationRef";
 import fetchIndividualMedicationPRNs, { IPRNMedication } from "@individual/services/fetchIndividualMedicationPRNs";
+import getIndividualGoalDetailsByPairObjectId from "@individual/services/getIndividualGoalDetailsByPairObjectId";
 
 interface ITaskDetails {
     id:string;
@@ -24,6 +25,11 @@ interface ITaskDetails {
         barcode:number;
         PRN?:IPRNMedication[]
     };
+    goalTracking?: {
+        id:string;
+        objective:string;
+        method:string;
+    },
     individual:{
         id:string;
         firstname:string;
@@ -93,6 +99,22 @@ export default function fetchTaskDetails(taskId:number) {
                             taskResponse.medication!.PRN = response
                         })
                     }
+                })
+            }
+
+            if(foundTask?.goalTrackingId) {
+                await getIndividualGoalDetailsByPairObjectId(individual?._id.toString() ?? "", foundTask.goalTrackingId)
+                .then(async (foundGoalTrackingMatch)=> {
+                    if(foundGoalTrackingMatch) {
+                        taskResponse.goalTracking = {
+                            id: foundGoalTrackingMatch._id.toString(),
+                            objective: foundGoalTrackingMatch.objective,
+                            method: foundGoalTrackingMatch.method
+                        }
+                    }
+                })
+                .catch((error)=> {
+                    console.log(error)
                 })
             }
 

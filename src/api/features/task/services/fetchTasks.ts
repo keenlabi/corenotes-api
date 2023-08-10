@@ -2,6 +2,7 @@ import { getServiceByObjectId } from "@services/db/service.service";
 import { taskModel } from "../model/task.model"
 import { getIndividualByObjectId } from "@services/db/individual.service";
 import { getMedicationByObjectId } from "@services/db/medication.service";
+import getIndividualGoalDetailsByPairObjectId from "@individual/services/getIndividualGoalDetailsByPairObjectId";
 
 interface ITasksListResponse {
     currentPage:number;
@@ -72,8 +73,59 @@ export default function fetchTasks(pageNumber:number) {
                         })
                     })
                 }
+
+                if(task.goalTrackingId) {
+                    await getIndividualGoalDetailsByPairObjectId(individual?._id.toString() ?? "", task.goalTrackingId)
+                    .then(async (foundGoalTrackingMatch)=> {
+                        if(foundGoalTrackingMatch) {
+                            mappedTasks.push({
+                                id: task._id.toString(),
+                                taskId: task.taskId,
+                                status: task.status,
+                                desc: foundGoalTrackingMatch?.method!,
+                                service: {
+                                    title: (await getServiceByObjectId(task.serviceId))?.title!
+                                },
+                                individual: {
+                                    firstname: individual?.firstname ?? "",
+                                    lastname: individual?.lastname ?? "",
+                                    profileImage: individual?.profileImage ?? ""
+                                },
+                                schedule: {
+                                    startAt: task.schedule.startAt,
+                                    endAt: task.schedule.endAt
+                                }
+                            })
+                        }
+                    })
+                    .catch((error)=> {
+                        console.log(error)
+                    })
+                }
+
+                if(task.skinIntegrity) {
+                    mappedTasks.push({
+                        id: task._id.toString(),
+                        taskId: task.taskId,
+                        status: task.status,
+                        desc: "",
+                        service: {
+                            title: (await getServiceByObjectId(task.serviceId))?.title!
+                        },
+                        individual: {
+                            firstname: individual?.firstname ?? "",
+                            lastname: individual?.lastname ?? "",
+                            profileImage: individual?.profileImage ?? ""
+                        },
+                        schedule: {
+                            startAt: task.schedule.startAt,
+                            endAt: task.schedule.endAt
+                        }
+                    })
+                }
             }
 
+            
 
             taskModel.count()
             .then((totalTasksCount:number)=> {
