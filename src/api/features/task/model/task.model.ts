@@ -17,7 +17,7 @@ export const taskModel:Model<ITaskDocument> = models.tasks || model<ITaskDocumen
         default:'TODO'
     },
     taskType:{
-        enum:['medication-administration', 'goal-tracking', 'skin-integrity'],
+        enum:['medication-administration', 'goal-tracking', 'skin-integrity', 'bowel-movement'],
         type:String
     },
     serviceId:{
@@ -33,6 +33,9 @@ export const taskModel:Model<ITaskDocument> = models.tasks || model<ITaskDocumen
         type:String
     },
     skinIntegrity:{
+        type:Boolean
+    },
+    bowelMovement:{
         type:Boolean
     },
     schedule:{

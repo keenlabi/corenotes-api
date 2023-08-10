@@ -111,18 +111,25 @@ const individualSchema = new Schema<IIndividualDocument>({
             default: Date.now,
         }
     }],
-    assessments:Array<{
+    assessments:[{
         _id:Types.ObjectId,
-        assessmentId:Types.ObjectId|string,
-        status:'PENDING'|'IN-PROGRESS'|'COMPLETED',
+        assessmentId:String,
+        status:{
+            type:String,
+            enum:['PENDING','IN-PROGRESS','COMPLETED'],
+            default:"PENDING"
+        },
         questions:Array<{
             _id:Types.ObjectId,
             question:string,
             answer:'YES'|'NO',
             comment:string
         }>,
-        createdAt:Date
-    }>,
+        createdAt: {
+            type:Date,
+            default:Date.now
+        }
+    }],
     medications:[{
         _id:Types.ObjectId,
         pharmacy:{
@@ -232,6 +239,15 @@ const individualSchema = new Schema<IIndividualDocument>({
             timeTakenInMinutes:{type:Number},
             note:{type:String},
             createdAt:{type:Date},
+        }]
+    },
+    bowelMovement:{
+        history:[{
+            _id:Types.ObjectId,
+            amount:{type:Number},
+            note:{type:String},
+            createdAt:{
+                type:Date},
         }]
     },
     lastSeen:{

@@ -11,6 +11,7 @@ export interface ITaskDocument {
     medicationId?:string;
     goalTrackingId?:string;
     skinIntegrity?:boolean;
+    bowelMovement?:boolean;
     schedule:{
         startAt:Date;
         endAt:Date;

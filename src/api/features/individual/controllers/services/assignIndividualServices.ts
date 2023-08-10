@@ -3,11 +3,12 @@ import validateAssignIndividualServiceRequest from "../../services/validateAssig
 import { ServerError, ValidationError } from "@globals/server/Error";
 import { sendFailureResponse, sendSuccessResponse } from "@globals/server/serverResponse";
 import addServiceToIndividual from "../../services/addServiceToIndividual";
-import getServiceByServiceId from "src/api/features/services/services/db/getServiceByServiceId";
 import { getServiceByObjectId } from "@services/db/service.service";
 import createSkinIntegrityTask from "src/api/features/task/services/skin-integrity/createSkinIntegrityTask";
 import { IIMakeSkinIntegrityTaskDets } from "src/api/features/task/services/skin-integrity/makeSkinIntegrityTask";
 import { getIndividualByIndividualId } from "@services/db/individual.service";
+import { IIMakeBowelMovementTaskDets } from "src/api/features/task/services/bowel-movement/makeBowelMovementTask";
+import createBowelMovementTask from "src/api/features/task/services/bowel-movement/createBowelMovementTask";
 
 export default function assignIndividualServices(req:Request, res:Response) {
     validateAssignIndividualServiceRequest({...req.body, ...req.params})
@@ -15,16 +16,16 @@ export default function assignIndividualServices(req:Request, res:Response) {
         addServiceToIndividual({...requestBody})
         .then(async (individualServices)=> {
 
-            const servicesToCreateTasksForOnAssign = ["skin-integrity"];
+            const servicesToCreateTasksForOnAssign = ["skin-integrity", "bowel-movement"];
 
             const service = await getServiceByObjectId(requestBody.serviceId)
             if(service) {
                 const serviceNameJoined = `${service.title.toLowerCase().split(" ").join("-")}`;
                 if(servicesToCreateTasksForOnAssign.includes(serviceNameJoined)) {
                     
-                    if(serviceNameJoined === servicesToCreateTasksForOnAssign[0]) {
-                        const individual = await getIndividualByIndividualId(parseInt(requestBody.individualId));
+                    const individual = await getIndividualByIndividualId(parseInt(requestBody.individualId));
 
+                    if(serviceNameJoined === servicesToCreateTasksForOnAssign[0]) {
                         const skinIntegrityDets:IIMakeSkinIntegrityTaskDets = {
                             individualId: individual?._id.toString()!,
                             skinIntegrity: true,
@@ -34,6 +35,26 @@ export default function assignIndividualServices(req:Request, res:Response) {
                         .then((createdTask)=> {
                             if(!createdTask) {
                                 console.log("skin integrity task was not created successfully")
+                            }
+                        })
+                        .catch((error)=> {
+                            console.log("There was an error creating a skin integrity task")
+                            console.log(error);
+                        })
+                    }
+
+                    if(serviceNameJoined === servicesToCreateTasksForOnAssign[1]) {
+
+                        const bowelMovementDets:IIMakeBowelMovementTaskDets = {
+                            individualId: individual?._id.toString()!,
+                            bowelMovement: true,
+                            schedule: requestBody.schedule
+                        }
+                        
+                        createBowelMovementTask(bowelMovementDets)
+                        .then((createdTask)=> {
+                            if(!createdTask) {
+                                console.log("Bowel movement task was not created successfully")
                             }
                         })
                         .catch((error)=> {
