@@ -1,6 +1,6 @@
 import calcAge from "@globals/helpers/calcAge";
 import { NotFoundError } from "@globals/server/Error";
-import individualModel from "@individual/models/individual.model";
+import { individualModel } from "@individual/models/individual.model";
 import { IIndividualDocument } from "@individual/models/types";
 import { getCompartmentById } from "@services/db/compartment.service";
 

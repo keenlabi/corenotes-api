@@ -1,6 +1,5 @@
 import fetchAssessmentCategoryDetails from "@assessment/controllers/utils/fetchAssessmentCategoryDetails";
-import { AssessmentModel } from "@assessment/model/assessment.model.ts";
-import { IAssessment } from "@assessment/model/assessment.model.ts/types";
+import { assessmentModel } from "@assessment/model/assessment.model.ts";
 import { sendFailureResponse, sendSuccessResponse } from "@globals/server/serverResponse";
 import { IUserDocument } from "@user/models/types";
 import userModel from "@user/models/user.model";
@@ -20,7 +19,7 @@ export default function fetchIndividualAssessmentSession(req:Request, res:Respon
 
     //     const findAssessmentDetailsQuery = { _id: selectedAssessment.assessmentId }
 
-    //     AssessmentModel.findOne(findAssessmentDetailsQuery)
+    //     assessmentModel.findOne(findAssessmentDetailsQuery)
     //     .then((foundAssessment:IAssessment)=> {
     //         const findIndividualQuery = { "assessments.assessmentId": selectedAssessment.assessmentId }
 

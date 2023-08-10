@@ -1,12 +1,12 @@
 import { AssessmentCategoryModel, AssessmentQuestionsCategoryModel } from "@assessment/model/assessment.model.ts"
-import { IAssessmentCategory, IAssessmentQuestionCategory } from "@assessment/model/assessment.model.ts/types"
+import { IAssessmentCategoryDocument, IAssessmentQuestionCategoryDocument } from "@assessment/model/assessment.model.ts/types"
 import { sendFailureResponse, sendSuccessResponse } from "@globals/server/serverResponse"
 import { Request, Response } from "express"
 
 export default function fetchAssessmentCategories(req:Request, res:Response) {
     AssessmentCategoryModel.find()
     .sort({createdAt: -1})
-    .then((foundCategories:IAssessmentCategory[])=> {
+    .then((foundCategories:IAssessmentCategoryDocument[])=> {
         const mappedFoundCategories = foundCategories.map(category => ({
             id: category._id,
             name: category.name
@@ -14,7 +14,7 @@ export default function fetchAssessmentCategories(req:Request, res:Response) {
 
         AssessmentQuestionsCategoryModel.find()
         .sort({createdAt: -1})
-        .then((foundQuestionCategories:IAssessmentQuestionCategory[])=> {
+        .then((foundQuestionCategories:IAssessmentQuestionCategoryDocument[])=> {
             const mappedFoundQuestionCategories = foundQuestionCategories.map(category => ({
                 id: category._id,
                 name: category.name
