@@ -226,6 +226,14 @@ const individualSchema = new Schema<IIndividualDocument>({
             type:String
         },
     }],
+    skinIntegrity:{
+        history:[{
+            _id:Types.ObjectId,
+            timeTakenInMinutes:{type:Number},
+            note:{type:String},
+            createdAt:{type:Date},
+        }]
+    },
     lastSeen:{
         type:Date,
         default:Date.now

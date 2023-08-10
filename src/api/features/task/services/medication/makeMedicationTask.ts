@@ -1,5 +1,5 @@
 import { Types } from "mongoose";
-import getServiceByServiceId from "src/api/features/services/services/db/getServiceByServiceId";
+import getServiceByRefName from "src/api/features/services/services/db/getServiceByRefName";
 
 export interface IIndividualMedication {
     _id: Types.ObjectId;
@@ -17,7 +17,7 @@ export default function makeMedicationTask(medication:IIndividualMedication) {
     return new Promise(async (resolve, reject)=> {
         const newTaskObjectId = new Types.ObjectId();
 
-        const service = await getServiceByServiceId(1);
+        const service = await getServiceByRefName('medication-administration');
 
         const splitDate = medication.schedule.startDate.split('-'),
         year = parseInt(splitDate[0]), month= parseInt(splitDate[1]), date = parseInt(splitDate[2]),

@@ -11,6 +11,10 @@ export = Model<IService> = models.services || model<IService>('services', new Sc
         type:String,
         unique:true
     },
+    refName:{
+        type:String,
+        unique:true
+    },
     category: {
         type:String,
         enum:['requested','provided'],

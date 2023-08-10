@@ -2,9 +2,9 @@ import { Types } from "mongoose";
 import getServiceByRefName from "src/api/features/services/services/db/getServiceByRefName";
 import getServiceByServiceId from "src/api/features/services/services/db/getServiceByServiceId";
 
-export interface IIndividualGoalTrackingDets {
+export interface IIMakeSkinIntegrityTaskDets {
     individualId:string;
-    goalTrackingId:string;
+    skinIntegrity:boolean;
     schedule: {
         startDate: string;
         frequency: string;
@@ -13,28 +13,16 @@ export interface IIndividualGoalTrackingDets {
     };
 }
 
-export interface IIndividualGoalTrakingTask {
-    _id: Types.ObjectId;
-    medicationId:string;
-    goalTrackingId:string;
-    schedule: {
-        startDate: string;
-        frequency: string;
-        frequencyAttr: number;
-        time: string;
-    };
-}
-
-export default function makeGoalTrakingTask(goalTracking:IIndividualGoalTrackingDets) {
+export default function makeSkinIntegrityTask(skinIntegrityDets:IIMakeSkinIntegrityTaskDets) {
     return new Promise(async (resolve, reject)=> {
         const newTaskObjectId = new Types.ObjectId();
 
-        const service = await getServiceByRefName("goal-tracking");
+        const service = await getServiceByRefName("skin-integrity");
 
-        const splitDate = goalTracking.schedule.startDate.split('-'),
+        const splitDate = skinIntegrityDets.schedule.startDate.split('-'),
         year = parseInt(splitDate[0]), month= parseInt(splitDate[1]) - 1, date = parseInt(splitDate[2]),
 
-        splitTime = goalTracking.schedule.time.split(':'),
+        splitTime = skinIntegrityDets.schedule.time.split(':'),
         hour = parseInt(splitTime[0]), minutes = parseInt(splitTime[1]);
 
         const startDateTimeFormat = new Date(year, month, date, hour, minutes);
@@ -45,8 +33,8 @@ export default function makeGoalTrakingTask(goalTracking:IIndividualGoalTracking
             _id: newTaskObjectId,
             taskType: service?.title.replace(' ', '-'),
             serviceId: service?._id.toString(),
-            individualId: goalTracking.individualId,
-            goalTrackingId: goalTracking.goalTrackingId,
+            individualId: skinIntegrityDets.individualId,
+            skinIntegrity: skinIntegrityDets.skinIntegrity,
             schedule:{
                 startAt: startDateTimeFormat,
                 endAt: endDateTimeFormat,
