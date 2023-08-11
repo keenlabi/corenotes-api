@@ -12,9 +12,16 @@ export interface ITaskDocument {
     goalTrackingId?:string;
     skinIntegrity?:boolean;
     bowelMovement?:boolean;
+    shiftNotes?:{
+        type:Boolean
+    },
+    bloodGlucoseCheck:{
+        type:Boolean
+    },
     schedule:{
         startAt:Date;
         endAt:Date;
     },
+    dailyLivingActivityId?:string;
     createdAt?:Date
 }

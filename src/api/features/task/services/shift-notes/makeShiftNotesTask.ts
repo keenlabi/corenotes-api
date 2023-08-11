@@ -1,10 +1,9 @@
 import { Types } from "mongoose";
 import getServiceByRefName from "src/api/features/services/services/db/getServiceByRefName";
-import getServiceByServiceId from "src/api/features/services/services/db/getServiceByServiceId";
 
-export interface IIndividualGoalTrackingDets {
+export interface IIMakeShiftNotesTaskDets {
     individualId:string;
-    goalTrackingId:string;
+    shiftNotes:boolean;
     schedule: {
         startDate: string;
         frequency: string;
@@ -13,28 +12,16 @@ export interface IIndividualGoalTrackingDets {
     };
 }
 
-export interface IIndividualGoalTrakingTask {
-    _id: Types.ObjectId;
-    medicationId:string;
-    goalTrackingId:string;
-    schedule: {
-        startDate: string;
-        frequency: string;
-        frequencyAttr: number;
-        time: string;
-    };
-}
-
-export default function makeGoalTrakingTask(goalTracking:IIndividualGoalTrackingDets) {
+export default function makeShiftNotesTask(shiftNotesDets:IIMakeShiftNotesTaskDets) {
     return new Promise(async (resolve, reject)=> {
         const newTaskObjectId = new Types.ObjectId();
 
-        const service = await getServiceByRefName("goal-tracking");
+        const service = await getServiceByRefName("shift-notes");
 
-        const splitDate = goalTracking.schedule.startDate.split('-'),
+        const splitDate = shiftNotesDets.schedule.startDate.split('-'),
         year = parseInt(splitDate[0]), month= parseInt(splitDate[1]) - 1, date = parseInt(splitDate[2]),
 
-        splitTime = goalTracking.schedule.time.split(':'),
+        splitTime = shiftNotesDets.schedule.time.split(':'),
         hour = parseInt(splitTime[0]), minutes = parseInt(splitTime[1]);
 
         const startDateTimeFormat = new Date(year, month, date, hour, minutes);
@@ -45,8 +32,8 @@ export default function makeGoalTrakingTask(goalTracking:IIndividualGoalTracking
             _id: newTaskObjectId,
             taskType: service?.title.replace(/\s/g, '-'),
             serviceId: service?._id.toString(),
-            individualId: goalTracking.individualId,
-            goalTrackingId: goalTracking.goalTrackingId,
+            individualId: shiftNotesDets.individualId,
+            shiftNotes: shiftNotesDets.shiftNotes,
             schedule:{
                 startAt: startDateTimeFormat,
                 endAt: endDateTimeFormat,

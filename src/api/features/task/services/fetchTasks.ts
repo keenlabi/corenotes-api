@@ -144,6 +144,71 @@ export default function fetchTasks(pageNumber:number) {
                         }
                     })
                 }
+
+                if(task.dailyLivingActivityId) {
+                    // find individual daily living activity by id
+                    const foundDailyLivingActivityDetails = individual?.dailyLivingActivities.filter(dailyLivingActivities => dailyLivingActivities._id.toString() === task.dailyLivingActivityId);
+                    mappedTasks.push({
+                        id: task._id.toString(),
+                        taskId: task.taskId,
+                        status: task.status,
+                        desc: foundDailyLivingActivityDetails?.length ? foundDailyLivingActivityDetails[0].title : "",
+                        service: {
+                            title: (await getServiceByObjectId(task.serviceId))?.title!
+                        },
+                        individual: {
+                            firstname: individual?.firstname ?? "",
+                            lastname: individual?.lastname ?? "",
+                            profileImage: individual?.profileImage ?? ""
+                        },
+                        schedule: {
+                            startAt: task.schedule.startAt,
+                            endAt: task.schedule.endAt
+                        }
+                    })
+                }
+
+                if(task.shiftNotes) {
+                    mappedTasks.push({
+                        id: task._id.toString(),
+                        taskId: task.taskId,
+                        status: task.status,
+                        desc: "",
+                        service: {
+                            title: (await getServiceByObjectId(task.serviceId))?.title!
+                        },
+                        individual: {
+                            firstname: individual?.firstname ?? "",
+                            lastname: individual?.lastname ?? "",
+                            profileImage: individual?.profileImage ?? ""
+                        },
+                        schedule: {
+                            startAt: task.schedule.startAt,
+                            endAt: task.schedule.endAt
+                        }
+                    })
+                }
+
+                if(task.bloodGlucoseCheck) {
+                    mappedTasks.push({
+                        id: task._id.toString(),
+                        taskId: task.taskId,
+                        status: task.status,
+                        desc: "",
+                        service: {
+                            title: (await getServiceByObjectId(task.serviceId))?.title!
+                        },
+                        individual: {
+                            firstname: individual?.firstname ?? "",
+                            lastname: individual?.lastname ?? "",
+                            profileImage: individual?.profileImage ?? ""
+                        },
+                        schedule: {
+                            startAt: task.schedule.startAt,
+                            endAt: task.schedule.endAt
+                        }
+                    })
+                }
             }
 
             
