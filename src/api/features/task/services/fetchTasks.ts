@@ -188,6 +188,27 @@ export default function fetchTasks(pageNumber:number) {
                         }
                     })
                 }
+
+                if(task.bloodGlucoseCheck) {
+                    mappedTasks.push({
+                        id: task._id.toString(),
+                        taskId: task.taskId,
+                        status: task.status,
+                        desc: "",
+                        service: {
+                            title: (await getServiceByObjectId(task.serviceId))?.title!
+                        },
+                        individual: {
+                            firstname: individual?.firstname ?? "",
+                            lastname: individual?.lastname ?? "",
+                            profileImage: individual?.profileImage ?? ""
+                        },
+                        schedule: {
+                            startAt: task.schedule.startAt,
+                            endAt: task.schedule.endAt
+                        }
+                    })
+                }
             }
 
             

@@ -67,6 +67,15 @@ export interface IIndividualDocument {
     shiftNotes:{ history:Array<IIndividualShiftNotesHistorySubDocument> }
 }
 
+export interface IIndividualBloodGlucoseCheckHistoryDocument {
+    _id:Types.ObjectId;
+    historyId?:number;
+    note:string;
+    individualId:string;
+    staffId:string;
+    createdAt?:Date;
+}
+
 export interface IIndividualShiftNotesHistorySubDocument {
     _id:Types.ObjectId;
     note:string;

@@ -11,6 +11,8 @@ import { IIMakeBowelMovementTaskDets } from "src/api/features/task/services/bowe
 import createBowelMovementTask from "src/api/features/task/services/bowel-movement/createBowelMovementTask";
 import createShiftNotesTask from "src/api/features/task/services/shift-notes/createShiftNotesTask";
 import { IIMakeShiftNotesTaskDets } from "src/api/features/task/services/shift-notes/makeShiftNotesTask";
+import { IIMakeBloodGlucoseCheckTaskDets } from "src/api/features/task/services/blood-glucose-check/makeBloodGlucoseCheckTask";
+import createBloodGlucoseCheckTask from "src/api/features/task/services/blood-glucose-check/createBloodGlucoseCheckTask";
 
 export default function assignIndividualServices(req:Request, res:Response) {
     validateAssignIndividualServiceRequest({...req.body, ...req.params})
@@ -18,16 +20,16 @@ export default function assignIndividualServices(req:Request, res:Response) {
         addServiceToIndividual({...requestBody})
         .then(async (individualServices)=> {
 
-            const servicesToCreateTasksForOnAssign = ["skin-integrity", "bowel-movement", "behavioral-management", "shift-notes"];
+            const servicesToCreateTasksForOnAssign = ["skin-integrity", "bowel-movement", "behavioral-management", "shift-notes", "blood-glucose-check"];
 
             const service = await getServiceByObjectId(requestBody.serviceId)
             if(service) {
-                const serviceNameJoined = `${service.title.toLowerCase().split(" ").join("-")}`;
-                if(servicesToCreateTasksForOnAssign.includes(serviceNameJoined)) {
+
+                if(servicesToCreateTasksForOnAssign.includes(service.refName)) {
                     
                     const individual = await getIndividualByIndividualId(parseInt(requestBody.individualId));
 
-                    if(serviceNameJoined === "skin-integrity") {
+                    if(service.refName === "skin-integrity") {
                         const skinIntegrityDets:IIMakeSkinIntegrityTaskDets = {
                             individualId: individual?._id.toString()!,
                             skinIntegrity: true,
@@ -45,7 +47,7 @@ export default function assignIndividualServices(req:Request, res:Response) {
                         })
                     }
 
-                    if(serviceNameJoined === "bowel-movement") {
+                    if(service.refName === "bowel-movement") {
 
                         const bowelMovementDets:IIMakeBowelMovementTaskDets = {
                             individualId: individual?._id.toString()!,
@@ -65,7 +67,7 @@ export default function assignIndividualServices(req:Request, res:Response) {
                         })
                     }
 
-                    if(serviceNameJoined === "shift-notes") {
+                    if(service.refName === "shift-notes") {
 
                         const shiftNotes:IIMakeShiftNotesTaskDets = {
                             individualId: individual?._id.toString()!,
@@ -76,6 +78,21 @@ export default function assignIndividualServices(req:Request, res:Response) {
                         createShiftNotesTask(shiftNotes)
                         .catch((error)=> {
                             console.log("There was an error creating a shift notes task")
+                            console.log(error);
+                        })
+                    }
+
+                    if(service.refName === "blood-glucose-check") {
+
+                        const bloodGlucoseCheck:IIMakeBloodGlucoseCheckTaskDets = {
+                            individualId: individual?._id.toString()!,
+                            bloodGlucoseCheck: true,
+                            schedule: requestBody.schedule
+                        }
+                        
+                        createBloodGlucoseCheckTask(bloodGlucoseCheck)
+                        .catch((error)=> {
+                            console.log("There was an error creating a blood glucose check task")
                             console.log(error);
                         })
                     }

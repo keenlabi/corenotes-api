@@ -16,8 +16,13 @@ import declineDailyLivingActivityTask from "./controllers/daily-living-activity/
 import completeDailyLivingActivityTask from "./controllers/daily-living-activity/completeDailyLivingActivityTask";
 import declineShiftNotesTask from "./controllers/shift-notes/declineShiftNotesTask";
 import completeShiftNotesTask from "./controllers/shift-notes/completeShiftNotesTask";
+import completeBloodGlucoseCheckTask from "./controllers/blood-glucose-check/completeBloodGlucoseCheckTask";
+import declineBloodGlucoseCheckTask from "./controllers/blood-glucose-check/declineBloodGlucoseCheckTask";
 
 const taskRouter = Router();
+
+taskRouter.post('/:taskId/decline-blood-glucose-check', validateToken, declineBloodGlucoseCheckTask)
+taskRouter.post('/:taskId/complete-blood-glucose-check', validateToken, completeBloodGlucoseCheckTask)
 
 taskRouter.post('/:taskId/decline-shift-notes', validateToken, declineShiftNotesTask)
 taskRouter.post('/:taskId/complete-shift-notes', validateToken, completeShiftNotesTask)

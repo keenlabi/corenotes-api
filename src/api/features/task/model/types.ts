@@ -15,6 +15,9 @@ export interface ITaskDocument {
     shiftNotes?:{
         type:Boolean
     },
+    bloodGlucoseCheck:{
+        type:Boolean
+    },
     schedule:{
         startAt:Date;
         endAt:Date;
