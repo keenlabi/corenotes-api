@@ -16,7 +16,7 @@ export default function assignIndividualServices(req:Request, res:Response) {
         addServiceToIndividual({...requestBody})
         .then(async (individualServices)=> {
 
-            const servicesToCreateTasksForOnAssign = ["skin-integrity", "bowel-movement"];
+            const servicesToCreateTasksForOnAssign = ["skin-integrity", "bowel-movement", "behavioral-management"];
 
             const service = await getServiceByObjectId(requestBody.serviceId)
             if(service) {

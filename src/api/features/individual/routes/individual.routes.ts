@@ -17,6 +17,8 @@ import getIndividualMedicationSupervisoryReview from "@individual/controllers/me
 import patchIndividualMedicationSupervisoryReview from "@individual/controllers/medications/patchIndividualMedicationSupervisoryReview";
 import patchDiscontinueMedication from "@individual/controllers/medications/patchDiscontinueMedication";
 import postPRNMedicationToIndividual from "@individual/controllers/medications/postPRNMedicationToIndividual";
+import addDailyLivingActivityService from "@individual/controllers/services/daily-living-activity/addDailyLivingActivityService";
+import fetchIndividualDailyLivingActivityServices from "@individual/controllers/services/daily-living-activity/fetchIndividualDailyLivingActivityServices";
 
 const individualRouter = Router();
 
@@ -31,6 +33,8 @@ individualRouter.get('/assessments/:assessmentId/session', validateToken, fetchI
 individualRouter.patch('/assessments/:assessmentId/session', validateToken, saveIndividualAssessmentSession)
 individualRouter.post('/assessments/:assessmentId/session', validateToken, completeIndividualAssessmentSession)
 
+individualRouter.get('/:individualId/services/daily-living-activity/:pageNumber', validateToken, fetchIndividualDailyLivingActivityServices)
+individualRouter.post('/:individualId/services/daily-living-activity', validateToken, addDailyLivingActivityService)
 individualRouter.get('/:individualId/services/goal-tracking/:pageNumber', validateToken, fetchIndividualGoalsTrackingServices)
 individualRouter.post('/:individualId/services/goal-tracking', validateToken, addGoalTrackingService)
 individualRouter.get('/:individualId/services', validateToken, fetchIndividualServices)

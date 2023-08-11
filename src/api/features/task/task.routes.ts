@@ -12,8 +12,13 @@ import declineSkinIntegrityTask from "./controllers/skin-integrity/declineSkinIn
 import completeSkinIntegrityTask from "./controllers/skin-integrity/completeSkinIntegrityTask";
 import declineBowelMovementTask from "./controllers/bowel-movement/declineBowelMovementTask";
 import completeBowelMovementTask from "./controllers/bowel-movement/completeBowelMovementTask";
+import declineDailyLivingActivityTask from "./controllers/daily-living-activity/declineDailyLivingActivityTask";
+import completeDailyLivingActivityTask from "./controllers/daily-living-activity/completeDailyLivingActivityTask";
 
 const taskRouter = Router();
+
+taskRouter.post('/:taskId/decline-daily-living-activity', validateToken, declineDailyLivingActivityTask)
+taskRouter.post('/:taskId/complete-daily-living-activity', validateToken, completeDailyLivingActivityTask)
 
 taskRouter.post('/:taskId/decline-bowel-movement', validateToken, declineBowelMovementTask)
 taskRouter.post('/:taskId/complete-bowel-movement', validateToken, completeBowelMovementTask)

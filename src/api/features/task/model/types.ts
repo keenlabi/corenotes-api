@@ -16,5 +16,6 @@ export interface ITaskDocument {
         startAt:Date;
         endAt:Date;
     },
+    dailyLivingActivityId:string;
     createdAt?:Date
 }

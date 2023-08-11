@@ -250,6 +250,30 @@ const individualSchema = new Schema<IIndividualDocument>({
                 type:Date},
         }]
     },
+    dailyLivingActivities:[{
+        _id:Types.ObjectId,
+        title:{type: String},
+        instructions:{type: String},
+        schedule:{
+            startDate:{type: String},
+            endDate:{type: String},
+            time:{type: String},
+            frequency:{type: String},
+            frequencyAttr:{type: Number}
+        },
+        history:[{
+            _id:Types.ObjectId,
+            note:{type: String},
+            createdAt: {
+                type:Date,
+                default:Date.now
+            },
+        }],
+        createdAt: {
+            type:Date,
+            default:Date.now
+        },
+    }],
     lastSeen:{
         type:Date,
         default:Date.now

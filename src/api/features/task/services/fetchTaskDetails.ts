@@ -39,6 +39,11 @@ interface ITaskDetails {
     schedule:{
         startAt:Date;
         endAt:Date;
+    },
+    dailyLivingActivity?:{
+        id:string;
+        title:string;
+        instructions:string;
     }
 }
 
@@ -61,16 +66,14 @@ export default function fetchTaskDetails(taskId:number) {
                 id: foundTask!._id.toString(),
                 taskId: foundTask!.taskId,
                 status: foundTask!.status,
-                service: {
-                    title: service?.title!
-                },
-                individual: {
+                service: { title: service?.title! },
+                individual:{
                     id: individual?._id.toString() ?? "",
                     firstname: individual?.firstname ?? "",
                     lastname: individual?.lastname ?? "",
                     profileImage: individual?.profileImage ?? ""
                 },
-                schedule: {
+                schedule:{
                     startAt: foundTask!.schedule.startAt,
                     endAt: foundTask!.schedule.endAt
                 }
@@ -116,6 +119,16 @@ export default function fetchTaskDetails(taskId:number) {
                 .catch((error)=> {
                     console.log(error)
                 })
+            }
+
+            if(foundTask?.dailyLivingActivityId) {
+                // find individual daily living activity by id
+                const foundDailyLivingActivityDetails = individual?.dailyLivingActivities.filter(dailyLivingActivities => dailyLivingActivities._id.toString() === foundTask.dailyLivingActivityId);
+                taskResponse.dailyLivingActivity = {
+                    id: foundDailyLivingActivityDetails![0]._id.toString(),
+                    title: foundDailyLivingActivityDetails![0].title,
+                    instructions: foundDailyLivingActivityDetails![0].instructions
+                }
             }
 
             resolve(taskResponse)
