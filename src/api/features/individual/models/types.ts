@@ -63,7 +63,15 @@ export interface IIndividualDocument {
     goalTracking:Array<IIndividualGoaltrackingSubDocument>;
     skinIntegrity:{ history:Array<IIndividualSkinIntegrityHistorySubDocument> };
     bowelMovement:{ history:Array<IIndividualBowelMovementHistorySubDocument> };
-    dailyLivingActivities:Array<IIndividualDailyLivingActivitySubDocument>
+    dailyLivingActivities:Array<IIndividualDailyLivingActivitySubDocument>;
+    shiftNotes:{ history:Array<IIndividualShiftNotesHistorySubDocument> }
+}
+
+export interface IIndividualShiftNotesHistorySubDocument {
+    _id:Types.ObjectId;
+    note:string;
+    staffId:string;
+    createdAt?:Date;
 }
 
 export interface IIndividualDailyLivingActivitySubDocument {

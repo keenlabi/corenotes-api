@@ -14,8 +14,13 @@ import declineBowelMovementTask from "./controllers/bowel-movement/declineBowelM
 import completeBowelMovementTask from "./controllers/bowel-movement/completeBowelMovementTask";
 import declineDailyLivingActivityTask from "./controllers/daily-living-activity/declineDailyLivingActivityTask";
 import completeDailyLivingActivityTask from "./controllers/daily-living-activity/completeDailyLivingActivityTask";
+import declineShiftNotesTask from "./controllers/shift-notes/declineShiftNotesTask";
+import completeShiftNotesTask from "./controllers/shift-notes/completeShiftNotesTask";
 
 const taskRouter = Router();
+
+taskRouter.post('/:taskId/decline-shift-notes', validateToken, declineShiftNotesTask)
+taskRouter.post('/:taskId/complete-shift-notes', validateToken, completeShiftNotesTask)
 
 taskRouter.post('/:taskId/decline-daily-living-activity', validateToken, declineDailyLivingActivityTask)
 taskRouter.post('/:taskId/complete-daily-living-activity', validateToken, completeDailyLivingActivityTask)

@@ -17,7 +17,7 @@ export const taskModel:Model<ITaskDocument> = models.tasks || model<ITaskDocumen
         default:'TODO'
     },
     taskType:{
-        enum:['medication-administration', 'goal-tracking', 'skin-integrity', 'bowel-movement', 'daily-living-activity'],
+        enum:['medication-administration', 'goal-tracking', 'skin-integrity', 'bowel-movement', 'daily-living-activity', 'shift-notes'],
         type:String
     },
     serviceId:{
@@ -40,6 +40,9 @@ export const taskModel:Model<ITaskDocument> = models.tasks || model<ITaskDocumen
     },
     dailyLivingActivityId:{
         type:String
+    },
+    shiftNotes:{
+        type:Boolean
     },
     schedule:{
         startAt:{

@@ -9,6 +9,8 @@ import { IIMakeSkinIntegrityTaskDets } from "src/api/features/task/services/skin
 import { getIndividualByIndividualId } from "@services/db/individual.service";
 import { IIMakeBowelMovementTaskDets } from "src/api/features/task/services/bowel-movement/makeBowelMovementTask";
 import createBowelMovementTask from "src/api/features/task/services/bowel-movement/createBowelMovementTask";
+import createShiftNotesTask from "src/api/features/task/services/shift-notes/createShiftNotesTask";
+import { IIMakeShiftNotesTaskDets } from "src/api/features/task/services/shift-notes/makeShiftNotesTask";
 
 export default function assignIndividualServices(req:Request, res:Response) {
     validateAssignIndividualServiceRequest({...req.body, ...req.params})
@@ -16,7 +18,7 @@ export default function assignIndividualServices(req:Request, res:Response) {
         addServiceToIndividual({...requestBody})
         .then(async (individualServices)=> {
 
-            const servicesToCreateTasksForOnAssign = ["skin-integrity", "bowel-movement", "behavioral-management"];
+            const servicesToCreateTasksForOnAssign = ["skin-integrity", "bowel-movement", "behavioral-management", "shift-notes"];
 
             const service = await getServiceByObjectId(requestBody.serviceId)
             if(service) {
@@ -25,7 +27,7 @@ export default function assignIndividualServices(req:Request, res:Response) {
                     
                     const individual = await getIndividualByIndividualId(parseInt(requestBody.individualId));
 
-                    if(serviceNameJoined === servicesToCreateTasksForOnAssign[0]) {
+                    if(serviceNameJoined === "skin-integrity") {
                         const skinIntegrityDets:IIMakeSkinIntegrityTaskDets = {
                             individualId: individual?._id.toString()!,
                             skinIntegrity: true,
@@ -43,7 +45,7 @@ export default function assignIndividualServices(req:Request, res:Response) {
                         })
                     }
 
-                    if(serviceNameJoined === servicesToCreateTasksForOnAssign[1]) {
+                    if(serviceNameJoined === "bowel-movement") {
 
                         const bowelMovementDets:IIMakeBowelMovementTaskDets = {
                             individualId: individual?._id.toString()!,
@@ -62,7 +64,22 @@ export default function assignIndividualServices(req:Request, res:Response) {
                             console.log(error);
                         })
                     }
-                }
+
+                    if(serviceNameJoined === "shift-notes") {
+
+                        const shiftNotes:IIMakeShiftNotesTaskDets = {
+                            individualId: individual?._id.toString()!,
+                            shiftNotes: true,
+                            schedule: requestBody.schedule
+                        }
+                        
+                        createShiftNotesTask(shiftNotes)
+                        .catch((error)=> {
+                            console.log("There was an error creating a shift notes task")
+                            console.log(error);
+                        })
+                    }
+                }   
             }
 
             return sendSuccessResponse({ 

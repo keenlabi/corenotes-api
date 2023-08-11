@@ -12,10 +12,13 @@ export interface ITaskDocument {
     goalTrackingId?:string;
     skinIntegrity?:boolean;
     bowelMovement?:boolean;
+    shiftNotes?:{
+        type:Boolean
+    },
     schedule:{
         startAt:Date;
         endAt:Date;
     },
-    dailyLivingActivityId:string;
+    dailyLivingActivityId?:string;
     createdAt?:Date
 }
