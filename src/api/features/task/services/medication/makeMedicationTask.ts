@@ -31,7 +31,7 @@ export default function makeMedicationTask(medication:IIndividualMedication) {
     
         resolve(Object.freeze({
             _id: newTaskObjectId,
-            taskType: service?.title.replace(' ', '-'),
+            taskType: service?.title.replace(/\s/g, '-'),
             serviceId: service?._id.toString(),
             individualId: medication.individualId,
             medicationId: medication.medicationId,

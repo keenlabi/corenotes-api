@@ -23,7 +23,7 @@ export default function validateCreateServiceRequest(data:ICreateServiceRequestB
         const newData = { 
             ...data, 
             title: data.title.toLowerCase(), 
-            refName: data.title.replace(' ', '-'),
+            refName: data.title.replace(/\s/g, '-'),
             category: data.category.toLowerCase() 
         }
 

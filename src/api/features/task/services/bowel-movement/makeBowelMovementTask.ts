@@ -30,7 +30,7 @@ export default function makeBowelMovementTask(bowelMovementDets:IIMakeBowelMovem
     
         resolve(Object.freeze({
             _id: newTaskObjectId,
-            taskType: service?.title.replace(' ', '-'),
+            taskType: service?.title.replace(/\s/g, '-'),
             serviceId: service?._id.toString(),
             individualId: bowelMovementDets.individualId,
             bowelMovement: bowelMovementDets.bowelMovement,

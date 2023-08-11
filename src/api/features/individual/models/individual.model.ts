@@ -229,8 +229,9 @@ const individualSchema = new Schema<IIndividualDocument>({
             note:{type:String},
             createdAt:{type:Date},
         }],
-        createdAt:{
-            type:String
+        createdAt: {
+            type:Date,
+            default:Date.now
         },
     }],
     skinIntegrity:{
@@ -238,7 +239,10 @@ const individualSchema = new Schema<IIndividualDocument>({
             _id:Types.ObjectId,
             timeTakenInMinutes:{type:Number},
             note:{type:String},
-            createdAt:{type:Date},
+            createdAt: {
+                type:Date,
+                default:Date.now
+            },
         }]
     },
     bowelMovement:{
@@ -246,8 +250,45 @@ const individualSchema = new Schema<IIndividualDocument>({
             _id:Types.ObjectId,
             amount:{type:Number},
             note:{type:String},
-            createdAt:{
-                type:Date},
+            createdAt: {
+                type:Date,
+                default:Date.now
+            },
+        }]
+    },
+    dailyLivingActivities:[{
+        _id:Types.ObjectId,
+        title:{type: String},
+        instructions:{type: String},
+        schedule:{
+            startDate:{type: String},
+            endDate:{type: String},
+            time:{type: String},
+            frequency:{type: String},
+            frequencyAttr:{type: Number}
+        },
+        history:[{
+            _id:Types.ObjectId,
+            note:{type: String},
+            createdAt: {
+                type:Date,
+                default:Date.now
+            },
+        }],
+        createdAt: {
+            type:Date,
+            default:Date.now
+        },
+    }],
+    shiftNotes:{
+        history:[{
+            _id:Types.ObjectId,
+            note:{type:String},
+            staffId:{type:String},
+            createdAt: {
+                type:Date,
+                default:Date.now
+            },
         }]
     },
     lastSeen:{

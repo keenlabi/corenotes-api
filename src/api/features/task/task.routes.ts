@@ -12,8 +12,23 @@ import declineSkinIntegrityTask from "./controllers/skin-integrity/declineSkinIn
 import completeSkinIntegrityTask from "./controllers/skin-integrity/completeSkinIntegrityTask";
 import declineBowelMovementTask from "./controllers/bowel-movement/declineBowelMovementTask";
 import completeBowelMovementTask from "./controllers/bowel-movement/completeBowelMovementTask";
+import declineDailyLivingActivityTask from "./controllers/daily-living-activity/declineDailyLivingActivityTask";
+import completeDailyLivingActivityTask from "./controllers/daily-living-activity/completeDailyLivingActivityTask";
+import declineShiftNotesTask from "./controllers/shift-notes/declineShiftNotesTask";
+import completeShiftNotesTask from "./controllers/shift-notes/completeShiftNotesTask";
+import completeBloodGlucoseCheckTask from "./controllers/blood-glucose-check/completeBloodGlucoseCheckTask";
+import declineBloodGlucoseCheckTask from "./controllers/blood-glucose-check/declineBloodGlucoseCheckTask";
 
 const taskRouter = Router();
+
+taskRouter.post('/:taskId/decline-blood-glucose-check', validateToken, declineBloodGlucoseCheckTask)
+taskRouter.post('/:taskId/complete-blood-glucose-check', validateToken, completeBloodGlucoseCheckTask)
+
+taskRouter.post('/:taskId/decline-shift-notes', validateToken, declineShiftNotesTask)
+taskRouter.post('/:taskId/complete-shift-notes', validateToken, completeShiftNotesTask)
+
+taskRouter.post('/:taskId/decline-daily-living-activity', validateToken, declineDailyLivingActivityTask)
+taskRouter.post('/:taskId/complete-daily-living-activity', validateToken, completeDailyLivingActivityTask)
 
 taskRouter.post('/:taskId/decline-bowel-movement', validateToken, declineBowelMovementTask)
 taskRouter.post('/:taskId/complete-bowel-movement', validateToken, completeBowelMovementTask)
