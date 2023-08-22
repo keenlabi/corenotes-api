@@ -9,6 +9,7 @@ export interface ITaskDocument {
     serviceId:string;
     individualId:string;
     medicationId?:string;
+    prnMedicationHistoryId?:string;
     goalTrackingId?:string;
     skinIntegrity?:boolean;
     bowelMovement?:boolean;
@@ -23,5 +24,10 @@ export interface ITaskDocument {
         endAt:Date;
     },
     dailyLivingActivityId?:string;
+    behaviorManagementId?:string;
+    seizureTracking?:boolean;
+    fireDrill?:boolean;
+    tornadoDrill?:boolean;
+    choreId?:string;
     createdAt?:Date
 }

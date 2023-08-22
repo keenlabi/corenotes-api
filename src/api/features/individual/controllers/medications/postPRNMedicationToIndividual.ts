@@ -5,6 +5,8 @@ import fetchIndividualMedicationPRNs from "@individual/services/fetchIndividualM
 import { getIndividualByObjectId } from "@services/db/individual.service";
 import { getStaffUserById } from "@services/db/staff.service";
 import { Request, Response } from "express";
+import createPRNMedReviewTask from "src/api/features/task/services/prn-medication-review/createPRNMedReviewTask";
+import { IIMakePRNMedReviewTaskDets } from "src/api/features/task/services/prn-medication-review/makePRNMedReviewTask";
 
 export default function postPRNMedicationToIndividual(req:Request, res:Response) {
     getStaffUserById(req.currentUser.staffObjectId!)
@@ -30,19 +32,37 @@ export default function postPRNMedicationToIndividual(req:Request, res:Response)
             note: req.body.note,
             staffId: foundStaff!.staffId
         })
-        .then(()=> {
-            fetchIndividualMedicationPRNs(req.body.individualMedicationId)
-            .then((response)=> {
-                return sendSuccessResponse({
-                    res, 
-                    statusCode: 201, 
-                    message:"PRN medication administered successfully",
-                    data: response
+        .then((administeredMedication)=> {
+            // create new prn-effectiveness task
+            
+            const timeInMilliseconds = new Date(new Date().getTime() + 3600000);
+
+            const newPRNMedReviewTask:IIMakePRNMedReviewTaskDets = {
+                individualId: foundIndividual._id.toString(),
+                administeredPRNId: administeredMedication.id,
+                schedule: {
+                    startDate: new Date().toISOString(),
+                    frequency: "",
+                    frequencyAttr: 0,
+                    time: `${timeInMilliseconds.getHours()}:${timeInMilliseconds.getMinutes()}`
+                }
+            }
+
+            createPRNMedReviewTask(newPRNMedReviewTask)
+            .then((createdTask)=> {
+                fetchIndividualMedicationPRNs(req.body.individualMedicationId)
+                .then((response)=> {
+                    return sendSuccessResponse({
+                        res, 
+                        statusCode: 201, 
+                        message:"PRN medication administered successfully",
+                        data: response
+                    })
                 })
-            })
-            .catch((error)=> {
-                console.log(error)
-                return sendFailureResponse({ res, ...error })
+                .catch((error)=> {
+                    console.log(error)
+                    return sendFailureResponse({ res, ...error })
+                })
             })
         })
         .catch((error)=> {

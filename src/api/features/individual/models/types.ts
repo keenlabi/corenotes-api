@@ -1,4 +1,5 @@
 import { Types } from "mongoose"
+import { IServiceScheduleSubDocument } from "src/api/shared/schema/schedule.schema";
 
 export interface IIndividualDocument {
     _id:Types.ObjectId,
@@ -47,24 +48,51 @@ export interface IIndividualDocument {
         docFileName: string,
         createdAt: Date
     }>,
-    assessments:Array<{
-        _id:Types.ObjectId,
-        assessmentId:Types.ObjectId|string,
-        status:'PENDING'|'IN-PROGRESS'|'COMPLETED',
-        questions:Array<{
-            _id:Types.ObjectId,
-            question:string,
-            answer:'YES'|'NO',
-            comment:string
-        }>,
-        createdAt:Date
-    }>,
     medications:Array<IIndividualMedication>;
     goalTracking:Array<IIndividualGoaltrackingSubDocument>;
     skinIntegrity:{ history:Array<IIndividualSkinIntegrityHistorySubDocument> };
     bowelMovement:{ history:Array<IIndividualBowelMovementHistorySubDocument> };
     dailyLivingActivities:Array<IIndividualDailyLivingActivitySubDocument>;
     shiftNotes:{ history:Array<IIndividualShiftNotesHistorySubDocument> }
+}
+
+export interface IIndividualChoreServiceDocument {
+    _id:Types.ObjectId;
+    individualChoreId:number;
+    individualId:string;
+    description:string;
+    title:string;
+    schedule:IServiceScheduleSubDocument;
+    createdAt:Date;
+}
+
+export interface IIndividualBehaviorServiceDocument {
+    _id:Types.ObjectId;
+    individualBehaviorId:number;
+    individualId:string;
+    description:string;
+    goals:Array<string>;
+    schedule:IServiceScheduleSubDocument;
+    createdAt:Date;
+}
+
+export interface IIndividualAssessmentDocument {
+    _id:Types.ObjectId;
+    sessionId?:number;
+    assessmentId:string;
+    individualId:string;
+    title:string;
+    status?:string;
+    questions:Array<IIndividualAssessmentQuestionDocument>;
+    createdAt?:Date;
+}
+
+export interface IIndividualAssessmentQuestionDocument {
+    _id:Types.ObjectId;
+    category:string;
+    question:string;
+    answer:string;
+    comment:string;
 }
 
 export interface IIndividualBloodGlucoseCheckHistoryDocument {

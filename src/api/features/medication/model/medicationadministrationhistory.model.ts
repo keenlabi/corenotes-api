@@ -8,7 +8,7 @@ export const medicationAdministrationHistoryModel:Model<IMedicationAdministratio
         type:Number,
         unique:true
     },
-    individualRef:{
+    individualRef:{ 
         type:Number
     },
     individualMedicationRef:{

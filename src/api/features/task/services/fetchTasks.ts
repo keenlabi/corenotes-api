@@ -1,8 +1,10 @@
 import { getServiceByObjectId } from "@services/db/service.service";
 import { taskModel } from "../model/task.model"
-import { getIndividualByObjectId } from "@services/db/individual.service";
+import { getIndividualBehaviorById, getIndividualByObjectId, getIndividualChoreById } from "@services/db/individual.service";
 import { getMedicationByObjectId } from "@services/db/medication.service";
 import getIndividualGoalDetailsByPairObjectId from "@individual/services/getIndividualGoalDetailsByPairObjectId";
+import getPRNMedicationHistoryByIndividualMedicationRef from "@individual/services/getPRNMedicationHistoryByIndividualMedicationRef";
+import { medicationAdministrationHistoryModel } from "../../medication/model/medicationadministrationhistory.model";
 
 interface ITasksListResponse {
     currentPage:number;
@@ -49,6 +51,38 @@ export default function fetchTasks(pageNumber:number) {
             for await ( const task of foundTasks ) {
                 
                 const individual = (await getIndividualByObjectId(task.individualId))
+
+                if(task.prnMedicationHistoryId) {
+                    await medicationAdministrationHistoryModel.findOne({ _id: task.prnMedicationHistoryId })
+                    .then((foundPRNMedicationHistory)=> {
+                        if(foundPRNMedicationHistory) {
+                            getMedicationByObjectId(foundPRNMedicationHistory.medicationId)
+                            .then((foundMedication)=> {
+                                mappedTasks.push({
+                                    id: task._id.toString(),
+                                    taskId: task.taskId,
+                                    status: task.status,
+                                    desc: `${foundMedication?.name}`,
+                                    service: {
+                                        title: "PRN medication review"
+                                    },
+                                    individual: {
+                                        firstname: individual?.firstname ?? "",
+                                        lastname: individual?.lastname ?? "",
+                                        profileImage: individual?.profileImage ?? ""
+                                    },
+                                    schedule: {
+                                        startAt: task.schedule.startAt,
+                                        endAt: task.schedule.endAt
+                                    }
+                                })
+                            })
+                            .catch((error)=> {
+
+                            })
+                        }
+                    })
+                }
 
                 if(task.medicationId) {
                     await getMedicationByObjectId(task.medicationId!)
@@ -206,6 +240,121 @@ export default function fetchTasks(pageNumber:number) {
                         schedule: {
                             startAt: task.schedule.startAt,
                             endAt: task.schedule.endAt
+                        }
+                    })
+                }
+
+                if(task.behaviorManagementId) {
+                    getIndividualBehaviorById(task.behaviorManagementId)
+                    .then(async (foundIndividualBehavior)=> {
+                        if(foundIndividualBehavior) {
+                            mappedTasks.push({
+                                id: task._id.toString(),
+                                taskId: task.taskId,
+                                status: task.status,
+                                desc: foundIndividualBehavior.description,
+                                service: {
+                                    title: (await getServiceByObjectId(task.serviceId))?.title!
+                                },
+                                individual: {
+                                    firstname: individual?.firstname ?? "",
+                                    lastname: individual?.lastname ?? "",
+                                    profileImage: individual?.profileImage ?? ""
+                                },
+                                schedule: {
+                                    startAt: task.schedule.startAt,
+                                    endAt: task.schedule.endAt
+                                }
+                            })
+                        }
+                    })
+                }
+
+                if(task.seizureTracking) {
+                    mappedTasks.push({
+                        id: task._id.toString(),
+                        taskId: task.taskId,
+                        status: task.status,
+                        desc: "",
+                        service: {
+                            title: (await getServiceByObjectId(task.serviceId))?.title!
+                        },
+                        individual: {
+                            firstname: individual?.firstname ?? "",
+                            lastname: individual?.lastname ?? "",
+                            profileImage: individual?.profileImage ?? ""
+                        },
+                        schedule: {
+                            startAt: task.schedule.startAt,
+                            endAt: task.schedule.endAt
+                        }
+                    })
+                }
+
+                if(task.fireDrill) {
+                    mappedTasks.push({
+                        id: task._id.toString(),
+                        taskId: task.taskId,
+                        status: task.status,
+                        desc: "",
+                        service: {
+                            title: (await getServiceByObjectId(task.serviceId))?.title!
+                        },
+                        individual: {
+                            firstname: individual?.firstname ?? "",
+                            lastname: individual?.lastname ?? "",
+                            profileImage: individual?.profileImage ?? ""
+                        },
+                        schedule: {
+                            startAt: task.schedule.startAt,
+                            endAt: task.schedule.endAt
+                        }
+                    })
+                }
+
+                if(task.tornadoDrill) {
+                    mappedTasks.push({
+                        id: task._id.toString(),
+                        taskId: task.taskId,
+                        status: task.status,
+                        desc: "",
+                        service: {
+                            title: (await getServiceByObjectId(task.serviceId))?.title!
+                        },
+                        individual: {
+                            firstname: individual?.firstname ?? "",
+                            lastname: individual?.lastname ?? "",
+                            profileImage: individual?.profileImage ?? ""
+                        },
+                        schedule: {
+                            startAt: task.schedule.startAt,
+                            endAt: task.schedule.endAt
+                        }
+                    })
+                }
+
+                if(task.choreId) {
+                    getIndividualChoreById(task.choreId)
+                    .then(async (foundIndividualChore)=> {
+                        if(foundIndividualChore) {
+                            mappedTasks.push({
+                                id: task._id.toString(),
+                                taskId: task.taskId,
+                                status: task.status,
+                                desc: foundIndividualChore.description,
+                                service: {
+                                    title: (await getServiceByObjectId(task.serviceId))?.title!
+                                },
+                                individual: {
+                                    firstname: individual?.firstname ?? "",
+                                    lastname: individual?.lastname ?? "",
+                                    profileImage: individual?.profileImage ?? ""
+                                },
+                                schedule: {
+                                    startAt: task.schedule.startAt,
+                                    endAt: task.schedule.endAt
+                                }
+                            })
                         }
                     })
                 }

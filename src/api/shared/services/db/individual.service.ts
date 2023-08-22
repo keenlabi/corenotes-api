@@ -1,6 +1,8 @@
 import { ConflictError, NotFoundError } from "@globals/server/Error";
+import { individualBehaviorServiceModel } from "@individual/models/individual-behavior-service.model";
+import { individualChoreServiceModel } from "@individual/models/individual-chore-service.model";
 import { individualModel } from "@individual/models/individual.model";
-import { IIndividualDocument } from "@individual/models/types";
+import { IIndividualBehaviorServiceDocument, IIndividualChoreServiceDocument, IIndividualDocument } from "@individual/models/types";
 import { Types } from "mongoose";
 
 export function getIndividualByObjectId(individualObjectId:string) {
@@ -146,6 +148,26 @@ export function getIndividualByMedicationBarcode(barcode:string) {
 
         individualModel.findOne(query)
         .then((foundIndividual)=> resolve(foundIndividual))
+        .catch((error)=> reject(error))
+    })
+}
+
+export function getIndividualBehaviorById(individualBehaviorObjectId:string) {
+    return new Promise<IIndividualBehaviorServiceDocument|null>((resolve, reject)=> {
+        const query = { _id: individualBehaviorObjectId };
+
+        individualBehaviorServiceModel.findOne(query)
+        .then((foundIndividualBehavior)=> resolve(foundIndividualBehavior))
+        .catch((error)=> reject(error))
+    })
+}
+
+export function getIndividualChoreById(individualChoreObjectId:string) {
+    return new Promise<IIndividualChoreServiceDocument|null>((resolve, reject)=> {
+        const query = { _id: individualChoreObjectId };
+
+        individualChoreServiceModel.findOne(query)
+        .then((foundIndividualChore)=> resolve(foundIndividualChore))
         .catch((error)=> reject(error))
     })
 }

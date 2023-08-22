@@ -1,5 +1,5 @@
 import { NotFoundError, ServerError } from "@globals/server/Error";
-import { getAssessmentById } from "@services/db/assessment.service";
+import { getAssessmentByAssessmentId } from "@services/db/assessment.service";
 import fetchAssessmentCategoryDetails from "@assessment/controllers/utils/fetchAssessmentCategoryDetails";
 import fetchAssessmentQuestionCategoryDetails from "@assessment/controllers/utils/fetchAssessmentQuestionCategoryDetails";
 
@@ -22,7 +22,7 @@ interface IAssessmentDetails {
 
 export default function fetchAssessmentDetails(assessmentId:number) {
     return new Promise((resolve, reject)=> {
-        getAssessmentById(assessmentId)
+        getAssessmentByAssessmentId(assessmentId)
         .then(async (foundAssessment)=> {
 
             if(!foundAssessment) {
