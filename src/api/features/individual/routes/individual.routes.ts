@@ -19,6 +19,11 @@ import patchDiscontinueMedication from "@individual/controllers/medications/patc
 import postPRNMedicationToIndividual from "@individual/controllers/medications/postPRNMedicationToIndividual";
 import addDailyLivingActivityService from "@individual/controllers/services/daily-living-activity/addDailyLivingActivityService";
 import fetchIndividualDailyLivingActivityServices from "@individual/controllers/services/daily-living-activity/fetchIndividualDailyLivingActivityServices";
+import fetchIndividualAssessments from "@individual/controllers/assessments/fetchIndividualAssessments";
+import addBehaviorService from "@individual/controllers/services/behavior-management/addBehaviorService";
+import fetchIndividualBehaviorManagementServices from "@individual/controllers/services/behavior-management/fetchIndividualBehaviorManagementServices";
+import addChoreService from "@individual/controllers/services/chores/addChoreService";
+import fetchIndividualChoreServices from "@individual/controllers/services/chores/fetchIndividualChoreServices";
 
 const individualRouter = Router();
 
@@ -29,10 +34,15 @@ individualRouter.patch('/:individualId/medications/toggle', validateToken, patch
 individualRouter.post('/:individualId/medications', validateToken, postMedicationToIndividual)
 individualRouter.get('/:individualId/medications/:pageNumber', validateToken, getIndividualMedications)
 
-individualRouter.get('/assessments/:assessmentId/session', validateToken, fetchIndividualAssessmentSession)
+individualRouter.get('/:individualId/assessments/:pageNumber', validateToken, fetchIndividualAssessments)
+individualRouter.get('/:individualId/assessments/:assessmentId/session', validateToken, fetchIndividualAssessmentSession)
+individualRouter.post('/:individualId/assessments/:assessmentId/session', validateToken, completeIndividualAssessmentSession)
 individualRouter.patch('/assessments/:assessmentId/session', validateToken, saveIndividualAssessmentSession)
-individualRouter.post('/assessments/:assessmentId/session', validateToken, completeIndividualAssessmentSession)
 
+individualRouter.get('/:individualId/services/chore/:pageNumber', validateToken, fetchIndividualChoreServices)
+individualRouter.post('/:individualId/services/chore', validateToken, addChoreService)
+individualRouter.get('/:individualId/services/behavior-management/:pageNumber', validateToken, fetchIndividualBehaviorManagementServices)
+individualRouter.post('/:individualId/services/behavior-management', validateToken, addBehaviorService)
 individualRouter.get('/:individualId/services/daily-living-activity/:pageNumber', validateToken, fetchIndividualDailyLivingActivityServices)
 individualRouter.post('/:individualId/services/daily-living-activity', validateToken, addDailyLivingActivityService)
 individualRouter.get('/:individualId/services/goal-tracking/:pageNumber', validateToken, fetchIndividualGoalsTrackingServices)

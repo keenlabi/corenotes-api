@@ -20,7 +20,7 @@ export interface IAssessmentDocument {
 
 export interface IAssessmentCategoryDocument {
     _id:Types.ObjectId,
-    name:String,
+    name:string,
     createdAt:Date
 }
 

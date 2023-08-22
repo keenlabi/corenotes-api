@@ -17,7 +17,7 @@ export const taskModel:Model<ITaskDocument> = models.tasks || model<ITaskDocumen
         default:'TODO'
     },
     taskType:{
-        enum:['medication-administration', 'goal-tracking', 'skin-integrity', 'bowel-movement', 'daily-living-activity', 'shift-notes', 'blood-glucose-check'],
+        enum:['medication-administration', 'goal-tracking', 'skin-integrity', 'bowel-movement', 'daily-living-activity', 'shift-notes', 'blood-glucose-check', 'behavior-management', 'seizure-tracking', 'fire-drill', 'tornado-drill', 'chore'],
         type:String
     },
     serviceId:{
@@ -27,6 +27,9 @@ export const taskModel:Model<ITaskDocument> = models.tasks || model<ITaskDocumen
         type:String,
     },
     medicationId:{
+        type:String
+    },
+    prnMedicationHistoryId:{
         type:String
     },
     goalTrackingId:{
@@ -47,6 +50,21 @@ export const taskModel:Model<ITaskDocument> = models.tasks || model<ITaskDocumen
     bloodGlucoseCheck:{
         type:Boolean
     },
+    behaviorManagementId:{
+        type:String
+    },
+    seizureTracking:{
+        type:Boolean,
+    },
+    fireDrill:{
+        type:Boolean
+    },
+    tornadoDrill:{
+        type:Boolean
+    },
+    choreId:{
+        type:String
+    },
     schedule:{
         startAt:{
             type:Date,
@@ -59,6 +77,7 @@ export const taskModel:Model<ITaskDocument> = models.tasks || model<ITaskDocumen
         type: Date,
         default: Date.now
     }
+    
 }).plugin(autoIncrementPlugin, {
     model: 'tasks',
     field: 'taskId',

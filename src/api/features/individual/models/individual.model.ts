@@ -111,25 +111,6 @@ const individualSchema = new Schema<IIndividualDocument>({
             default: Date.now,
         }
     }],
-    assessments:[{
-        _id:Types.ObjectId,
-        assessmentId:String,
-        status:{
-            type:String,
-            enum:['PENDING','IN-PROGRESS','COMPLETED'],
-            default:"PENDING"
-        },
-        questions:Array<{
-            _id:Types.ObjectId,
-            question:string,
-            answer:'YES'|'NO',
-            comment:string
-        }>,
-        createdAt: {
-            type:Date,
-            default:Date.now
-        }
-    }],
     medications:[{
         _id:Types.ObjectId,
         pharmacy:{
