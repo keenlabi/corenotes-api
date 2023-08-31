@@ -25,6 +25,7 @@ staffRouter.get('/roles/:pageNumber', validateToken, fetchStaffRoles)
 
 staffRouter.post('/register', uploadFile('single', 'profileImage'), register)
 staffRouter.get('/profile/:staffId', validateToken, fetchStaffProfile)
+
 staffRouter.get('/:staffId/documents/:pageNumber', validateToken, fetchStaffDocuments)
 staffRouter.post('/:staffId/documents', validateToken, uploadFile('single', 'staffDocFile'), uploadStaffDocument)
 

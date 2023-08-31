@@ -52,7 +52,7 @@ export default function completeBowelMovementTask(req:Request, res:Response) {
     })
     .catch((error)=> {
         console.log(error);
-        return sendFailureResponse({ res, statusCode: error.statusCode, message: error.message });
+        return sendFailureResponse({ res, statusCode: error.code, message: error.message });
     });
 }
 
@@ -66,9 +66,9 @@ export function validateBowelMovementTaskRequest(data:ICompleteGoalTrackingTaskR
     return new Promise<ICompleteGoalTrackingTaskRequest>((resolve, reject)=> {
         if(!Object.keys(data).length) reject({ code:401, message:"Request body cannot be empty" });
 
-        if(!data.taskId) reject({ code:401, message:"Task id parameter must be provided" });
-        if(!data.amount) reject({ code:401, message:"Time taken field must be provided" });
-        if(!data.note) reject({ code:401, message:"Note field must be provided" });
+        if(!data.taskId) reject({ code:422, message:"Task id parameter must be provided" });
+        if(!data.amount.toString()) reject({ code:422, message:"Amount field must be provided" });
+        if(!data.note) reject({ code:422, message:"Note field must be provided" });
 
         resolve(data)
     })

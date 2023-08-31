@@ -6,7 +6,7 @@ import getIndividualGoalDetailsByPairObjectId from "@individual/services/getIndi
 import getPRNMedicationHistoryByIndividualMedicationRef from "@individual/services/getPRNMedicationHistoryByIndividualMedicationRef";
 import { medicationAdministrationHistoryModel } from "../../medication/model/medicationadministrationhistory.model";
 
-interface ITasksListResponse {
+export interface ITasksListResponse {
     currentPage:number;
     totalPages:number;
     tasks:Array<ITask>

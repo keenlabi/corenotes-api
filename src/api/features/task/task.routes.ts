@@ -30,6 +30,7 @@ import declineTornadoDrillTask from "./controllers/tornado-drill/declineTornadoD
 import completeTornadoDrillTask from "./controllers/tornado-drill/completeTornadoDrillTask";
 import completePRNMedReviewTask from "./controllers/prn-medication-review/completePRNMedReviewTask";
 import declinePRNMedReviewTask from "./controllers/prn-medication-review/declinePRNMedReviewTask";
+import postPRNTask from "./controllers/postPRNTask";
 
 const taskRouter = Router();
 
@@ -74,8 +75,10 @@ taskRouter.get('/medications/search-by-barcode/:barcode', validateToken, findMed
 taskRouter.patch('/:taskId/administer', validateToken, administerMedicationTask);
 taskRouter.patch('/:taskId/administer-uncontrolled', uploadFile('single', 'topicalPhoto'), validateToken, administerUncontrolledMedicationTask);
 
+
 taskRouter.get('/:taskId/details', validateToken, getTask);
 taskRouter.get('/:pageNumber', validateToken, getTasks);
 
+taskRouter.post('/', validateToken, postPRNTask);
 
 export default taskRouter;
