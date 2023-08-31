@@ -8,6 +8,7 @@ import getIndividualGoalDetailsByPairObjectId from "@individual/services/getIndi
 import { individualBehaviorServiceModel } from "@individual/models/individual-behavior-service.model";
 import { individualChoreServiceModel } from "@individual/models/individual-chore-service.model";
 import { medicationAdministrationHistoryModel } from "../../medication/model/medicationadministrationhistory.model";
+import checkIndividualBowelIssues from "@individual/services/bowelMovementHistory/checkIndividualBowelIssues";
 
 interface ITaskDetails {
     id:string;
@@ -57,7 +58,10 @@ interface ITaskDetails {
         id:string;
         title:string;
         description:string;
-    }
+    },
+    bowelMovement?:{
+        hasNotMovedIn2Days:boolean;
+    };
 }
 
 export default function fetchTaskDetails(taskId:number) {
@@ -209,6 +213,17 @@ export default function fetchTaskDetails(taskId:number) {
                 .catch((error)=> {
                     console.log("There was an error fetching behavior management details in fetch tasks", error)
                 });
+            }
+
+            if(foundTask?.bowelMovement) {
+                // TODO: fetch all users
+                await checkIndividualBowelIssues(individual!._id.toString())
+                .then((issuesResult)=> {
+                    taskResponse.bowelMovement = {
+                        hasNotMovedIn2Days: issuesResult
+                    }
+                })
+                .catch((error)=> reject(error))
             }
 
             resolve(taskResponse)

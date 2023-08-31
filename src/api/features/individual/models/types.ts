@@ -41,6 +41,7 @@ export interface IIndividualDocument {
     },
 
     documents:Array<{
+        _id:Types.ObjectId;
         docTitle: string,
         docType: string,
         docDate: string,
@@ -54,6 +55,16 @@ export interface IIndividualDocument {
     bowelMovement:{ history:Array<IIndividualBowelMovementHistorySubDocument> };
     dailyLivingActivities:Array<IIndividualDailyLivingActivitySubDocument>;
     shiftNotes:{ history:Array<IIndividualShiftNotesHistorySubDocument> }
+}
+
+export interface IIndividualBowelMovementHistoryDocument {
+    _id:Types.ObjectId;
+    historyId?:number;
+    amount:number;
+    note:string;
+    individualId:string;
+    staffId:string;
+    createdAt?:Date;
 }
 
 export interface IIndividualChoreServiceDocument {

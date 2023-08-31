@@ -1,5 +1,5 @@
 import { Request, Response } from "express"
-import validateUploadStaffRequestBody, { INewDocument } from "./validateUploadStaffDocument"
+import validateUploadStaffRequestBody, { INewDocument } from "./validateUploadIndividualDocument"
 import uploadFileToCloud from "@services/fileSystem/uploadFileToCloud"
 import { sendFailureResponse, sendSuccessResponse } from "@globals/server/serverResponse"
 import { ServerError } from "@globals/server/Error"
@@ -9,7 +9,7 @@ import fetchAllStaffDocuments from "@staff/services/fetchAllStaffDocuments"
 export default function uploadStaffDocument(req:Request, res:Response) {
     validateUploadStaffRequestBody({ staffId: req.params.staffId, ...req.body, staffDocFile: req.file})
     .then(({ requestBody })=> {
-        uploadFileToCloud(requestBody.staffDocFile, 'individual-documents')
+        uploadFileToCloud(requestBody.staffDocFile, 'staff-documents')
         .then((fileLink:string)=> {
 
             const newDocument:INewDocument = {

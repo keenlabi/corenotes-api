@@ -24,8 +24,13 @@ import addBehaviorService from "@individual/controllers/services/behavior-manage
 import fetchIndividualBehaviorManagementServices from "@individual/controllers/services/behavior-management/fetchIndividualBehaviorManagementServices";
 import addChoreService from "@individual/controllers/services/chores/addChoreService";
 import fetchIndividualChoreServices from "@individual/controllers/services/chores/fetchIndividualChoreServices";
+import fetchIndividualDocuments from "@individual/controllers/documents/fetchIndividualDocuments";
+import uploadIndividualDocument from "@individual/controllers/documents/uploadStaffDocument/uploadIndividualDocument";
 
 const individualRouter = Router();
+
+individualRouter.get('/:individualId/documents/:pageNumber', validateToken, fetchIndividualDocuments)
+individualRouter.post('/:individualId/documents', validateToken, uploadFile('single', 'individualDocFile'), uploadIndividualDocument)
 
 individualRouter.post('/:individualId/medications/prn-medication', validateToken, postPRNMedicationToIndividual)
 individualRouter.get('/:individualId/medications/:medicationId/supervisory-medication-review/:pageNumber', validateToken, getIndividualMedicationSupervisoryReview)
