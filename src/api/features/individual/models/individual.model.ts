@@ -1,8 +1,11 @@
-import { model, Schema, models, Types } from "mongoose"
+import { model, Schema, models, Types, Model } from "mongoose"
 import { IIndividualDocument } from "./types"
 import autoIncrementPlugin from "src/config/database/autoIncrementInit";
 
 const individualSchema = new Schema<IIndividualDocument>({
+    individualId: {
+        type:Number
+    },
     active:{
         type:Boolean,
         default:true,
@@ -61,10 +64,30 @@ const individualSchema = new Schema<IIndividualDocument>({
     compartment:{
         type:String
     },
-    services:Array<{
-        serviceId:String,
-        startDate:String
-    }>,
+    services:[{
+        _id:Types.ObjectId,
+        serviceId:{
+            type:String
+        },
+        schedule:{
+            startDate:{
+                type:String
+            },
+            time:{
+                type:String
+            },
+            frequency:{
+                type:String
+            },
+            frequencyAttr:{
+                type:String
+            }
+        },
+        createdAt:{
+            type:Date,
+            default: Date.now
+        }
+    }],
     diet:Array<String>,
     allergies:{
         food: Array<String>,
@@ -88,18 +111,167 @@ const individualSchema = new Schema<IIndividualDocument>({
             default: Date.now,
         }
     }],
-    assessments:Array<{
+    medications:[{
         _id:Types.ObjectId,
-        assessmentId:Types.ObjectId|string,
-        status:'PENDING'|'IN-PROGRESS'|'COMPLETED',
-        questions:Array<{
+        pharmacy:{
+            type:String
+        },
+        barcode:{
+            type:String,
+            unique:true,
+            uppercase:true
+        },
+        active:{
+            type:Boolean,
+            default:true
+        },
+        medicationId:{
+            type:String
+        },
+        schedule:{
+            startDate:{
+                type:String
+            },
+            frequency:{
+                type:String
+            },
+            frequencyAttr:{
+                type:Number
+            },
+            time:{
+                type:String
+            },
+        },
+        amount:{
+            allocated:{ 
+                type:Number 
+            },
+            current:{ 
+                type:Number,
+                default:0
+            },
+            administered:{ 
+                type:Number,
+                default:0
+            }
+        },
+        supervisoryReviews:[{
             _id:Types.ObjectId,
-            question:string,
-            answer:'YES'|'NO',
-            comment:string
-        }>,
-        createdAt:Date
-    }>,
+            monthIndex: { 
+                type: Number 
+            },
+            signedBy:{ 
+                type:String
+            },
+            reviewedAt: {
+                type:Date,
+                default:Date.now
+            }
+        }],
+        prn:{
+            type:Array<String>
+        },
+        createdAt: {
+            type:Date,
+            default:Date.now
+        }
+    }],
+    goalTracking:[{
+        _id:{
+            type: Types.ObjectId
+        },
+        objective:{
+            type:String
+        },
+        method:{
+            type:String
+        },
+        schedule:{
+            startDate:{
+                type:String
+            },
+            endDate:{
+                type:String
+            },
+            time:{
+                type:String
+            },
+            frequency:{
+                type:String
+            },
+            frequencyAttr:{
+                type:String
+            },
+        },
+        history:[{
+            _id:Types.ObjectId,
+            timeTakenInMinutes:{type:Number},
+            wasGoalMet:{type:String},
+            note:{type:String},
+            createdAt:{type:Date},
+        }],
+        createdAt: {
+            type:Date,
+            default:Date.now
+        },
+    }],
+    skinIntegrity:{
+        history:[{
+            _id:Types.ObjectId,
+            timeTakenInMinutes:{type:Number},
+            note:{type:String},
+            createdAt: {
+                type:Date,
+                default:Date.now
+            },
+        }]
+    },
+    bowelMovement:{
+        history:[{
+            _id:Types.ObjectId,
+            amount:{type:Number},
+            note:{type:String},
+            createdAt: {
+                type:Date,
+                default:Date.now
+            },
+        }]
+    },
+    dailyLivingActivities:[{
+        _id:Types.ObjectId,
+        title:{type: String},
+        instructions:{type: String},
+        schedule:{
+            startDate:{type: String},
+            endDate:{type: String},
+            time:{type: String},
+            frequency:{type: String},
+            frequencyAttr:{type: Number}
+        },
+        history:[{
+            _id:Types.ObjectId,
+            note:{type: String},
+            createdAt: {
+                type:Date,
+                default:Date.now
+            },
+        }],
+        createdAt: {
+            type:Date,
+            default:Date.now
+        },
+    }],
+    shiftNotes:{
+        history:[{
+            _id:Types.ObjectId,
+            note:{type:String},
+            staffId:{type:String},
+            createdAt: {
+                type:Date,
+                default:Date.now
+            },
+        }]
+    },
     lastSeen:{
         type:Date,
         default:Date.now
@@ -115,5 +287,5 @@ const individualSchema = new Schema<IIndividualDocument>({
     startAt: 1,
 });
 
-export default models.individuals || model<IIndividualDocument>('individuals', individualSchema);
+export const individualModel:Model<IIndividualDocument> =  models.individuals || model<IIndividualDocument>('individuals', individualSchema);
 

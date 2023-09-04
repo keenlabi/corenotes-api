@@ -1,100 +1,125 @@
-import fetchAssessmentCategoryDetails from "@assessment/controllers/utils/fetchAssessmentCategoryDetails";
-import { AssessmentModel } from "@assessment/model/assessment.model.ts";
-import { IAssessment } from "@assessment/model/assessment.model.ts/types";
+import { NotFoundError, ServerError } from "@globals/server/Error";
 import { sendFailureResponse, sendSuccessResponse } from "@globals/server/serverResponse";
-import { IUserDocument } from "@user/models/types";
-import userModel from "@user/models/user.model";
+import createIndividualAssessmentSession from "@individual/services/individualAssesments/createIndividualAssessmentSession";
+import createAssessmentSession from "@individual/services/individualAssesments/createIndividualAssessmentSession";
+import getIndividualAssessmentSession from "@individual/services/individualAssesments/getIndividualAssessmentSession";
+import { getAssessmentByAssessmentId, getAssessmentByObjId } from "@services/db/assessment.service";
+import { getIndividualByIndividualId } from "@services/db/individual.service";
 import { Request, Response } from "express";
 
+export interface IAssessmentSessionResponse {
+    id:string;
+    title:string;
+    status:string;
+    questions:Array<{
+        id:string;
+        question:string;
+        answer:string;
+        comment:string;
+    }>;
+}
+
 export default function fetchIndividualAssessmentSession(req:Request, res:Response) {
-    const checkIfAssessmentIsAssignedToIndividual = { 'assessments.assessmentId': req.params.assessmentId }
 
-    // userModel.findOne(checkIfAssessmentIsAssignedToIndividual)
-    // .then((foundUser:IUserDocument)=> {
-    //     if(!foundUser) return sendFailureResponse({res, statusCode:404, message:"Assessment hasn't been assigned to this individual"});
+    const requestBody = {
+        individualId: parseInt(req.params.individualId),
+        assessmentId: req.params.assessmentId
+    }
 
-        
-    //     const selectedAssessment = foundUser.assessments.filter(assessment => assessment.assessmentId === req.params.assessmentId)[0];
+    getAssessmentByObjId(requestBody.assessmentId)
+    .then((foundAssessment)=> {
+        if(!foundAssessment) {
+            const notFoundError = new NotFoundError("Assessment not found");
+            return sendFailureResponse({ res, statusCode: notFoundError.statusCode, message: notFoundError.message });
+        }
 
-    //     let action_type:string = 'retrieved';
+        getIndividualByIndividualId(requestBody.individualId)
+        .then((foundIndividual)=> {
+            if(!foundIndividual) {
+                const notFoundError = new NotFoundError("Individual not found");
+                return sendFailureResponse({ 
+                    res, 
+                    statusCode: notFoundError.statusCode, 
+                    message: notFoundError.message 
+                });
+            }
 
-    //     const findAssessmentDetailsQuery = { _id: selectedAssessment.assessmentId }
+            // check if session exist
+            getIndividualAssessmentSession(foundAssessment._id.toString(), foundIndividual._id.toString())
+            .then((foundIndividualAssessmentSession)=> {
 
-    //     AssessmentModel.findOne(findAssessmentDetailsQuery)
-    //     .then((foundAssessment:IAssessment)=> {
-    //         const findIndividualQuery = { "assessments.assessmentId": selectedAssessment.assessmentId }
+                if(!foundIndividualAssessmentSession) {
+                    if(
+                        foundAssessment.assignees.assigneesType === 'ALL' ||
+                        foundAssessment.assignees.assigneesList.includes(foundIndividual._id.toString())
+                    ) {
+                        createIndividualAssessmentSession(foundAssessment._id.toString(), foundIndividual._id.toString())
+                        .then((createdAssessmentSession)=> {
+                            const assessmentSession:IAssessmentSessionResponse = {
+                                id: createdAssessmentSession._id.toString(),
+                                title: foundAssessment.title,
+                                status: createdAssessmentSession.status!,
+                                questions: createdAssessmentSession.questions.map(question => ({
+                                    ...question,
+                                    id: question._id.toString()
+                                })),
+                            }
 
-    //         if(selectedAssessment.status === 'PENDING') {
-    //             action_type = 'created'
+                            return sendSuccessResponse({
+                                res,
+                                statusCode: 200,
+                                message: "",
+                                data: { assessmentSession: assessmentSession }
+                            })
+                        })
+                        .catch((error)=> {
+                            console.log("There was a server error", error);
+                            return sendServerFailureResponse(res);  
+                        })
+                    } else {
+                        return sendNotFoundFailureResponse(res, "Individual assessment session not found");
+                    }
 
-    //             userModel.findOneAndUpdate(
-    //                 findIndividualQuery,
-    //                 {
-    //                     $set: { 
-    //                         "assessments.$.questions": foundAssessment.questions,
-    //                         "assessments.$.status": 'IN-PROGRESS'
-    //                     }
-    //                 },
-    //                 { new: true }
+                } else {
 
-    //             )
-    //             .then(async (updatedUser:IUserDocument)=> {
+                    const assessmentSession:IAssessmentSessionResponse = {
+                        id: foundIndividualAssessmentSession._id.toString(),
+                        title: foundAssessment.title,
+                        status: foundIndividualAssessmentSession.status!,
+                        questions: foundIndividualAssessmentSession.questions.map(question => ({
+                            ...question,
+                            id: question._id.toString()
+                        })),
+                    }
 
-    //                 const updatedAssessment = updatedUser.assessments.filter(assessment => assessment.assessmentId === req.params.assessmentId)[0];
+                    return sendSuccessResponse({
+                        res, 
+                        statusCode: 200, 
+                        message: "Individual assessment session retrieved", 
+                        data: { assessmentSession: assessmentSession }
+                    })
+                }
+            });
+        })
+        .catch((error)=> {
+            console.log("There was a server error", error);
+            return sendServerFailureResponse(res);   
+        })
+    })
+    .catch((error)=> {
+        console.log("There was an error retrieving assessment")
+        console.log(error)
 
-    //                 const modifiedUpdatedAssessment = {
-    //                     id: updatedAssessment._id,
-    //                     title: foundAssessment.title,
-    //                     category: await fetchAssessmentCategoryDetails(foundAssessment.category),
-    //                     status: updatedAssessment.status,
-    //                     questions: updatedAssessment.questions.map(question => ({
-    //                         id: question._id,
-    //                         question: question.question,
-    //                         answer: question.answer,
-    //                         comment: question.comment
-    //                     }))
-    //                 }
+        return sendServerFailureResponse(res);
+    })
+}
 
-    //                 console.log(`INDIVIDUAL ASSESSMENT: Individual assessment session has been ${action_type} successfully`)
-    //                 sendSuccessResponse({res, statusCode:200, message:'Assessment session created successfully', data:{ individualAssessmentSession: modifiedUpdatedAssessment }})
+function sendNotFoundFailureResponse(res:Response, message:string) {
+    const notFoundError = new NotFoundError(message);
+    return sendFailureResponse({ res, statusCode:notFoundError.statusCode, message:notFoundError.message })
+}
 
-    //             })
-    //             .catch((error)=> {
-    //                 console.log(error)
-    //                 sendFailureResponse({res, statusCode:500, message:`There was an error ${action_type} assessment session`})
-    //             })
-
-    //         } else {
-    //             userModel.findOne(findIndividualQuery)
-    //             .then(async (updatedUser:IUserDocument)=> {
-    //                 const updatedAssessment = updatedUser.assessments.filter(assessment => assessment.assessmentId === req.params.assessmentId)[0];
-                   
-    //                 const modifiedUpdatedAssessment = {
-    //                     id: updatedAssessment._id,
-    //                     title: foundAssessment.title,
-    //                     category: await fetchAssessmentCategoryDetails(foundAssessment.category),
-    //                     status: updatedAssessment.status,
-    //                     questions: updatedAssessment.questions.map(question => ({
-    //                         id: question._id,
-    //                         question: question.question,
-    //                         answer: question.answer,
-    //                         comment: question.comment
-    //                     }))
-    //                 }
-                   
-    //                 console.log(`INDIVIDUAL ASSESSMENT: Individual assessment session has been ${action_type} successfully`)
-    //                 sendSuccessResponse({res, statusCode:200, message:`Assessment session ${action_type} successfully`, data:{ individualAssessmentSession: modifiedUpdatedAssessment }})
-    //             })
-    //             .catch((error)=> {
-    //                 console.log(error)
-    //                 sendFailureResponse({res, statusCode:500, message:'There was an error creating assessment session'})
-    //             })
-    //         }
-    //     })
-    // })
-    // .catch((error)=> {
-    //     console.log('QUERY ERROR: There was an error checking if assessment has been assigned to individual => ', error)
-    //     sendFailureResponse({res, statusCode:500, message:'There was an error finding assessment session'})
-    // })
-
+function sendServerFailureResponse(res:Response) {
+    const serverError = new ServerError();
+    return sendFailureResponse({res, statusCode: serverError.statusCode, message: serverError.message});
 }

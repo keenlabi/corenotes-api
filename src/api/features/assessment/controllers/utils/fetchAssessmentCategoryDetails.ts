@@ -1,12 +1,12 @@
 import { AssessmentCategoryModel } from "@assessment/model/assessment.model.ts";
-import { IAssessmentCategory } from "@assessment/model/assessment.model.ts/types";
+import { IAssessmentCategoryDocument } from "@assessment/model/assessment.model.ts/types";
 
 
 export default async function fetchAssessmentCategoryDetails(categoryId:String) {
     const query = { _id: categoryId }
  
     return AssessmentCategoryModel.findOne(query)
-    .then((foundCategory:IAssessmentCategory)=> {
+    .then((foundCategory:IAssessmentCategoryDocument)=> {
         if(!foundCategory) return '';
         return foundCategory.name;
     })

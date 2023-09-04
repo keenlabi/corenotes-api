@@ -8,7 +8,7 @@ export default function uploadFileToCloud (file:RequestFileType, folder?:string)
     return new Promise<string>((resolve, reject) => {
         if(['image/png', 'image/jpeg', 'image/jpg', 'image/webp', 'application/pdf', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document', 'text/csv'].includes(file.mimetype || file.type!)) {
 
-            const filePublicId = file.originalname.substring(0, file.originalname.lastIndexOf('.')).replace(' ', '_') + 
+            const filePublicId = file.originalname.substring(0, file.originalname.lastIndexOf('.')).replace(/\s/g, '_') + 
                                 file.originalname.substring(file.originalname.lastIndexOf('.'), file.originalname.length)
 
             if(file?.buffer) {

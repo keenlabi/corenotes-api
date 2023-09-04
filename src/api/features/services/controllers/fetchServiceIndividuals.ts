@@ -6,7 +6,6 @@ import { ServerError } from "@globals/server/Error";
 export default function fetchServiceIndividuals(req:Request, res:Response){
     getServiceIndividuals(parseInt(req.params.serviceId), parseInt(req.params.pageNumber))
     .then((serviceIndividualsResponse)=> {
-        console.log(serviceIndividualsResponse)
         return sendSuccessResponse({
             res,
             statusCode: 200,

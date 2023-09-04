@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import fetchAllIndividualServices from "../services/fetchAllIndividualServices";
+import fetchAllIndividualServices from "../../services/fetchAllIndividualServices";
 import { sendFailureResponse, sendSuccessResponse } from "@globals/server/serverResponse";
 import { ServerError } from "@globals/server/Error";
 

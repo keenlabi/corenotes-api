@@ -1,4 +1,5 @@
 import { Response } from "express";
+import { NotFoundError, ServerError } from "./Error";
 
 export interface IServerFailure {
   res:Response,
@@ -29,3 +30,13 @@ export function sendFailureResponse ({ res, statusCode, message }:IServerFailure
     message
   });
 };
+
+export function sendNotFoundFailureResponse(res:Response, message:string) {
+  const notFoundError = new NotFoundError(message);
+  return sendFailureResponse({ res, statusCode:notFoundError.statusCode, message:notFoundError.message })
+}
+
+export function sendServerFailureResponse(res:Response, error:Error) {
+  const serverError = new ServerError();
+  return sendFailureResponse({res, statusCode: serverError.statusCode, message: serverError.message});
+}

@@ -2,10 +2,9 @@ import { Request, Response } from "express";
 import validateRegisterIndividual from "./validateRegisterIndividual";
 import { validateRegisterIndividualRequestBodyType } from "./types";
 import fetchIndividuals from "../fetchIndividuals";
-import userModel from "@user/models/user.model";
 import { sendFailureResponse } from "@globals/server/serverResponse";
 import { updateServiceAssignedIndividualsById } from "@services/db/service.service";
-import individualModel from "@individual/models/individual.model";
+import { individualModel } from "@individual/models/individual.model";
 
 export default function registerIndividual(req: Request, res: Response) {
   validateRegisterIndividual({ ...req.body, ...req.file })

@@ -1,7 +1,7 @@
+import { NotFoundError } from "@globals/server/Error";
 import { getIndividualByIndividualId } from "@services/db/individual.service";
 import { getServiceByObjectId } from "@services/db/service.service";
-import { IUserDocument } from "@user/models/types";
-import userModel from "@user/models/user.model";
+import detMedSchedule from "./detMedSchedule";
 
 export interface IIndividualServicesList {
     id:string;
@@ -9,6 +9,8 @@ export interface IIndividualServicesList {
     title:string;
     category:string;
     startDate:string;
+    time:string;
+    frequency:string;
 }
 
 export default function fetchAllIndividualServices(individualId:number) {
@@ -16,19 +18,28 @@ export default function fetchAllIndividualServices(individualId:number) {
     
         getIndividualByIndividualId(individualId)
         .then(async (foundIndividual)=> {
+
+            if(!foundIndividual) {
+                const notFoundError = new NotFoundError('Individual not found');
+                reject(notFoundError);
+            }
             
             const servicesDetails:IIndividualServicesList[] = [];
             
-            for await ( const service of foundIndividual.services.reverse() ) {
+            for await ( const service of foundIndividual!.services.reverse() ) {
                 await getServiceByObjectId(service.serviceId)
                 .then((foundService)=> {
-                    servicesDetails.push({
-                        id: foundService._id.toString(),
-                        serviceId: foundService.serviceId,
-                        title: foundService.title,
-                        category: foundService.category,
-                        startDate: service.startDate
-                    })
+                    if(foundService) {
+                        servicesDetails.push({
+                            id: foundService._id.toString(),
+                            serviceId: foundService.serviceId,
+                            title: foundService.title,
+                            category: foundService.category,
+                            startDate: service.schedule.startDate,
+                            time: service.schedule.time,
+                            frequency: detMedSchedule(service.schedule.frequency, service.schedule.startDate, service.schedule.frequencyAttr)
+                        })
+                    }
                 })
             }
 

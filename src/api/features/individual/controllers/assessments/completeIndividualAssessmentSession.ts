@@ -1,13 +1,74 @@
-import fetchAssessmentCategoryDetails from "@assessment/controllers/utils/fetchAssessmentCategoryDetails";
-import { AssessmentModel } from "@assessment/model/assessment.model.ts";
+import { NotFoundError, ServerError } from "@globals/server/Error";
 import { sendFailureResponse, sendSuccessResponse } from "@globals/server/serverResponse";
-import { IUserDocument } from "@user/models/types";
-import userModel from "@user/models/user.model";
+import { individualAssessmentModel } from "@individual/models/individual-assessment.model";
+import getIndividualAssessmentSession from "@individual/services/individualAssesments/getIndividualAssessmentSession";
+import { getIndividualByIndividualId } from "@services/db/individual.service";
 import { Request, Response } from "express"
+import { IAssessmentSessionResponse } from "./fetchIndividualAssessmentSession";
+import { getAssessmentByObjId } from "@services/db/assessment.service";
 
 export default function completeIndividualAssessmentSession(req:Request, res:Response) {
 
-    const query = { "assessments._id": req.params.assessmentId };
+    getIndividualByIndividualId(parseInt(req.params.individualId))
+    .then((foundIndividual)=> {
+        const query = { 
+            "individualId": foundIndividual?._id.toString(), 
+            "assessmentId": req.params.assessmentId 
+        };
+
+        const updateObj = {
+            $set: {
+                status: "COMPLETED",
+                questions: req.body.questions
+            }
+        }
+
+        individualAssessmentModel.findOneAndUpdate(query, updateObj, { new: true })
+        .then((updatedIndividualAssessment)=> {
+            if(!updatedIndividualAssessment) {
+                const notFoundError = new NotFoundError("Individual assessment not found");
+                return sendFailureResponse({ res, statusCode: notFoundError.statusCode, message: notFoundError.message })
+            }
+
+            getAssessmentByObjId(query.assessmentId)
+            .then((foundAssessment)=> {
+                if(!foundAssessment) {
+                    const notFoundError = new NotFoundError("Individual assessment not found");
+                    return sendFailureResponse({ res, statusCode: notFoundError.statusCode, message: notFoundError.message })
+                }
+
+                const assessmentSession:IAssessmentSessionResponse = {
+                    id: updatedIndividualAssessment._id.toString(),
+                    title: foundAssessment.title,
+                    status: updatedIndividualAssessment.status!,
+                    questions: updatedIndividualAssessment.questions.map(question => ({
+                        ...question,
+                        id: question._id.toString()
+                    })),
+                }
+    
+                return sendSuccessResponse({
+                    res,
+                    statusCode: 200,
+                    message: "Assessment completed successfully",
+                    data: { assessmentSession: assessmentSession }
+                })
+            })
+            .catch((error)=> {
+                console.log("There was an error finding assessment", error)
+                return sendFailureResponse({
+                    res, statusCode: 500, message: "There was an error finding assessment"
+                })
+            })
+        })
+        .catch((error)=> {
+            console.log("There was an error ", error);
+
+            const serverError = new ServerError();
+            return sendFailureResponse({ res, statusCode: serverError.statusCode, message: serverError.message })   
+        })
+    })
+
 
     // userModel.findOneAndUpdate(
     //     query,
@@ -24,7 +85,7 @@ export default function completeIndividualAssessmentSession(req:Request, res:Res
     //     const assessmentSession = updatedUser.assessments.filter(assessment => assessment._id.toString() === req.params.assessmentId)[0]
 
     //     const findAssessmentQuery = { _id: assessmentSession.assessmentId }
-    //     AssessmentModel.findOne(findAssessmentQuery)
+    //     assessmentModel.findOne(findAssessmentQuery)
     //     .then(async (foundAssessment)=> {
     //         const modifiedUpdatedAssessment = {
     //             id: assessmentSession._id,
