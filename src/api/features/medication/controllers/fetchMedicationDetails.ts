@@ -15,9 +15,9 @@ export default function fetchMedicationDetails(req:Request, res:Response) {
     .catch((error)=> {
         console.log(error)
         return sendFailureResponse({
-            res,
-            statusCode: error.statusCode,
-            message: error.message
-        })
+					res,
+					statusCode: error.statusCode,
+					message: "There was an error fetching all medications",
+				});
     })
 }
