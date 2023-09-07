@@ -35,13 +35,15 @@ export default function fetchAllAssessments(pageNumber:number) {
 
             for await (const assessment of foundAssessments) {
                 mappedAssessments.push({
-                    id:assessment._id,
-                    assessmentId:assessment.assessmentId,
-                    title: assessment.title,
-                    category: await fetchAssessmentCategoryDetails(assessment.category),
-                    questionsCount: assessment.questions.length,
-                    assignedTo: `${assessment.assignees.assigneesType.toLowerCase()}  ${assessment.assignedTo.toLowerCase()}`
-                });
+									id: assessment._id,
+									assessmentId: assessment.assessmentId,
+									title: assessment.title,
+									category: await fetchAssessmentCategoryDetails(
+										assessment.category
+									),
+									questionsCount: assessment.questions.length,
+									assignedTo: `${assessment.assignees.assigneesType?.toLowerCase()}  ${assessment.assignedTo?.toLowerCase()}`,
+								});
             }
 
             assessmentModel.count(query)
