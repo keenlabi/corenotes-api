@@ -1,6 +1,8 @@
 export interface loginRequestBodyType {
     username:string,
-    password:string
+    password:string,
+    latitude:number,
+    longitude:number
 }
 
 export interface validateLoginRequestBodyType {
@@ -8,4 +10,17 @@ export interface validateLoginRequestBodyType {
     code:number, 
     message: 'SUCCESS'|string,
     requestBody: loginRequestBodyType
+}
+
+export interface logOutRequestBodyType {
+    latitude:number,
+    longitude:number
+}
+
+
+export interface validateLogOutRequestBodyType {
+    status:boolean, 
+    code:number, 
+    message: 'SUCCESS'|string,
+    requestBody: logOutRequestBodyType
 }
