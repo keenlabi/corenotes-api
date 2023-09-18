@@ -26,8 +26,11 @@ import addChoreService from "@individual/controllers/services/chores/addChoreSer
 import fetchIndividualChoreServices from "@individual/controllers/services/chores/fetchIndividualChoreServices";
 import fetchIndividualDocuments from "@individual/controllers/documents/fetchIndividualDocuments";
 import uploadIndividualDocument from "@individual/controllers/documents/uploadStaffDocument/uploadIndividualDocument";
+import addAssessmentToIndividual from "@individual/controllers/assessments/addAssessmentToIndividual";
 
 const individualRouter = Router();
+
+individualRouter.post('/:individualId/assessments', validateToken, addAssessmentToIndividual);
 
 individualRouter.get('/:individualId/documents/:pageNumber', validateToken, fetchIndividualDocuments)
 individualRouter.post('/:individualId/documents', validateToken, uploadFile('single', 'individualDocFile'), uploadIndividualDocument)

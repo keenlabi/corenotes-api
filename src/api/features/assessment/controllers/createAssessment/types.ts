@@ -12,9 +12,5 @@ export interface createAssessmentReqBodyType {
         question:string,
         category:string
     }>,
-    assignedTo:string;
-    assignees: {
-        assigneesType:'ALL'|'SPECIFIC',
-        assigneesList:Array<string>
-    },
+    assessmentType:string;
 }

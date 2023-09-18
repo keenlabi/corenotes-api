@@ -13,12 +13,12 @@ export interface IMappedAssessment {
     title:string;
     category:string;
     questionsCount:number;
-    assginedTo:string;
+    assignees:string;
+    assessmentType:string;
 }
 
 export default function fetchAllAssessments(pageNumber:number) {
     return new Promise<IAssessmentsResponse>((resolve, reject)=> {
-
         const   queryPageNumber = pageNumber - 1 ?? 0,
                 resultsPerPage = 10, 
                 pageOffset = resultsPerPage * queryPageNumber,
@@ -31,24 +31,26 @@ export default function fetchAllAssessments(pageNumber:number) {
         .sort({ createdAt: -1 })
         .then(async (foundAssessments)=> {
 
-            const mappedAssessments:any[] = [];
+            const mappedAssessments:IMappedAssessment[] = [];
 
             for await (const assessment of foundAssessments) {
                 mappedAssessments.push({
-									id: assessment._id,
-									assessmentId: assessment.assessmentId,
-									title: assessment.title,
-									category: await fetchAssessmentCategoryDetails(
-										assessment.category
-									),
-									questionsCount: assessment.questions.length,
-									assignedTo: `${assessment.assignees.assigneesType?.toLowerCase()}  ${assessment.assignedTo?.toLowerCase()}`,
-								});
+                    id: assessment._id.toString(),
+                    assessmentId: assessment.assessmentId,
+                    title: assessment.title,
+                    category: await fetchAssessmentCategoryDetails(
+                        assessment.category
+                    ),
+                    questionsCount: assessment.questions.length,
+                    assignees: `${assessment.assignees?.length} individuals`,
+                    assessmentType: assessment.assessmentType
+                });
             }
 
             assessmentModel.count(query)
             .then((totalAssessments)=> {
                 const totalPageNumber = Math.ceil(totalAssessments / resultsPerPage);
+
                 resolve({
                     currentPage: pageNumber, 
                     totalPages: totalPageNumber,

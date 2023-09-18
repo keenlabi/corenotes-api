@@ -7,7 +7,7 @@ export default function validateRegisterStaffRequestBody (data:registerStaffRequ
 
         // check if any field is empty and return error if true
         if(Object.keys(data).length === 0) reject({ status: false, code: 422, message:'Input field cannot be empty' })
-
+console.log(data.firstname)
         if(!data.firstname) reject({ status: false, code: 422,  message:'Firstname field cannot be empty' });
         if(!data.lastname) reject({ status: false, code: 422,  message:'Lastname field cannot be empty' });
         if(!data.nickname) reject({ status: false, code: 422,  message:'Nickname field cannot be empty' });

@@ -10,13 +10,12 @@ export interface IAssessmentDocument {
         question:string;
         category:string;
     }>,
-    assignedTo:string;
-    assignees:{
-        assigneesType:'ALL'|'SPECIFIC';
-        assigneesList:Array<string>;
-    };
+    assessmentType:string;
+    assignees:Array<string>;
     createdAt:Date;
 }
+
+export const AssessmentTypesList:string[] = ['generic', 'personal-outcomes']
 
 export interface IAssessmentCategoryDocument {
     _id:Types.ObjectId,
