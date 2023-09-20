@@ -1,6 +1,6 @@
-import { loginRequestBodyType, validateLoginRequestBodyType } from "./types";
+import { ILoginRequestBodyType, validateLoginRequestBodyType } from "./types";
 
-export default function validateLoginRequestBody(data:loginRequestBodyType) {
+export default function validateLoginRequestBody(data:ILoginRequestBodyType) {
     return new Promise<validateLoginRequestBodyType>(async (resolve, reject)=> {
 
         // check if any field is empty and return error if true

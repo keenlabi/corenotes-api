@@ -7,10 +7,10 @@ export default function validateRegisterStaffRequestBody (data:registerStaffRequ
 
         // check if any field is empty and return error if true
         if(Object.keys(data).length === 0) reject({ status: false, code: 422, message:'Input field cannot be empty' })
-console.log(data.firstname)
+
         if(!data.firstname) reject({ status: false, code: 422,  message:'Firstname field cannot be empty' });
         if(!data.lastname) reject({ status: false, code: 422,  message:'Lastname field cannot be empty' });
-        if(!data.nickname) reject({ status: false, code: 422,  message:'Nickname field cannot be empty' });
+
         if(!data.initials) reject({ status: false, code: 422,  message:'Initials field cannot be empty' });
         if(!data.dob) reject({ status: false, code: 422,  message:'DOB field cannot be empty' });
         if(!data.gender) reject({ status: false, code: 422,  message:'Gender field cannot be empty' });
@@ -36,15 +36,11 @@ console.log(data.firstname)
 
         // check if password field is empty, check if password is at least characters long
         if(!data.password) reject({status:false, code:422, message: 'Password field cannot be empty'});
-        // if(data.password !== String) reject({status:false, code:422, message: 'Password has to be string'});
         if(data.password?.length < 8) reject({status:false, code:422, message:'Password has to be 8 characters and more'});
 
-        // if(!data.compartment) reject({ status: false, code: 422,  message:'Compartment field cannot be empty' });
-        if(!data.title) reject({ status: false, code: 422,  message:'Staff title field cannot be empty' });
+        if(!data.jobSchedule) reject({ status: false, code: 422,  message:'Job schedule type field cannot be empty' });
         if(!data.providerRole) reject({ status: false, code: 422,  message:'Staff provider role field cannot be empty' });
         if(!data.hiredAt) reject({ status: false, code: 422,  message:'Hire date field cannot be empty' });
-        if(!data.employeeId) reject({ status: false, code: 422,  message:'Employee id field cannot be empty' });
-        if(!data.jobSchedule) reject({ status: false, code: 422,  message:'Job schedule type field cannot be empty' });
 
         // return success if true
         resolve({ status:true, code:200, message: 'SUCCESS', requestBody: data });

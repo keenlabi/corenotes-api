@@ -1,22 +1,12 @@
-import { IUserDocument } from "@user/models/types";
-import userModel from "@user/models/user.model";
-
+import staffModel from "@staff/model/staff.model";
+import { IStaffDocument } from "@staff/model/types";
 
 export default function storeAuthToken (id:string, token:string) {
-    return new Promise<IUserDocument>((resolve, reject)=> {
-        const query = { _id: id };
+    return new Promise<IStaffDocument>((resolve, reject)=> {
+        const query = { _id: id }, updateObj = { $set: { accessToken: token } };
         
-        userModel.findOneAndUpdate(
-            query,
-            {
-                $set: {
-                    accessToken: token,
-                    lastSeen: Date.now()
-                }
-            },
-            { new: true }
-
-        ).then((updatedUser:IUserDocument)=> {
+        staffModel.findOneAndUpdate(query, updateObj, { new: true })
+        .then((updatedUser)=> {
             console.log(`Auth token successfully stored for user ${id}`)
             resolve(updatedUser);
         })

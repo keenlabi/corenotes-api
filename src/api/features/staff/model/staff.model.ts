@@ -7,11 +7,14 @@ const staffSchema = new Schema<IStaffDocument>({
         type:Boolean,
         default:true
     },
-    user:{
-        type:String
-    },
     staffId: {
         type:Number
+    },
+    password: {
+        type:String,
+    },
+    accessToken:{
+        type:String,
     },
     firstname: {
         type: String,
@@ -25,9 +28,6 @@ const staffSchema = new Schema<IStaffDocument>({
     username: {
         type: String,
         unique: true
-    },
-    password: {
-        type: String,
     },
     nickname: {
         type: String,
@@ -73,8 +73,7 @@ const staffSchema = new Schema<IStaffDocument>({
         type: String,
     },
     employeeId: {
-        type: String,
-        unique: true
+        type: String
     },
     profileImage: {
         type: String,
@@ -112,7 +111,8 @@ const staffSchema = new Schema<IStaffDocument>({
         default: Date.now
     },
     
-}).plugin(autoIncrementPlugin, {
+}, { timestamps:{  } })
+.plugin(autoIncrementPlugin, {
     model: 'staffs',
     field: 'staffId',
     startAt: 1,
