@@ -1,6 +1,5 @@
 import { assessmentModel } from "@assessment/model/assessment.model.ts";
 import { IAssessmentDocument } from "@assessment/model/assessment.model.ts/types";
-import { NotFoundError } from "@globals/server/Error";
 
 export function getAssessmentByTitle(title:string) {
     return new Promise<IAssessmentDocument|null>((resolve, reject)=> {
