@@ -1,5 +1,5 @@
 import fetchAssessmentCategoryDetails from "@assessment/controllers/utils/fetchAssessmentCategoryDetails";
-import { assessmentModel } from "@assessment/model/assessment.model.ts";
+import { assessmentModel } from "src/api/features/assessment/model/assessment.model.ts";
 
 interface IAssessmentsResponse {
     currentPage:number; 

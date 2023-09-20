@@ -1,5 +1,5 @@
-import { AssessmentCategoryModel } from "@assessment/model/assessment.model.ts"
-import { IAssessmentCategoryDocument } from "@assessment/model/assessment.model.ts/types";
+import { AssessmentCategoryModel } from "src/api/features/assessment/model/assessment.model.ts"
+import { IAssessmentCategoryDocument } from "src/api/features/assessment/model/assessment.model.ts/types";
 import { NotFoundError } from "@globals/server/Error";
 
 export default function getAssessmentCategoryByObjectId(assessmentCategoryObjectId:string) {

@@ -1,4 +1,4 @@
-import { AssessmentQuestionsCategoryModel } from "@assessment/model/assessment.model.ts";
+import { AssessmentQuestionsCategoryModel } from "src/api/features/assessment/model/assessment.model.ts";
 
 export default async function fetchAssessmentQuestionCategoryDetails(categoryId:String) {
     return new Promise<string>((resolve)=> {

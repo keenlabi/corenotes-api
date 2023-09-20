@@ -1,4 +1,4 @@
-import { assessmentModel } from "@assessment/model/assessment.model.ts";
+import { assessmentModel } from "src/api/features/assessment/model/assessment.model.ts";
 import { sendNotFoundFailureResponse, sendServerFailureResponse, sendSuccessResponse, sendValidationFailureResponse } from "@globals/server/serverResponse";
 import getAssessmentsByIndividualId from "@individual/services/individualAssesments/getAssessmentsByIndividualObjectId";
 import { getIndividualByIndividualId } from "@services/db/individual.service";

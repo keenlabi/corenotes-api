@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import validateCreateAssessmentReq from "./validateCreateAssessmentReq";
 import { validateCreateAssessmentType } from "./types";
-import { assessmentModel } from "@assessment/model/assessment.model.ts";
+import { assessmentModel } from "src/api/features/assessment/model/assessment.model.ts";
 import { sendFailureResponse, sendSuccessResponse } from "@globals/server/serverResponse";
 
 export default function createAssessment(req:Request, res:Response) {
