@@ -1,5 +1,5 @@
-import { AssessmentCategoryModel, AssessmentQuestionsCategoryModel } from "@assessment/model/assessment.model.ts"
-import { IAssessmentCategoryDocument, IAssessmentQuestionCategoryDocument } from "@assessment/model/assessment.model.ts/types"
+import { AssessmentCategoryModel, AssessmentQuestionsCategoryModel } from "src/api/features/assessment/model/assessment.model.ts"
+import { IAssessmentCategoryDocument, IAssessmentQuestionCategoryDocument } from "src/api/features/assessment/model/assessment.model.ts/types"
 import { sendFailureResponse, sendSuccessResponse } from "@globals/server/serverResponse"
 import { Request, Response } from "express"
 

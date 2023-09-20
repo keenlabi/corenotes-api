@@ -1,8 +1,8 @@
 import { Request, Response } from "express"
 import fetchAssessmentCategories from "./fetchAssessmentCategories"
-import { AssessmentQuestionsCategoryModel } from "@assessment/model/assessment.model.ts"
+import { AssessmentQuestionsCategoryModel } from "src/api/features/assessment/model/assessment.model.ts"
 import { sendFailureResponse } from "@globals/server/serverResponse"
-import { IAssessmentQuestionCategoryDocument } from "@assessment/model/assessment.model.ts/types"
+import { IAssessmentQuestionCategoryDocument } from "src/api/features/assessment/model/assessment.model.ts/types"
 
 export default function createQuestionCategory(req:Request, res:Response) {
     const newQuestionCategory:Omit<IAssessmentQuestionCategoryDocument, '_id'|'createdAt'> = {

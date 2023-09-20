@@ -1,5 +1,5 @@
-import { assessmentModel } from "@assessment/model/assessment.model.ts";
-import { IAssessmentDocument } from "@assessment/model/assessment.model.ts/types";
+import { assessmentModel } from "src/api/features/assessment/model/assessment.model.ts";
+import { IAssessmentDocument } from "src/api/features/assessment/model/assessment.model.ts/types";
 
 export function getAssessmentByTitle(title:string) {
     return new Promise<IAssessmentDocument|null>((resolve, reject)=> {

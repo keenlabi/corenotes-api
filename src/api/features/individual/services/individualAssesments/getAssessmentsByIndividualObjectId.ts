@@ -1,4 +1,4 @@
-import { assessmentModel } from "@assessment/model/assessment.model.ts"
+import { assessmentModel } from "src/api/features/assessment/model/assessment.model.ts"
 import { NotFoundError, ServerError } from "@globals/server/Error";
 import { getIndividualByIndividualId } from "@services/db/individual.service";
 import getAssessmentCategoryByObjectId from "./getAssessmentCategoryByObjectId";

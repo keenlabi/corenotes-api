@@ -1,5 +1,5 @@
-import { AssessmentCategoryModel } from "@assessment/model/assessment.model.ts";
-import { IAssessmentCategoryDocument } from "@assessment/model/assessment.model.ts/types";
+import { AssessmentCategoryModel } from "src/api/features/assessment/model/assessment.model.ts";
+import { IAssessmentCategoryDocument } from "src/api/features/assessment/model/assessment.model.ts/types";
 
 
 export default async function fetchAssessmentCategoryDetails(categoryId:String) {

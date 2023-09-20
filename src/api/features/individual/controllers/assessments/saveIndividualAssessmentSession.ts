@@ -1,5 +1,5 @@
 import fetchAssessmentCategoryDetails from "@assessment/controllers/utils/fetchAssessmentCategoryDetails";
-import { assessmentModel } from "@assessment/model/assessment.model.ts";
+import { assessmentModel } from "src/api/features/assessment/model/assessment.model.ts";
 import { sendFailureResponse, sendSuccessResponse } from "@globals/server/serverResponse";
 import { IUserDocument } from "@user/models/types";
 import userModel from "@user/models/user.model";

@@ -1,7 +1,7 @@
 import { Types } from "mongoose";
 import { createAssessmentReqBodyType, validateCreateAssessmentType } from "./types";
 import { getAssessmentByTitle } from "@services/db/assessment.service";
-import { AssessmentTypesList } from "@assessment/model/assessment.model.ts/types";
+import { AssessmentTypesList } from "src/api/features/assessment/model/assessment.model.ts/types";
 
 export default function validateCreateAssessmentReq(data:createAssessmentReqBodyType) {
     return new Promise<validateCreateAssessmentType>(async (resolve, reject)=> {
