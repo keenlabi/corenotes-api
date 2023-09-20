@@ -118,7 +118,7 @@ const individualSchema = new Schema<IIndividualDocument>({
         },
         barcode:{
             type:String,
-            unique:true,
+            // unique:true,
             uppercase:true
         },
         active:{

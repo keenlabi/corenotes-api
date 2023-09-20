@@ -7,7 +7,6 @@ export default function fetchStaffProfile(req:Request, res:Response) {
     getStaffUserByStaffId(parseInt(req.params.staffId))
     .then(async (foundStaff)=> {
         foundStaff.providerRole = (await getStaffRoleById(foundStaff.providerRole)).title;
-        foundStaff.password = undefined
 
         return sendSuccessResponse({
             res, 

@@ -13,11 +13,8 @@ interface IAssessmentDetails {
         category:string;
         question:string;
     }>;
-    assignedTo:string;
-    assignees:{
-        assigneesType:'ALL'|'SPECIFIC',
-        assigneesList:Array<string>
-    };
+    assessmentType:string;
+    assignees:string[];
 }
 
 export default function fetchAssessmentDetails(assessmentId:number) {
@@ -41,16 +38,13 @@ export default function fetchAssessmentDetails(assessmentId:number) {
             }
             
             const assessmentDetails:IAssessmentDetails = {
-                id: foundAssessment?._id.toString()!,
-                assessmentId: foundAssessment?.assessmentId!,
-                title: foundAssessment?.title!,
-                category: (await fetchAssessmentCategoryDetails(foundAssessment?.category!)).toString() + ' assessment',
+                id: foundAssessment!._id.toString()!,
+                assessmentId: foundAssessment!.assessmentId!,
+                title: foundAssessment!.title!,
+                category: (await fetchAssessmentCategoryDetails(foundAssessment!.category!)).toString() + ' assessment',
                 questions: questionsWithCategories,
-                assignedTo: foundAssessment?.assignedTo.toLowerCase()!,
-                assignees: {
-                    assigneesType: foundAssessment?.assignees.assigneesType!,
-                    assigneesList: foundAssessment?.assignees.assigneesList!,
-                }
+                assessmentType: foundAssessment!.assessmentType.toLowerCase()!,
+                assignees: foundAssessment!.assignees
             }
 
             resolve(assessmentDetails);

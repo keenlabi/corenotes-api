@@ -53,29 +53,20 @@ export function getAuthUserByAuthAccessToken(userDocumentId:ObjectId, accessToke
             ]
         };
 
-        userModel.findOne(query)
-        .then((foundUser:IUserDocument)=> {
-            if(!foundUser) {
-                const notFoundError = new NotFoundError('User not found');
+        staffModel.findOne(query)
+        .then((foundStaff)=> {
+            if(!foundStaff) {
+                const notFoundError = new NotFoundError('Staff user not found');
                 reject(notFoundError);
             }
 
-            staffModel.findOne({ _id: foundUser.staff })
-            .then((foundStaff)=> {
-                if(!foundStaff) {
-                    const notFoundError = new NotFoundError('Staff not found');
-                    reject(notFoundError);
-                }
-
-                resolve({ 
-                    id: foundUser.id,
-                    staffObjectId: foundStaff._id.toString(),
-                    staffId: foundStaff.staffId,
-                    email: foundStaff.email,
-                    firstname: foundStaff.firstname
-                });
-            })
-            .catch((error)=> reject(error))
+            resolve({ 
+                id: foundStaff.id,
+                staffObjectId: foundStaff._id.toString(),
+                staffId: foundStaff.staffId,
+                email: foundStaff.email,
+                firstname: foundStaff.firstname
+            });
         })
         .catch((error)=> reject(error))
     })

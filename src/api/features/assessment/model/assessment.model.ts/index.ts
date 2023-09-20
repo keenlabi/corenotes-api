@@ -1,24 +1,22 @@
 import { model, Schema, models, Model } from "mongoose"
-import { IAssessmentCategoryDocument, IAssessmentDocument, IAssessmentQuestionCategoryDocument } from "./types";
+import { AssessmentTypesList, IAssessmentCategoryDocument, IAssessmentDocument, IAssessmentQuestionCategoryDocument } from "./types";
 import autoIncrementPlugin from "src/config/database/autoIncrementInit";
 
 const assessmentSchema = new Schema<IAssessmentDocument>({
-    assessmentId:{
-        type:Number
-    },
+    assessmentId:{ type:Number },
     title:{ type:String },
     category:{ type:String },
     questions:[{
         question:{ type:String },
         category:{ type:String }
     }],
-    assignedTo:{ type:String },
+    assessmentType:{
+        enum: AssessmentTypesList,
+        type:String 
+    },
     assignees:{
-        assigneesType:{ 
-            type:String,
-            enum:['ALL','SPECIFIC']
-        },
-        assigneesList:[String]
+        type: [String],
+        default: []
     },
     createdAt: {
         type:Date,

@@ -1,13 +1,12 @@
-import { IUserDocument } from "@user/models/types";
 import { Document, PopulatedDoc, Types } from "mongoose";
 
 export interface IStaffDocument extends Document {
     _id:Types.ObjectId;
-    user:string;
     active: boolean;
     lastSeen:Date;
     createdAt:Date;
     staffId:number;
+    accessToken:string;
 
     // PERSONAL INFORMATION
     firstname: string;
@@ -40,7 +39,7 @@ export interface IStaffDocument extends Document {
     username:string;
     employeeId:string;
     jobSchedule:string;
-    password?:string;
+    password:string;
 
     // DOCUMENTS
     documents:Array<{

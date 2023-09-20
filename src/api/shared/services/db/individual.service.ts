@@ -87,7 +87,7 @@ export function updateIndividualServicesById({
 
 export function getIndividualsByMedicationObjectId(medicationObjectId:string) {
     return new Promise<Array<IIndividualDocument>>((resolve, reject)=> {
-        const query = { medications: medicationObjectId }
+        const query = { "medications._Id": medicationObjectId };
 
         individualModel.find(query)
         .sort({ createdAt: -1 })

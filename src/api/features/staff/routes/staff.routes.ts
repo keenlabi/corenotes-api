@@ -23,7 +23,7 @@ staffRouter.get('/roles/details/:roleId', validateToken, fetchStaffRolesDetails)
 staffRouter.post('/roles', validateToken, createStaffRole)
 staffRouter.get('/roles/:pageNumber', validateToken, fetchStaffRoles)
 
-staffRouter.post('/register', uploadFile('single', 'profileImage'), register)
+staffRouter.post('/register', validateToken, register)
 staffRouter.get('/profile/:staffId', validateToken, fetchStaffProfile)
 
 staffRouter.get('/:staffId/documents/:pageNumber', validateToken, fetchStaffDocuments)

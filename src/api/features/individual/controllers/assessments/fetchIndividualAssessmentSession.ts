@@ -49,10 +49,7 @@ export default function fetchIndividualAssessmentSession(req:Request, res:Respon
             .then((foundIndividualAssessmentSession)=> {
 
                 if(!foundIndividualAssessmentSession) {
-                    if(
-                        foundAssessment.assignees.assigneesType === 'ALL' ||
-                        foundAssessment.assignees.assigneesList.includes(foundIndividual._id.toString())
-                    ) {
+                    if(foundAssessment.assignees.includes(foundIndividual._id.toString())) {
                         createIndividualAssessmentSession(foundAssessment._id.toString(), foundIndividual._id.toString())
                         .then((createdAssessmentSession)=> {
                             const assessmentSession:IAssessmentSessionResponse = {

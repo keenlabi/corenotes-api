@@ -15,7 +15,6 @@ export default function activateStaffUser(staffId:number) {
             
             userModel.findOneAndUpdate(userQuery, updateObj, { new: true })
             .then(()=> {
-                updatedStaff.password = undefined;
                 resolve(updatedStaff)
             })
             .catch((error)=> reject(error))
