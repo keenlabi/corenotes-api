@@ -2,6 +2,7 @@ import { assessmentModel } from "src/api/features/assessment/model/assessment.mo
 import { NotFoundError, ServerError } from "@globals/server/Error";
 import { getIndividualByIndividualId } from "@services/db/individual.service";
 import getAssessmentCategoryByObjectId from "./getAssessmentCategoryByObjectId";
+import getIndividualAssessmentSession from "./getIndividualAssessmentSession";
 
 interface IIndividualAssessmentResponse {
     currentPage:number;
@@ -15,6 +16,7 @@ interface IMappedAssessment {
     title:string;
     category:string;
     questionCount:number;
+    status:string;
 }
 
 export default function getAssessmentsByIndividualId(individualId:number, pageNumber:number) {
@@ -49,14 +51,31 @@ export default function getAssessmentsByIndividualId(individualId:number, pageNu
 
                 for await ( const assessment of foundAssessments ) {
                     await getAssessmentCategoryByObjectId(assessment.category)
-                    .then((foundAssessmentCategory)=> {
+                    .then(async (foundAssessmentCategory)=> {
                         if(foundAssessmentCategory) {
-                            mappedAssessments.push({
-                                id: assessment._id.toString(),
-                                assessmentId: assessment.assessmentId,
-                                title: assessment.title,
-                                category: foundAssessmentCategory.name,
-                                questionCount: assessment.questions.length
+                            await getIndividualAssessmentSession(assessment.id!, foundIndividual!._id.toString())
+                            .then((foundIndividualAssessmentSession)=> {
+                                
+                                mappedAssessments.push({
+                                    id: assessment._id.toString(),
+                                    assessmentId: assessment.assessmentId,
+                                    title: assessment.title,
+                                    category: foundAssessmentCategory.name,
+                                    questionCount: assessment.questions.length,
+                                    status: foundIndividualAssessmentSession ?foundIndividualAssessmentSession.status! :"PENDING"
+                                })
+                            })
+                            .catch((error)=> {
+                                console.log("There was an error fetching individual assessment session status", error);
+
+                                mappedAssessments.push({
+                                    id: assessment._id.toString(),
+                                    assessmentId: assessment.assessmentId,
+                                    title: assessment.title,
+                                    category: foundAssessmentCategory.name,
+                                    questionCount: assessment.questions.length,
+                                    status: ""
+                                })
                             })
                         }
                     })

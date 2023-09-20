@@ -1,5 +1,5 @@
 import { NotFoundError, ServerError } from "@globals/server/Error";
-import { sendFailureResponse, sendSuccessResponse } from "@globals/server/serverResponse";
+import { sendFailureResponse, sendNotFoundFailureResponse, sendSuccessResponse } from "@globals/server/serverResponse";
 import { individualAssessmentModel } from "@individual/models/individual-assessment.model";
 import getIndividualAssessmentSession from "@individual/services/individualAssesments/getIndividualAssessmentSession";
 import { getIndividualByIndividualId } from "@services/db/individual.service";
@@ -11,9 +11,12 @@ export default function completeIndividualAssessmentSession(req:Request, res:Res
 
     getIndividualByIndividualId(parseInt(req.params.individualId))
     .then((foundIndividual)=> {
+        
+        if(!foundIndividual) return sendNotFoundFailureResponse(res, "Individual not found");
+
         const query = { 
-            "individualId": foundIndividual?._id.toString(), 
-            "assessmentId": req.params.assessmentId 
+            individualId: foundIndividual!._id.toString(), 
+            assessmentId: req.params.assessmentId 
         };
 
         const updateObj = {
@@ -25,10 +28,8 @@ export default function completeIndividualAssessmentSession(req:Request, res:Res
 
         individualAssessmentModel.findOneAndUpdate(query, updateObj, { new: true })
         .then((updatedIndividualAssessment)=> {
-            if(!updatedIndividualAssessment) {
-                const notFoundError = new NotFoundError("Individual assessment not found");
-                return sendFailureResponse({ res, statusCode: notFoundError.statusCode, message: notFoundError.message })
-            }
+            
+            if(!updatedIndividualAssessment) return sendNotFoundFailureResponse(res, "Individual assessment not found");
 
             getAssessmentByObjId(query.assessmentId)
             .then((foundAssessment)=> {
