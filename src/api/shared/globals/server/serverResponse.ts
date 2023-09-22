@@ -1,5 +1,5 @@
 import { Response } from "express";
-import { NotFoundError, ServerError, ValidationError } from "./Error";
+import { ConflictError, NotFoundError, ServerError, ValidationError } from "./Error";
 
 export interface IServerFailure {
   res:Response,
@@ -30,6 +30,11 @@ export function sendFailureResponse ({ res, statusCode, message }:IServerFailure
     message
   });
 };
+
+export function sendConflictFailureResponse(res:Response, message:string) {
+  const conflictError = new ConflictError(message);
+  return sendFailureResponse({ res, statusCode: conflictError.statusCode, message: conflictError.message })
+}
 
 export function sendNotFoundFailureResponse(res:Response, message:string) {
   const notFoundError = new NotFoundError(message);
