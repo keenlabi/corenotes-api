@@ -1,4 +1,3 @@
-import { NotFoundError } from "@globals/server/Error";
 import { sendFailureResponse, sendSuccessResponse } from "@globals/server/serverResponse";
 import getAssessmentsByIndividualId from "@individual/services/individualAssesments/getAssessmentsByIndividualObjectId";
 import { Request, Response } from "express";
@@ -9,7 +8,7 @@ export default function fetchIndividualAssessments(req:Request, res:Response) {
         return sendSuccessResponse({
             res,
             statusCode: 200,
-            message: "Individual assessment retrieved successfully",
+            message: "Individual assessments retrieved successfully",
             data: { individualAssessments: response }
         })
     })

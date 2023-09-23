@@ -1,11 +1,10 @@
+import { Request, Response } from "express";
 import { NotFoundError, ServerError } from "@globals/server/Error";
 import { sendFailureResponse, sendSuccessResponse } from "@globals/server/serverResponse";
 import createIndividualAssessmentSession from "@individual/services/individualAssesments/createIndividualAssessmentSession";
-import createAssessmentSession from "@individual/services/individualAssesments/createIndividualAssessmentSession";
 import getIndividualAssessmentSession from "@individual/services/individualAssesments/getIndividualAssessmentSession";
-import { getAssessmentByAssessmentId, getAssessmentByObjId } from "@services/db/assessment.service";
+import { getAssessmentByObjId } from "@services/db/assessment.service";
 import { getIndividualByIndividualId } from "@services/db/individual.service";
-import { Request, Response } from "express";
 
 export interface IAssessmentSessionResponse {
     id:string;
@@ -47,9 +46,8 @@ export default function fetchIndividualAssessmentSession(req:Request, res:Respon
             // check if session exist
             getIndividualAssessmentSession(foundAssessment._id.toString(), foundIndividual._id.toString())
             .then((foundIndividualAssessmentSession)=> {
-
                 if(!foundIndividualAssessmentSession) {
-                    if(foundAssessment.assignees.includes(foundIndividual._id.toString())) {
+                    // if(foundAssessment.assignees?.includes(foundIndividual._id.toString())) {
                         createIndividualAssessmentSession(foundAssessment._id.toString(), foundIndividual._id.toString())
                         .then((createdAssessmentSession)=> {
                             const assessmentSession:IAssessmentSessionResponse = {
@@ -73,9 +71,9 @@ export default function fetchIndividualAssessmentSession(req:Request, res:Respon
                             console.log("There was a server error", error);
                             return sendServerFailureResponse(res);  
                         })
-                    } else {
-                        return sendNotFoundFailureResponse(res, "Individual assessment session not found");
-                    }
+                    // } else {
+                    //     return sendNotFoundFailureResponse(res, "Individual assessment session not found");
+                    // }
 
                 } else {
 
@@ -96,6 +94,10 @@ export default function fetchIndividualAssessmentSession(req:Request, res:Respon
                         data: { assessmentSession: assessmentSession }
                     })
                 }
+            })
+            .catch((error)=> {
+                console.log("There was an error fetching user", error);
+                return sendServerFailureResponse(res);
             });
         })
         .catch((error)=> {
@@ -104,9 +106,7 @@ export default function fetchIndividualAssessmentSession(req:Request, res:Respon
         })
     })
     .catch((error)=> {
-        console.log("There was an error retrieving assessment")
-        console.log(error)
-
+        console.log("There was an error retrieving assessment", error);
         return sendServerFailureResponse(res);
     })
 }
