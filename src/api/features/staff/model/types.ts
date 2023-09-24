@@ -52,6 +52,11 @@ export interface IStaffDocument extends Document {
         createdAt: Date
     }>;
     maritalStatus: string;
+
+    // CLOCK-IN AND CLOCK-OUT TIMES
+    clockedIn: boolean;
+    lastClockInTime: Date
+    lastClockOutTime: Date;
 }
 
 export interface IStaffRole {

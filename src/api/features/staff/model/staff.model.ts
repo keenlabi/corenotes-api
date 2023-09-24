@@ -29,6 +29,18 @@ const staffSchema = new Schema<IStaffDocument>({
         type: String,
         unique: true
     },
+    clockedIn:{
+        type:Boolean,
+        default:false
+    },
+    lastClockInTime: {
+        type: Date,
+        default:Date.now
+    },
+    lastClockOutTime: {
+        type: Date,
+        default:Date.now
+    },
     nickname: {
         type: String,
     },
