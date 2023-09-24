@@ -1,5 +1,5 @@
 import { NotFoundError } from "@globals/server/Error";
-import { getServiceByObjectId } from "@services/db/service.service";
+import { getServiceByObjectId } from "src/api/shared/services/db/service.service";
 
 export interface IAssignServiceToIndividualReqBody {
     serviceId:string;

@@ -1,6 +1,6 @@
 import { Request, Response } from "express"
 import validateUploadStaffRequestBody, { INewDocument } from "./validateUploadStaffDocument"
-import uploadFileToCloud from "@services/fileSystem/uploadFileToCloud"
+import uploadFileToCloud from "src/api/shared/services/fileSystem/uploadFileToCloud"
 import { sendFailureResponse, sendSuccessResponse } from "@globals/server/serverResponse"
 import { ServerError } from "@globals/server/Error"
 import addDocumentToStaff from "@staff/services/addDocumentToStaff"

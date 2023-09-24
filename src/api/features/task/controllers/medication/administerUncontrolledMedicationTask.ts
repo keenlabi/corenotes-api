@@ -3,8 +3,8 @@ import { ServerError, ValidationError } from "@globals/server/Error";
 import { sendFailureResponse, sendSuccessResponse } from "@globals/server/serverResponse";
 
 import { RequestFileType } from "@globals/middlewares/uploadFile";
-import { getIndividualByObjectId } from "@services/db/individual.service";
-import uploadFileToCloud from "@services/fileSystem/uploadFileToCloud";
+import { getIndividualByObjectId } from "src/api/shared/services/db/individual.service";
+import uploadFileToCloud from "src/api/shared/services/fileSystem/uploadFileToCloud";
 import completeTask from "../../services/completeTask";
 import createTaskHistory from "../../services/createTaskHistory";
 import fetchTaskDetails from "../../services/fetchTaskDetails";

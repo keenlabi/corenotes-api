@@ -1,7 +1,7 @@
 import { assessmentModel } from "src/api/features/assessment/model/assessment.model.ts";
 import { sendNotFoundFailureResponse, sendServerFailureResponse, sendSuccessResponse, sendValidationFailureResponse } from "@globals/server/serverResponse";
 import getAssessmentsByIndividualId from "@individual/services/individualAssesments/getAssessmentsByIndividualObjectId";
-import { getIndividualByIndividualId } from "@services/db/individual.service";
+import { getIndividualByIndividualId } from "src/api/shared/services/db/individual.service";
 import { Request, Response } from "express";
 import getIndividualAssessmentSession from "@individual/services/individualAssesments/getIndividualAssessmentSession";
 

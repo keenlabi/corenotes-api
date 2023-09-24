@@ -1,5 +1,5 @@
 import { sendFailureResponse, sendSuccessResponse } from "@globals/server/serverResponse";
-import { getMedicationsByServiceObjectId } from "@services/db/medication.service";
+import { getMedicationsByServiceObjectId } from "src/api/shared/services/db/medication.service";
 import { Request, Response } from "express";
 
 export default function fetchServiceMedications(req:Request, res:Response) {

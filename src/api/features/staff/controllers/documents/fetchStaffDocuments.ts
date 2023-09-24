@@ -1,5 +1,5 @@
 import { sendFailureResponse, sendSuccessResponse } from "@globals/server/serverResponse";
-import { getStaffUserByStaffId } from "@services/db/staff.service";
+import { getStaffUserByStaffId } from "src/api/shared/services/db/staff.service";
 import { IStaffDocument } from "@staff/model/types";
 import fetchAllStaffDocuments from "@staff/services/fetchAllStaffDocuments";
 import { Request, Response } from "express"

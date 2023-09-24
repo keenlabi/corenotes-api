@@ -1,6 +1,6 @@
 import { NotFoundError } from "@globals/server/Error";
-import { getIndividualByIndividualId } from "@services/db/individual.service";
-import { getServiceByObjectId } from "@services/db/service.service";
+import { getIndividualByIndividualId } from "src/api/shared/services/db/individual.service";
+import { getServiceByObjectId } from "src/api/shared/services/db/service.service";
 import detMedSchedule from "./detMedSchedule";
 
 export interface IIndividualServicesList {

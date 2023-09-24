@@ -1,8 +1,8 @@
 import { Request, Response } from "express"
-import { verifyPassword } from "@services/security/password"
+import { verifyPassword } from "src/api/shared/services/security/password"
 import { sendFailureResponse, sendSuccessResponse } from "@globals/server/serverResponse"
 import { IStaffDocument } from "@staff/model/types"
-import { getStaffUserById, getStaffUserByUserId } from "@services/db/staff.service"
+import { getStaffUserById, getStaffUserByUserId } from "src/api/shared/services/db/staff.service"
 import { NotAuthorizedError } from "@globals/server/Error"
 import deactivateStaffUser from "@staff/services/deactivateStaff"
 

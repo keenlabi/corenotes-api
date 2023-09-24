@@ -1,4 +1,4 @@
-import { getStaffUserByStaffId } from "@services/db/staff.service";
+import { getStaffUserByStaffId } from "src/api/shared/services/db/staff.service";
 import { IStaffDocument } from "@staff/model/types";
 
 interface IStaffProfileDocuments {

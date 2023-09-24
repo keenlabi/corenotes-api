@@ -1,5 +1,5 @@
-import { getIndividualByIndividualId } from "@services/db/individual.service"
-import { getMedicationByObjectId } from "@services/db/medication.service";
+import { getIndividualByIndividualId } from "src/api/shared/services/db/individual.service"
+import { getMedicationByObjectId } from "src/api/shared/services/db/medication.service";
 import { NotFoundError } from "@globals/server/Error";
 import detMedSchedule from "@individual/services/detMedSchedule";
 

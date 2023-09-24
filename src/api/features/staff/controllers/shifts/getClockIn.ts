@@ -1,7 +1,7 @@
 import extractDateFromISODateTime from "@globals/helpers/dateTime/extractDateFromISODateTime";
 import extractTimeFromISODateTime from "@globals/helpers/dateTime/extractTimeFromISODateTime";
 import { sendAuthorizationFailureResponse, sendNotFoundFailureResponse, sendServerFailureResponse, sendSuccessResponse, sendValidationFailureResponse } from "@globals/server/serverResponse";
-import { getStaffRoleById, getStaffUserById } from "@services/db/staff.service";
+import { getStaffRoleById, getStaffUserById } from "src/api/shared/services/db/staff.service";
 import clockStaffInByObjId from "@staff/services/shifts/clockStaffIn";
 import fetchStaffShiftByDateAndStaffRef from "@staff/services/shifts/fetchStaffShiftByDate";
 import { Request, Response } from "express";

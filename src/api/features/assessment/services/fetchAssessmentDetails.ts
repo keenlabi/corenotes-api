@@ -1,5 +1,5 @@
 import { NotFoundError, ServerError } from "@globals/server/Error";
-import { getAssessmentByAssessmentId } from "@services/db/assessment.service";
+import { getAssessmentByAssessmentId } from "src/api/shared/services/db/assessment.service";
 import fetchAssessmentCategoryDetails from "@assessment/controllers/utils/fetchAssessmentCategoryDetails";
 import fetchAssessmentQuestionCategoryDetails from "@assessment/controllers/utils/fetchAssessmentQuestionCategoryDetails";
 

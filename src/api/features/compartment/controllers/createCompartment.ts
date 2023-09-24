@@ -2,7 +2,7 @@ import { Request, Response } from "express"
 import validateCreateCompartmentRequest, { ICreateCompRequestBody } from "../services/validateCreateCompartmentRequest"
 import createNewCompartment, { INewCompartmentData } from "../services/createNewCompartment"
 import { sendFailureResponse, sendSuccessResponse } from "@globals/server/serverResponse"
-import uploadFileToCloud from "@services/fileSystem/uploadFileToCloud"
+import uploadFileToCloud from "src/api/shared/services/fileSystem/uploadFileToCloud"
 import fetchAllCompartments from "../services/fetchAllCompartments"
 
 export default function createCompartment(req:Request, res:Response) {

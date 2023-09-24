@@ -1,6 +1,6 @@
-import isEmailValid from "@services/email/validator/isEmailValid";
+import isEmailValid from "src/api/shared/services/email/validator/isEmailValid";
 import { registerStaffRequestBodyType, validateRegisterStaffRequestBodyType } from "./types";
-import emailExists from "@services/email/validator/emailExists";
+import emailExists from "src/api/shared/services/email/validator/emailExists";
 
 export default function validateRegisterStaffRequestBody (data:registerStaffRequestBodyType) {
     return new Promise<validateRegisterStaffRequestBodyType>(async (resolve, reject)=> {

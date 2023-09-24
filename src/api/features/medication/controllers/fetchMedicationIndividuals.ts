@@ -1,7 +1,7 @@
 import { NotFoundError } from "@globals/server/Error";
 import { sendFailureResponse, sendSuccessResponse } from "@globals/server/serverResponse";
-import { getIndividualsByMedicationObjectId } from "@services/db/individual.service";
-import { getMedicationByMedicationId } from "@services/db/medication.service";
+import { getIndividualsByMedicationObjectId } from "src/api/shared/services/db/individual.service";
+import { getMedicationByMedicationId } from "src/api/shared/services/db/medication.service";
 import { Request, Response } from "express";
 import getServiceByServiceId from "../../services/services/db/getServiceByServiceId";
 import { IIndividualListItem } from "@individual/services/fetchAllServices";

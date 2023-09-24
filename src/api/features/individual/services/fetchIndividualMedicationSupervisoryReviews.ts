@@ -1,7 +1,7 @@
 import paginateList from "@globals/helpers/paginateList";
 import { NotFoundError } from "@globals/server/Error";
-import { getIndividualByIndividualId } from "@services/db/individual.service"
-import { getStaffUserById } from "@services/db/staff.service";
+import { getIndividualByIndividualId } from "src/api/shared/services/db/individual.service"
+import { getStaffUserById } from "src/api/shared/services/db/staff.service";
 
 interface IFetchIndividualMedicationSupervisoryReviewResponse {
     medicationId:string;

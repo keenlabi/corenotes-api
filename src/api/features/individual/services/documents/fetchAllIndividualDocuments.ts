@@ -1,6 +1,6 @@
 import { NotFoundError } from "@globals/server/Error";
 import { IIndividualDocument } from "@individual/models/types";
-import { getIndividualByIndividualId } from "@services/db/individual.service";
+import { getIndividualByIndividualId } from "src/api/shared/services/db/individual.service";
 
 interface IIndividualProfileDocuments {
     id:string;

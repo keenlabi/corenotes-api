@@ -1,5 +1,5 @@
 import { sendFailureResponse } from "@globals/server/serverResponse"
-import validateImageFile from "@services/fileSystem/validateImageFile"
+import validateImageFile from "src/api/shared/services/fileSystem/validateImageFile"
 import { NextFunction, Request, Response } from "express"
 import multer from "multer"
 

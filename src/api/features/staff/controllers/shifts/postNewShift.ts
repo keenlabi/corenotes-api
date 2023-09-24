@@ -1,5 +1,5 @@
 import { sendNotFoundFailureResponse, sendServerFailureResponse, sendValidationFailureResponse } from "@globals/server/serverResponse";
-import { getStaffUserByStaffId } from "@services/db/staff.service";
+import { getStaffUserByStaffId } from "src/api/shared/services/db/staff.service";
 import createStaffShift from "@staff/services/shifts/createStaffShifts";
 import { Request, Response } from "express";
 

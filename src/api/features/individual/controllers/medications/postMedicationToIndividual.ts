@@ -2,7 +2,7 @@ import { Request, Response } from "express";
 import { ConflictError, NotFoundError, ServerError } from "@globals/server/Error";
 import { sendFailureResponse, sendSuccessResponse } from "@globals/server/serverResponse";
 import fetchIndividualMedications from "@individual/services/fetchIndividualMedications";
-import { getIndividualByIndividualId, updateIndividualMedicationsByIndividualId } from "@services/db/individual.service";
+import { getIndividualByIndividualId, updateIndividualMedicationsByIndividualId } from "src/api/shared/services/db/individual.service";
 import createNewMedicationTask from "src/api/features/task/services/medication/createNewMedicationTask";
 
 export default function postMedicationToIndividual(req:Request, res:Response) {

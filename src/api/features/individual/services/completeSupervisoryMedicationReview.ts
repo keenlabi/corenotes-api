@@ -1,8 +1,8 @@
 import { NotFoundError } from "@globals/server/Error";
 import { individualModel } from "@individual/models/individual.model";
 import { IIndividualDocument } from "@individual/models/types";
-import { getIndividualByIndividualId } from "@services/db/individual.service";
-import { getMedicationByMedicationId } from "@services/db/medication.service";
+import { getIndividualByIndividualId } from "src/api/shared/services/db/individual.service";
+import { getMedicationByMedicationId } from "src/api/shared/services/db/medication.service";
 import { Types } from "mongoose";
 
 export default function completeSupervisoryMedicationReview({

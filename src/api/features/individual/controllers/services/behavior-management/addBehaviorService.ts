@@ -3,7 +3,7 @@ import { sendFailureResponse, sendNotFoundFailureResponse, sendServerFailureResp
 import { Request, Response } from "express";
 import { Types } from "mongoose";
 import { individualBehaviorServiceModel } from "@individual/models/individual-behavior-service.model";
-import { getIndividualByIndividualId } from "@services/db/individual.service";
+import { getIndividualByIndividualId } from "src/api/shared/services/db/individual.service";
 import fetchBehaviorManagementServices from "./fetchBehaviorManagementServices";
 import createBehaviorManagementTask from "src/api/features/task/services/behavior-management/createBehaviorManagementTask";
 import { IIMakeBehaviorManagementTaskDets } from "src/api/features/task/services/behavior-management/makeBehaviorManagementTask";

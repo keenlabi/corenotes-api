@@ -1,4 +1,4 @@
-import { getMedicationByObjectId } from "@services/db/medication.service";
+import { getMedicationByObjectId } from "src/api/shared/services/db/medication.service";
 import getPRNMedicationHistoryByIndividualMedicationRef from "./getPRNMedicationHistoryByIndividualMedicationRef"
 
 export interface IPRNMedication {

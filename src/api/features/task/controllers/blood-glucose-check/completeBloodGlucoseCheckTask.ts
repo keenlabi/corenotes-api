@@ -4,7 +4,7 @@ import { NotFoundError } from "@globals/server/Error";
 import { sendFailureResponse, sendSuccessResponse } from "@globals/server/serverResponse";
 import fetchTaskDetails from "../../services/fetchTaskDetails";
 import createBloodGlucoseCheckHistory from "../../services/blood-glucose-check/history/createBloodGlucoseCheckHistory";
-import { getIndividualByObjectId } from "@services/db/individual.service";
+import { getIndividualByObjectId } from "src/api/shared/services/db/individual.service";
 
 export default function completeBloodGlucoseCheckTask(req:Request, res:Response) {
 

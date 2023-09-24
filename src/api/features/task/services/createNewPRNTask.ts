@@ -1,7 +1,7 @@
 import { IServiceScheduleSubDocument } from "src/api/shared/schema/schedule.schema";
 import fetchTasks, { ITasksListResponse } from "./fetchTasks";
 import getServiceByServiceId from "../../services/services/db/getServiceByServiceId";
-import { getIndividualByIndividualId } from "@services/db/individual.service";
+import { getIndividualByIndividualId } from "src/api/shared/services/db/individual.service";
 import { IIMakeSkinIntegrityTaskDets } from "./skin-integrity/makeSkinIntegrityTask";
 import createSkinIntegrityTask from "./skin-integrity/createSkinIntegrityTask";
 import { IIMakeBowelMovementTaskDets } from "./bowel-movement/makeBowelMovementTask";

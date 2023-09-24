@@ -1,6 +1,6 @@
 import { sendFailureResponse, sendSuccessResponse } from "@globals/server/serverResponse"
 import { Request, Response } from "express"
-import { getStaffRoleById, getStaffUserByStaffId } from "@services/db/staff.service"
+import { getStaffRoleById, getStaffUserByStaffId } from "src/api/shared/services/db/staff.service"
 
 export default function fetchStaffProfile(req:Request, res:Response) {
 

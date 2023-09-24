@@ -3,7 +3,7 @@ import completeTask from "../../services/completeTask";
 import { NotFoundError } from "@globals/server/Error";
 import { sendFailureResponse, sendSuccessResponse } from "@globals/server/serverResponse";
 import fetchTaskDetails from "../../services/fetchTaskDetails";
-import { getIndividualByObjectId } from "@services/db/individual.service";
+import { getIndividualByObjectId } from "src/api/shared/services/db/individual.service";
 
 export default function completeBehaviorManagementTask(req:Request, res:Response) {
 

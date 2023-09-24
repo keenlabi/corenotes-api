@@ -4,7 +4,7 @@ import { hashPassword } from "../../../../shared/services/security/password"
 import { sendFailureResponse, sendSuccessResponse } from "../../../../shared/globals/server/serverResponse"
 import staffModel from "@staff/model/staff.model"
 import { ConflictError, ServerError } from "@globals/server/Error"
-import { getStaffUserByUsername } from "@services/db/staff.service"
+import { getStaffUserByUsername } from "src/api/shared/services/db/staff.service"
 import mongoose from "mongoose"
 import fetchAllStaffs from "@staff/services/fetchAllStaffs"
 

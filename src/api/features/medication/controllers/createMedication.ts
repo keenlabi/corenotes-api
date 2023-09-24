@@ -5,7 +5,7 @@ import saveMedication from "../services/saveMedication";
 import { sendFailureResponse, sendSuccessResponse } from "@globals/server/serverResponse";
 import { ServerError } from "@globals/server/Error";
 import fetchMedicationsList from "../services/fetchMedicationsList";
-import { updateServiceMedicationsByServiceId } from "@services/db/service.service";
+import { updateServiceMedicationsByServiceId } from "src/api/shared/services/db/service.service";
 
 export default function createMedication(req:Request, res:Response) {
     validateCreateMedicationRequest(req.body)

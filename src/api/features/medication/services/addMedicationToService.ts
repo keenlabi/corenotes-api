@@ -1,5 +1,5 @@
-import { getMedicationByMedicationId, updateMedicationServicesByMedicationId } from "@services/db/medication.service"
-import { updateServiceMedicationsByServiceObjectId } from "@services/db/service.service";
+import { getMedicationByMedicationId, updateMedicationServicesByMedicationId } from "src/api/shared/services/db/medication.service"
+import { updateServiceMedicationsByServiceObjectId } from "src/api/shared/services/db/service.service";
 import fetchMedication from "./fetchMedication";
 import { NotFoundError } from "@globals/server/Error";
 

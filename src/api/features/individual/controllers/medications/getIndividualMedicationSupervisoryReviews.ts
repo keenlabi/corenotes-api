@@ -1,6 +1,6 @@
 import { ServerError } from "@globals/server/Error";
 import { sendFailureResponse, sendSuccessResponse } from "@globals/server/serverResponse";
-import { getMedicationByMedicationId } from "@services/db/medication.service";
+import { getMedicationByMedicationId } from "src/api/shared/services/db/medication.service";
 import { Request, Response } from "express";
 import fetchIndividualMedicationSupervisoryReviews from "../../services/fetchIndividualMedicationSupervisoryReviews";
 

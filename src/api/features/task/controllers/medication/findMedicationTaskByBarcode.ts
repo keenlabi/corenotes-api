@@ -1,8 +1,8 @@
 import { NotFoundError, ServerError } from "@globals/server/Error";
 import { sendFailureResponse, sendSuccessResponse } from "@globals/server/serverResponse";
 import { IIndividualMedication } from "@individual/models/types";
-import { getIndividualByMedicationBarcode } from "@services/db/individual.service";
-import { getTaskByMedicationId } from "@services/db/task.service";
+import { getIndividualByMedicationBarcode } from "src/api/shared/services/db/individual.service";
+import { getTaskByMedicationId } from "src/api/shared/services/db/task.service";
 import { Request, Response } from "express";
 
 export default function findMedicationTaskByBarcode(req:Request, res:Response) {

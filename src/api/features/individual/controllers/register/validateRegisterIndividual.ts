@@ -1,4 +1,4 @@
-import isEmailValid from "@services/email/validator/isEmailValid";
+import isEmailValid from "src/api/shared/services/email/validator/isEmailValid";
 import {
   registerIndividualRequestBodyType,
   validateRegisterIndividualRequestBodyType,

@@ -3,7 +3,7 @@ import validateRegisterIndividual from "./validateRegisterIndividual";
 import { validateRegisterIndividualRequestBodyType } from "./types";
 import fetchIndividuals from "../fetchIndividuals";
 import { sendFailureResponse } from "@globals/server/serverResponse";
-import { updateServiceAssignedIndividualsById } from "@services/db/service.service";
+import { updateServiceAssignedIndividualsById } from "src/api/shared/services/db/service.service";
 import { individualModel } from "@individual/models/individual.model";
 
 export default function registerIndividual(req: Request, res: Response) {

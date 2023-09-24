@@ -1,4 +1,4 @@
-import { getIndividualByIndividualId } from "@services/db/individual.service"
+import { getIndividualByIndividualId } from "src/api/shared/services/db/individual.service"
 import { NotFoundError } from "@globals/server/Error";
 import detMedSchedule from "@individual/services/detMedSchedule";
 import { individualChoreServiceModel } from "@individual/models/individual-chore-service.model";

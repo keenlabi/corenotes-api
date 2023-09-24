@@ -3,8 +3,8 @@ import { NotFoundError, ServerError } from "@globals/server/Error";
 import { sendFailureResponse, sendSuccessResponse } from "@globals/server/serverResponse";
 import createIndividualAssessmentSession from "@individual/services/individualAssesments/createIndividualAssessmentSession";
 import getIndividualAssessmentSession from "@individual/services/individualAssesments/getIndividualAssessmentSession";
-import { getAssessmentByObjId } from "@services/db/assessment.service";
-import { getIndividualByIndividualId } from "@services/db/individual.service";
+import { getAssessmentByObjId } from "src/api/shared/services/db/assessment.service";
+import { getIndividualByIndividualId } from "src/api/shared/services/db/individual.service";
 
 export interface IAssessmentSessionResponse {
     id:string;

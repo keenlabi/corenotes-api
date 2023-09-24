@@ -1,8 +1,8 @@
 import { NotFoundError } from "@globals/server/Error";
 import { taskModel } from "../model/task.model";
-import { getIndividualByObjectId } from "@services/db/individual.service";
-import { getServiceByObjectId } from "@services/db/service.service";
-import { getMedicationByObjectId } from "@services/db/medication.service";
+import { getIndividualByObjectId } from "src/api/shared/services/db/individual.service";
+import { getServiceByObjectId } from "src/api/shared/services/db/service.service";
+import { getMedicationByObjectId } from "src/api/shared/services/db/medication.service";
 import fetchIndividualMedicationPRNs, { IPRNMedication } from "@individual/services/fetchIndividualMedicationPRNs";
 import getIndividualGoalDetailsByPairObjectId from "@individual/services/getIndividualGoalDetailsByPairObjectId";
 import { individualBehaviorServiceModel } from "@individual/models/individual-behavior-service.model";

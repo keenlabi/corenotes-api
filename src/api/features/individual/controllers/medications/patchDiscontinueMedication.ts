@@ -3,7 +3,7 @@ import { NotFoundError, ServerError } from "@globals/server/Error";
 import { sendFailureResponse, sendSuccessResponse } from "@globals/server/serverResponse";
 import deactivateMedication from "@individual/services/deactivateMedication";
 import fetchIndividualMedications from "@individual/services/fetchIndividualMedications";
-import { getMedicationByMedicationId } from "@services/db/medication.service";
+import { getMedicationByMedicationId } from "src/api/shared/services/db/medication.service";
 
 export default function patchDiscontinueMedication(req:Request, res:Response) {
     getMedicationByMedicationId(req.body.medicationId)

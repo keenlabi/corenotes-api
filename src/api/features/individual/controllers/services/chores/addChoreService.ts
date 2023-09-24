@@ -3,7 +3,7 @@ import { ServerError } from "@globals/server/Error";
 import { sendFailureResponse, sendNotFoundFailureResponse, sendServerFailureResponse, sendSuccessResponse } from "@globals/server/serverResponse";
 import { Request, Response } from "express";
 import { individualChoreServiceModel } from "@individual/models/individual-chore-service.model";
-import { getIndividualByIndividualId } from "@services/db/individual.service";
+import { getIndividualByIndividualId } from "src/api/shared/services/db/individual.service";
 import fetchChoreServices from "./fetchChoreServices";
 import createChoreTask from "src/api/features/task/services/chores/createChoreTask";
 import { IIMakeChoreTaskDets } from "src/api/features/task/services/chores/makeChoreTask";

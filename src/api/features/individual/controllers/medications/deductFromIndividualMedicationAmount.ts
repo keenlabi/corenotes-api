@@ -1,8 +1,8 @@
 import { NotFoundError } from "@globals/server/Error";
 import { individualModel } from "@individual/models/individual.model";
-import { getIndividualByObjectId } from "@services/db/individual.service";
-import { getMedicationByObjectId } from "@services/db/medication.service";
-import { getTaskByTaskId } from "@services/db/task.service";
+import { getIndividualByObjectId } from "src/api/shared/services/db/individual.service";
+import { getMedicationByObjectId } from "src/api/shared/services/db/medication.service";
+import { getTaskByTaskId } from "src/api/shared/services/db/task.service";
 
 export default function deductFromIndividualMedicationAmount(taskId:number, amountAdministered:number, amountLeft:number) {
     return new Promise(async (resolve, reject)=> {

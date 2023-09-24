@@ -1,10 +1,10 @@
 import { NotFoundError, ServerError } from "@globals/server/Error";
 import { sendFailureResponse, sendNotFoundFailureResponse, sendSuccessResponse } from "@globals/server/serverResponse";
 import { individualAssessmentModel } from "@individual/models/individual-assessment.model";
-import { getIndividualByIndividualId } from "@services/db/individual.service";
+import { getIndividualByIndividualId } from "src/api/shared/services/db/individual.service";
 import { Request, Response } from "express"
 import { IAssessmentSessionResponse } from "./fetchIndividualAssessmentSession";
-import { getAssessmentByObjId } from "@services/db/assessment.service";
+import { getAssessmentByObjId } from "src/api/shared/services/db/assessment.service";
 
 export default function completeIndividualAssessmentSession(req:Request, res:Response) {
 

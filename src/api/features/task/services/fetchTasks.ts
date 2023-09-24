@@ -1,7 +1,7 @@
-import { getServiceByObjectId } from "@services/db/service.service";
+import { getServiceByObjectId } from "src/api/shared/services/db/service.service";
 import { taskModel } from "../model/task.model"
-import { getIndividualBehaviorById, getIndividualByObjectId, getIndividualChoreById } from "@services/db/individual.service";
-import { getMedicationByObjectId } from "@services/db/medication.service";
+import { getIndividualBehaviorById, getIndividualByObjectId, getIndividualChoreById } from "src/api/shared/services/db/individual.service";
+import { getMedicationByObjectId } from "src/api/shared/services/db/medication.service";
 import getIndividualGoalDetailsByPairObjectId from "@individual/services/getIndividualGoalDetailsByPairObjectId";
 import getPRNMedicationHistoryByIndividualMedicationRef from "@individual/services/getPRNMedicationHistoryByIndividualMedicationRef";
 import { medicationAdministrationHistoryModel } from "../../medication/model/medicationadministrationhistory.model";

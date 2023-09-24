@@ -1,5 +1,5 @@
-import { getStaffRoleById } from "@services/db/staff.service";
-import getUserByObjectId from "@services/db/user.service";
+import { getStaffRoleById } from "src/api/shared/services/db/staff.service";
+import getUserByObjectId from "src/api/shared/services/db/user.service";
 import staffModel from "@staff/model/staff.model";
 import { IStaffDocument } from "@staff/model/types";
 import { IUserDocument } from "@user/models/types";

@@ -4,7 +4,7 @@ import { NotFoundError, ServerError } from "@globals/server/Error";
 import fetchIndividualMedications from "@individual/services/fetchIndividualMedications";
 import completeSupervisoryMedicationReview from "@individual/services/completeSupervisoryMedicationReview";
 import fetchIndividualMedicationSupervisoryReviews from "@individual/services/fetchIndividualMedicationSupervisoryReviews";
-import { getMedicationByMedicationId } from "@services/db/medication.service";
+import { getMedicationByMedicationId } from "src/api/shared/services/db/medication.service";
 
 export default function patchIndividualMedicationSupervisoryReview(req:Request, res:Response) {
     completeSupervisoryMedicationReview({

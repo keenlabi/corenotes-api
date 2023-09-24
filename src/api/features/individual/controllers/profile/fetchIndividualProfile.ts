@@ -1,6 +1,6 @@
 import { ServerError } from "@globals/server/Error"
 import { sendFailureResponse, sendSuccessResponse } from "@globals/server/serverResponse"
-import { getIndividualByIndividualId } from "@services/db/individual.service"
+import { getIndividualByIndividualId } from "src/api/shared/services/db/individual.service"
 import { Request, Response } from "express"
 
 export default function fetchIndividualProfile(req:Request, res:Response) {

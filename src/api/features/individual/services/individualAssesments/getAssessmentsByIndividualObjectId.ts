@@ -1,6 +1,6 @@
 import { assessmentModel } from "src/api/features/assessment/model/assessment.model.ts"
 import { NotFoundError, ServerError } from "@globals/server/Error";
-import { getIndividualByIndividualId } from "@services/db/individual.service";
+import { getIndividualByIndividualId } from "src/api/shared/services/db/individual.service";
 import getAssessmentCategoryByObjectId from "./getAssessmentCategoryByObjectId";
 import getIndividualAssessmentSession from "./getIndividualAssessmentSession";
 

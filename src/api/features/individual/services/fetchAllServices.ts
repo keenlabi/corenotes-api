@@ -2,7 +2,7 @@ import calcAge from "@globals/helpers/calcAge";
 import { NotFoundError } from "@globals/server/Error";
 import { individualModel } from "@individual/models/individual.model";
 import { IIndividualDocument } from "@individual/models/types";
-import { getCompartmentById } from "@services/db/compartment.service";
+import { getCompartmentById } from "src/api/shared/services/db/compartment.service";
 
 export interface IFetchIndividualResponse {
     currentPage:number;

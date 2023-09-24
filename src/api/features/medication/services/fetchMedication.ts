@@ -1,7 +1,7 @@
 import { NotFoundError } from "@globals/server/Error"
-import { getMedicationByMedicationId } from "@services/db/medication.service"
-import { getServiceByObjectId } from "@services/db/service.service";
-import { getIndividualsByMedicationObjectId } from "@services/db/individual.service";
+import { getMedicationByMedicationId } from "src/api/shared/services/db/medication.service"
+import { getServiceByObjectId } from "src/api/shared/services/db/service.service";
+import { getIndividualsByMedicationObjectId } from "src/api/shared/services/db/individual.service";
 
 export interface IMedicationDetails {
     id:string;

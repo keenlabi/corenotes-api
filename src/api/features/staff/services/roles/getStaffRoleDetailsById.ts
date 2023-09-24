@@ -1,4 +1,4 @@
-import { getStaffRoleById } from "@services/db/staff.service"
+import { getStaffRoleById } from "src/api/shared/services/db/staff.service"
 
 interface IFetchStaffRoleDetails {
     id:string;

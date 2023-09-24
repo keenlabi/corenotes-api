@@ -1,4 +1,4 @@
-import { getServiceByObjectId } from "@services/db/service.service";
+import { getServiceByObjectId } from "src/api/shared/services/db/service.service";
 
 export interface IFetchCompartmentServiceDetails {
     id:string;

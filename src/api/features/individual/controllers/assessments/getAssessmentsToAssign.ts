@@ -1,7 +1,7 @@
 import { Request, Response } from "express"
 import { sendFailureResponse, sendNotFoundFailureResponse, sendSuccessResponse } from "@globals/server/serverResponse";
 import fetchAllAssessmentsNotAssignedToIndividual from "@individual/services/individualAssesments/fetchAllAssessmentsNotAssignedToIndividual";
-import { getIndividualByIndividualId } from "@services/db/individual.service";
+import { getIndividualByIndividualId } from "src/api/shared/services/db/individual.service";
 
 export default function getAssessmentsToAssign(req:Request, res:Response) {
     getIndividualByIndividualId(parseInt(req.params.individualId))

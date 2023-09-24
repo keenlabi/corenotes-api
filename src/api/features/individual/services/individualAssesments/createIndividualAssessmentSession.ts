@@ -1,7 +1,7 @@
 import { Types } from "mongoose"
 import { individualAssessmentModel } from "@individual/models/individual-assessment.model"
 import { IIndividualAssessmentDocument } from "@individual/models/types"
-import { getAssessmentByObjId } from "@services/db/assessment.service"
+import { getAssessmentByObjId } from "src/api/shared/services/db/assessment.service"
 
 export default function createIndividualAssessmentSession(assessmentObjId:string, individualObjId:string) {
     return new Promise<IIndividualAssessmentDocument>((resolve, reject)=> {

@@ -1,11 +1,10 @@
 import { Request, Response } from "express"
 import validateLoginRequestBody from "./validateLoginRequestBody";
-import { verifyPassword } from "@services/security/password";
+import { verifyPassword } from "src/api/shared/services/security/password";
 import { sendFailureResponse, sendSuccessResponse } from "@globals/server/serverResponse";
-import generateAuthToken from "@services/security/token/generateAccessToken";
-import storeAuthToken from "@services/security/token/storeAccessToken";
-import { getStaffUserByUsername, updateStaffLastSeenById } from "@services/db/staff.service";
-import getUserByObjectId from "@services/db/user.service";
+import generateAuthToken from "src/api/shared/services/security/token/generateAccessToken";
+import storeAuthToken from "src/api/shared/services/security/token/storeAccessToken";
+import { getStaffUserByUsername } from "src/api/shared/services/db/staff.service";
 
 export default async function logIn(req:Request, res:Response) {
 

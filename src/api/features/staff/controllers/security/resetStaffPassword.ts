@@ -1,6 +1,6 @@
 import { Request, Response } from "express"
 import UserModel from "@user/models/user.model"
-import { hashPassword } from "@services/security/password";
+import { hashPassword } from "src/api/shared/services/security/password";
 import { sendFailureResponse, sendSuccessResponse } from "@globals/server/serverResponse";
 import updateStaffPassword from "@staff/services/updateStaffPassword";
 import { IStaffDocument } from "@staff/model/types";

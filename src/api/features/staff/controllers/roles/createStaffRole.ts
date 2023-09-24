@@ -4,7 +4,7 @@ import { sendConflictFailureResponse, sendFailureResponse, sendSuccessResponse }
 import insertStaffRoleToDB from "@staff/services/db/insertStaffRoleToDB";
 import fetchAllStaffRoles from "@staff/services/roles/fetchAllStaffRoles";
 import validateCreateStaffRoleRequest from "@staff/services/validateCreateStaffRoleRequest";
-import { getStaffRoleByTitle } from "@services/db/staff.service";
+import { getStaffRoleByTitle } from "src/api/shared/services/db/staff.service";
 
 export default function createStaffRole(req:Request, res:Response) {
     validateCreateStaffRoleRequest({...req.body})

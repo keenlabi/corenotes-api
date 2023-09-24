@@ -1,7 +1,7 @@
-import {getIndividualByIndividualId, updateIndividualServicesById} from "@services/db/individual.service";
+import {getIndividualByIndividualId, updateIndividualServicesById} from "src/api/shared/services/db/individual.service";
 import { IAssignServiceToIndividualReqBody } from "./validateAssignIndividualServiceRequest";
 import { IIndividualServicesList } from "./fetchAllIndividualServices";
-import { getServiceByObjectId, updateServiceAssignedIndividualsById } from "@services/db/service.service";
+import { getServiceByObjectId, updateServiceAssignedIndividualsById } from "src/api/shared/services/db/service.service";
 import { ConflictError, NotFoundError } from "@globals/server/Error";
 import detMedSchedule from "./detMedSchedule";
 

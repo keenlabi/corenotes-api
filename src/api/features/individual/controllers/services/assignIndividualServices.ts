@@ -3,10 +3,10 @@ import validateAssignIndividualServiceRequest from "../../services/validateAssig
 import { ServerError, ValidationError } from "@globals/server/Error";
 import { sendFailureResponse, sendSuccessResponse } from "@globals/server/serverResponse";
 import addServiceToIndividual from "../../services/addServiceToIndividual";
-import { getServiceByObjectId } from "@services/db/service.service";
+import { getServiceByObjectId } from "src/api/shared/services/db/service.service";
 import createSkinIntegrityTask from "src/api/features/task/services/skin-integrity/createSkinIntegrityTask";
 import { IIMakeSkinIntegrityTaskDets } from "src/api/features/task/services/skin-integrity/makeSkinIntegrityTask";
-import { getIndividualByIndividualId } from "@services/db/individual.service";
+import { getIndividualByIndividualId } from "src/api/shared/services/db/individual.service";
 import { IIMakeBowelMovementTaskDets } from "src/api/features/task/services/bowel-movement/makeBowelMovementTask";
 import createBowelMovementTask from "src/api/features/task/services/bowel-movement/createBowelMovementTask";
 import createShiftNotesTask from "src/api/features/task/services/shift-notes/createShiftNotesTask";
