@@ -1,5 +1,5 @@
 import { Response } from "express";
-import { NotFoundError, ServerError, ValidationError } from "./Error";
+import { ConflictError, NotAuthorizedError, NotFoundError, ServerError, ValidationError } from "./Error";
 
 export interface IServerFailure {
   res:Response,
@@ -31,6 +31,11 @@ export function sendFailureResponse ({ res, statusCode, message }:IServerFailure
   });
 };
 
+export function sendConflictFailureResponse(res:Response, message:string) {
+  const conflictError = new ConflictError(message);
+  return sendFailureResponse({ res, statusCode: conflictError.statusCode, message: conflictError.message })
+}
+
 export function sendNotFoundFailureResponse(res:Response, message:string) {
   const notFoundError = new NotFoundError(message);
   return sendFailureResponse({ res, statusCode:notFoundError.statusCode, message:notFoundError.message })
@@ -43,5 +48,10 @@ export function sendServerFailureResponse(res:Response, message:string) {
 
 export function sendValidationFailureResponse(res:Response, message:string) {
   const validationError = new ValidationError(message);
+  return sendFailureResponse({ res, statusCode: validationError.statusCode, message: validationError.message })
+}
+
+export function sendAuthorizationFailureResponse(res:Response, message:string) {
+  const validationError = new NotAuthorizedError(message);
   return sendFailureResponse({ res, statusCode: validationError.statusCode, message: validationError.message })
 }

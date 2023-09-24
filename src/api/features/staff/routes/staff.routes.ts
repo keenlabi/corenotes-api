@@ -16,8 +16,18 @@ import fetchStaffRolesDetails from "@staff/controllers/roles/fetchStaffRoleDetai
 import updateStaffProfile from "@staff/controllers/updateStaffProfile";
 import createStaffClockin from "@staff/controllers/clockins/createStaffClockin";
 import FetchStaffClockout from "@staff/controllers/clockouts/fetchStaffClockout";
+import postNewShift from "@staff/controllers/shifts/postNewShift";
+import getStaffShifts from "@staff/controllers/shifts/getStaffShifts";
+import getClockIn from "@staff/controllers/shifts/getClockIn";
+import getClockOut from "@staff/controllers/shifts/getClockOut";
 
 const staffRouter = Router();
+
+staffRouter.post('/clock-out', validateToken, getClockOut);
+staffRouter.post('/clock-in', validateToken, getClockIn);
+
+staffRouter.post('/:staffId/shifts', validateToken, postNewShift);
+staffRouter.get('/:staffId/shifts/:pageNumber', validateToken, getStaffShifts);
 
 staffRouter.patch('/update', validateToken, updateStaffProfile)
 

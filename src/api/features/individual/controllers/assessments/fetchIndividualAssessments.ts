@@ -8,7 +8,7 @@ export default function fetchIndividualAssessments(req:Request, res:Response) {
         return sendSuccessResponse({
             res,
             statusCode: 200,
-            message: "Individual assessment retrieved successfully",
+            message: "Individual assessments retrieved successfully",
             data: { individualAssessments: response }
         })
     })

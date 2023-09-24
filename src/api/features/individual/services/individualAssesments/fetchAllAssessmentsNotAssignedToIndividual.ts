@@ -16,13 +16,13 @@ export interface IMappedAssessment {
     assignees:string;
 }
 
-export default function fetchAllAssessments(pageNumber:number) {
+export default function fetchAllAssessmentsNotAssignedToIndividual(individualId:string, pageNumber:number) {
     return new Promise<IAssessmentsResponse>((resolve, reject)=> {
         const   queryPageNumber = pageNumber - 1 ?? 0,
                 resultsPerPage = 10, 
                 pageOffset = resultsPerPage * queryPageNumber,
 
-            query = { };
+            query = { assignees: { $ne:  individualId } };
 
         assessmentModel.find(query)
         .skip(pageOffset)
@@ -50,6 +50,14 @@ export default function fetchAllAssessments(pageNumber:number) {
                 resolve({
                     currentPage: pageNumber, 
                     totalPages: totalPageNumber,
+                    assessments: mappedAssessments
+                })
+            })
+            .catch((error)=> {
+                console.log("There was an error fetching all unassigned assessment")
+                resolve({
+                    currentPage: pageNumber, 
+                    totalPages: pageNumber,
                     assessments: mappedAssessments
                 })
             })

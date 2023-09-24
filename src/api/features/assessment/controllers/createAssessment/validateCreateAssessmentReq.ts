@@ -18,12 +18,9 @@ export default function validateCreateAssessmentReq(data:createAssessmentReqBody
         .catch(()=> reject({ status: false, code: 422,  message:'There was an error validating request' }));
 
         if(!data.category) reject({ status: false, code: 422,  message:'Category field cannot be empty' });
-        if(!Types.ObjectId.isValid(data.category)) reject({ status: false, code: 422,  message:'Category is not a valid value field cannot be empty' });
+        if(!Types.ObjectId.isValid(data.category)) reject({ status: false, code: 422,  message:'Category is not valid' });
         
         if(!data.questions.length) reject({ status: false, code: 422,  message:'Questions field cannot be empty' });
-        
-        if(!data.assessmentType) reject({ status: false, code: 422,  message:'Assessment type field cannot be empty' });
-        if(!AssessmentTypesList.includes(data.assessmentType)) reject({ status: false, code: 422,  message:`${data.assessmentType} is not a valid assessment type.` });
 
         // return success if true
         resolve({ status:true, code:200, message: 'SUCCESS', requestBody: data });

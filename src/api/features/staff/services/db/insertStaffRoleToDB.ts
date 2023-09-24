@@ -8,7 +8,7 @@ export interface INewStaffRole {
 export default function insertStaffRoleToDB(staffRole:INewStaffRole) {
     return new Promise<INewStaffRole>((resolve, reject)=> {
         staffroleModel.create({
-            title: staffRole.title,
+            title: staffRole.title.toUpperCase(),
             privileges: staffRole.privileges
         })
         .then((createdStaffRole)=> resolve(createdStaffRole))

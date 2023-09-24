@@ -30,12 +30,7 @@ export default function getAssessmentsByIndividualId(individualId:number, pageNu
                 reject(notFoundError);
             }
             
-            const query = { 
-                $or: [
-                    { "assignees.assigneesList": foundIndividual?._id.toString() },
-                    { "assignees.assigneesType": "ALL"}
-                ]
-            };
+            const query = { "assignees": foundIndividual?._id.toString() };
 
             const queryPageNumber = pageNumber - 1 ?? 0,
             resultsPerPage = 10, 
@@ -44,7 +39,7 @@ export default function getAssessmentsByIndividualId(individualId:number, pageNu
             assessmentModel.find(query)
             .skip(pageOffset)
             .limit(resultsPerPage)
-            .sort({ createdAt: -1 })
+            // .sort({ createdAt: -1 })
             .then(async (foundAssessments)=> {
                 
                 const mappedAssessments:IMappedAssessment[] = []

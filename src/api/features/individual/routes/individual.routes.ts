@@ -27,10 +27,9 @@ import fetchIndividualChoreServices from "@individual/controllers/services/chore
 import fetchIndividualDocuments from "@individual/controllers/documents/fetchIndividualDocuments";
 import uploadIndividualDocument from "@individual/controllers/documents/uploadStaffDocument/uploadIndividualDocument";
 import addAssessmentToIndividual from "@individual/controllers/assessments/addAssessmentToIndividual";
+import getAssessmentsToAssign from "@individual/controllers/assessments/getAssessmentsToAssign";
 
 const individualRouter = Router();
-
-individualRouter.post('/:individualId/assessments', validateToken, addAssessmentToIndividual);
 
 individualRouter.get('/:individualId/documents/:pageNumber', validateToken, fetchIndividualDocuments)
 individualRouter.post('/:individualId/documents', validateToken, uploadFile('single', 'individualDocFile'), uploadIndividualDocument)
@@ -42,10 +41,12 @@ individualRouter.patch('/:individualId/medications/toggle', validateToken, patch
 individualRouter.post('/:individualId/medications', validateToken, postMedicationToIndividual)
 individualRouter.get('/:individualId/medications/:pageNumber', validateToken, getIndividualMedications)
 
+individualRouter.post('/:individualId/assessments', validateToken, addAssessmentToIndividual);
 individualRouter.get('/:individualId/assessments/:pageNumber', validateToken, fetchIndividualAssessments)
 individualRouter.get('/:individualId/assessments/:assessmentId/session', validateToken, fetchIndividualAssessmentSession)
 individualRouter.post('/:individualId/assessments/:assessmentId/session', validateToken, completeIndividualAssessmentSession)
 individualRouter.patch('/assessments/:assessmentId/session', validateToken, saveIndividualAssessmentSession)
+individualRouter.get('/:individualId/unassigned-assessments/:pageNumber', validateToken, getAssessmentsToAssign);
 
 individualRouter.get('/:individualId/services/chore/:pageNumber', validateToken, fetchIndividualChoreServices)
 individualRouter.post('/:individualId/services/chore', validateToken, addChoreService)

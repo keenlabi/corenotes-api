@@ -12,7 +12,7 @@ export default function getStaffRoleDetailsById(roleId:string) {
         .then((staffRole)=> {
             resolve({
                 id: staffRole._id.toString(),
-                title: staffRole.title,
+                title: staffRole.title.toUpperCase(),
                 privileges: staffRole.privileges
             })
         })

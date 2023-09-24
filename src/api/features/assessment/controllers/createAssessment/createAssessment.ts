@@ -12,7 +12,6 @@ export default function createAssessment(req:Request, res:Response) {
             title: requestBody.title.toLowerCase(),
             category: requestBody.category,
             questions: requestBody.questions,
-            assessmentType: requestBody.assessmentType,
         }
 
         assessmentModel.create(newAssessmentObj)

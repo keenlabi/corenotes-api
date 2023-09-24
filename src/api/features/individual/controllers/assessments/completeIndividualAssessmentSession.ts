@@ -1,7 +1,6 @@
 import { NotFoundError, ServerError } from "@globals/server/Error";
 import { sendFailureResponse, sendNotFoundFailureResponse, sendSuccessResponse } from "@globals/server/serverResponse";
 import { individualAssessmentModel } from "@individual/models/individual-assessment.model";
-import getIndividualAssessmentSession from "@individual/services/individualAssesments/getIndividualAssessmentSession";
 import { getIndividualByIndividualId } from "@services/db/individual.service";
 import { Request, Response } from "express"
 import { IAssessmentSessionResponse } from "./fetchIndividualAssessmentSession";
@@ -28,7 +27,7 @@ export default function completeIndividualAssessmentSession(req:Request, res:Res
 
         individualAssessmentModel.findOneAndUpdate(query, updateObj, { new: true })
         .then((updatedIndividualAssessment)=> {
-            
+
             if(!updatedIndividualAssessment) return sendNotFoundFailureResponse(res, "Individual assessment not found");
 
             getAssessmentByObjId(query.assessmentId)
@@ -57,9 +56,7 @@ export default function completeIndividualAssessmentSession(req:Request, res:Res
             })
             .catch((error)=> {
                 console.log("There was an error finding assessment", error)
-                return sendFailureResponse({
-                    res, statusCode: 500, message: "There was an error finding assessment"
-                })
+                return sendFailureResponse({ res, statusCode: 500, message: "There was an error finding assessment" })
             })
         })
         .catch((error)=> {

@@ -81,49 +81,53 @@ const staffSchema = new Schema<IStaffDocument>({
     providerRole: {
         type: String,
     },
-    hiredAt: {
-        type: String,
+    hiredAt:{
+        type:String,
     },
-    employeeId: {
-        type: String
+    employeeId:{
+        type:String
     },
-    profileImage: {
-        type: String,
-        default: "https://res.cloudinary.com/the-shawn-exchange/image/upload/v1671833458/user-profile_jsze9h.webp"
+    profileImage:{
+        type:String,
+        default:"https://res.cloudinary.com/the-shawn-exchange/image/upload/v1671833458/user-profile_jsze9h.webp"
     },
     jobSchedule: {
         type: String,
     },
     documents: [{
-        docTitle: {
-            type: String
+        docTitle:{
+            type:String
         },
-        docType: {
-            type: String
+        docType:{
+            type:String
         },
-        docDate: {
-            type: String
+        docDate:{
+            type:String
         },
-        docFileLink: String,
-        docFileName: String,
-        createdAt: {
-            type: Date,
-            default: Date.now,
+        docFileLink:String,
+        docFileName:String,
+        createdAt:{
+            type:Date,
+            default:Date.now,
         }
     }],
-    maritalStatus: {
+    maritalStatus:{
         type:String
     },
-    lastSeen: {
-        type: Date,
-        default: Date.now
+    lastSeen:{
+        type:Date,
+        default:Date.now
     },
-    createdAt: {
-        type: Date,
-        default: Date.now
+    createdAt:{
+        type:Date,
+        default:Date.now
     },
+    isClockedIn:{ 
+        type:Boolean, 
+        default:false 
+    }
     
-}, { timestamps:{  } })
+}, { timestamps:{} })
 .plugin(autoIncrementPlugin, {
     model: 'staffs',
     field: 'staffId',

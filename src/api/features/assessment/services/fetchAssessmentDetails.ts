@@ -13,7 +13,7 @@ interface IAssessmentDetails {
         category:string;
         question:string;
     }>;
-    assessmentType:string;
+    // assessmentType:string;
     assignees:string[];
 }
 
@@ -43,7 +43,7 @@ export default function fetchAssessmentDetails(assessmentId:number) {
                 title: foundAssessment!.title!,
                 category: (await fetchAssessmentCategoryDetails(foundAssessment!.category!)).toString() + ' assessment',
                 questions: questionsWithCategories,
-                assessmentType: foundAssessment!.assessmentType.toLowerCase()!,
+                // assessmentType: foundAssessment!.assessmentType.toLowerCase()!,
                 assignees: foundAssessment!.assignees
             }
 

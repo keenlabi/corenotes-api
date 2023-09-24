@@ -10,10 +10,6 @@ const assessmentSchema = new Schema<IAssessmentDocument>({
         question:{ type:String },
         category:{ type:String }
     }],
-    assessmentType:{
-        enum: AssessmentTypesList,
-        type:String 
-    },
     assignees:{
         type: [String],
         default: []

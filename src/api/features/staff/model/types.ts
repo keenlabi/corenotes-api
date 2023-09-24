@@ -51,12 +51,17 @@ export interface IStaffDocument extends Document {
         docFileName: string;
         createdAt: Date
     }>;
+<<<<<<< HEAD
     maritalStatus: string;
 
     // CLOCK-IN AND CLOCK-OUT TIMES
     clockedIn: boolean;
     lastClockInTime: Date
     lastClockOutTime: Date;
+=======
+    maritalStatus:string;
+    isClockedIn:boolean;
+>>>>>>> 40cf61b4ef9bb564e6329c6490ef44d437e4feca
 }
 
 export interface IStaffRole {
@@ -67,4 +72,20 @@ export interface IStaffRole {
         staff_registration:boolean;
         staff_document_upload:boolean;
     }
+}
+
+export interface IStaffShift extends Document {
+    _id:Types.ObjectId;
+    staffRef:string;
+    schedule: {
+        date:string;
+        startTime:string;
+        endTime:string;
+    }
+}
+
+export interface IStaffClockHistory extends Document {
+    _id:Types.ObjectId;
+    staffRef:string;
+    createdAt:Date;
 }

@@ -1,6 +1,6 @@
 import { ServerError } from "@globals/server/Error";
 import { sendFailureResponse, sendSuccessResponse } from "@globals/server/serverResponse";
-import getStaffRoleDetailsById from "@staff/services/getStaffRoleDetailsById";
+import getStaffRoleDetailsById from "src/api/features/staff/services/roles/getStaffRoleDetailsById";
 import { Request, Response } from "express";
 
 export default function fetchStaffRolesDetails(req:Request, res:Response) {
