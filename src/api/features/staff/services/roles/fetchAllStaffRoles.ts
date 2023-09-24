@@ -1,5 +1,5 @@
 import { sendSuccessResponse } from "@globals/server/serverResponse";
-import staffroleModel from "../model/staffrole.model";
+import staffroleModel from "../../model/staffrole.model";
 import formatStaffRolesForClient, { IStaffRoleForClient } from "./formatStaffRolesForClient";
 
 interface IFetchAllStaffRolesResponse {

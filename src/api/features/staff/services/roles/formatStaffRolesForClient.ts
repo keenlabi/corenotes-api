@@ -1,4 +1,4 @@
-import { IStaffRole } from "../model/types";
+import { IStaffRole } from "../../model/types";
 import getStaffsCountByProviderRole from "./getStaffsCountByProviderRole";
 
 export interface IStaffRoleForClient {
@@ -20,7 +20,7 @@ export default function formatStaffRolesForClient(staffRoles:Array<IStaffRole>) 
 
                 staffRolesResponse.push({
                     id: role._id.toString(),
-                    title: role.title,
+                    title: role.title.toUpperCase(),
                     staffCount: staffsCountRes,
                 })
             }

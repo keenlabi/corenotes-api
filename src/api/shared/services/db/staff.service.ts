@@ -52,6 +52,16 @@ export function getStaffRoleById(staffRoleId:string) {
     })
 }
 
+export function getStaffRoleByTitle(staffRoleTitle:string) {
+    return new Promise<IStaffRole>((resolve, reject)=> {
+        const query = { title: staffRoleTitle };
+    
+        staffroleModel.findOne(query)
+        .then((foundStaffRole:IStaffRole)=> resolve(foundStaffRole))
+        .catch((error)=> reject(error))
+    })
+}
+
 export function updateStaffLastSeenById(staffObjectId:string) {
     return new Promise<IStaffDocument>((resolve, reject)=> {
         const query = { _id: staffObjectId }

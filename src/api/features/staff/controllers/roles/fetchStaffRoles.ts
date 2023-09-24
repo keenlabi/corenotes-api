@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import fetchAllStaffRoles from "../../services/fetchAllStaffRoles";
+import fetchAllStaffRoles from "../../services/roles/fetchAllStaffRoles";
 import { sendFailureResponse, sendSuccessResponse } from "@globals/server/serverResponse";
 import { ServerError } from "@globals/server/Error";
 
