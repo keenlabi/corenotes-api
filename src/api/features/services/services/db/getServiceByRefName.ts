@@ -7,7 +7,7 @@ export default function getServiceByRefName(refName:string) {
         const query = { refName }
         
         serviceModel.findOne(query)
-        .then((foundService:IService)=> resolve(foundService))
+        .then((foundService)=> resolve(foundService))
         .catch((error)=> reject(error))
     })
 }

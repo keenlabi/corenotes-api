@@ -7,23 +7,8 @@ export function addServiceIdToCompartment({compartmentObjectId, serviceObjectId}
         
         let compartment:ICompartment;
 
-        
-
-        updateCompartmentServicesById({
-            compartmentId: compartmentObjectId, 
-            serviceId: serviceObjectId
-        })
-        .then((updatedCompartment)=> {
-            compartment = updatedCompartment
-        })
+        updateServiceCompartmentsById(serviceObjectId, compartmentObjectId)
+        .then(()=> resolve(compartment))
         .catch((error)=> reject(error))
-        .finally(()=> {
-            updateServiceCompartmentsById({
-                serviceId: serviceObjectId,
-                compartmentId: compartmentObjectId
-            })
-            .then(()=> resolve(compartment))
-            .catch((error)=> reject(error))
-        })
     })
 }

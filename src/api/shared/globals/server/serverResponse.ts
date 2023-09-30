@@ -43,7 +43,7 @@ export function sendNotFoundFailureResponse(res:Response, message:string) {
 
 export function sendServerFailureResponse(res:Response, message:string) {
   const serverError = new ServerError();
-  return sendFailureResponse({res, statusCode: serverError.statusCode, message: serverError.message});
+  return sendFailureResponse({res, statusCode: serverError.statusCode, message: message ?? serverError.message});
 }
 
 export function sendValidationFailureResponse(res:Response, message:string) {

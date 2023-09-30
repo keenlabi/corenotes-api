@@ -7,7 +7,7 @@ export default function getServiceByServiceId(serviceId:number) {
         const query = { serviceId }
         
         serviceModel.findOne(query)
-        .then((foundService:IService)=> resolve(foundService))
+        .then((foundService)=> resolve(foundService))
         .catch((error)=> reject(error))
     })
 }
