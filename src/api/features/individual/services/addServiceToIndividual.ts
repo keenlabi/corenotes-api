@@ -41,6 +41,7 @@ export default function addServiceToIndividual(data:IAssignServiceToIndividualRe
                                 id: foundService._id.toString(),
                                 serviceId: foundService.serviceId,
                                 title: foundService.title,
+                                refName: foundService.refName,
                                 category: foundService.category,
                                 startDate: service.schedule.startDate,
                                 time: service.schedule.time,
