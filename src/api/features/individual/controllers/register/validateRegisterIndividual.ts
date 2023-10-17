@@ -48,7 +48,7 @@ export default function validateRegisterIndividual(
           code: 422,
           message: "SSN field cannot be empty",
         });
-      if (!data.contact.name)
+      if (!data.contact?.name)
         reject({
           status: false,
           code: 422,
@@ -56,7 +56,7 @@ export default function validateRegisterIndividual(
         });
 
       // check if email is registered already and return error if true
-      if (!data.contact.email)
+      if (!data.contact?.email)
         reject({
           status: false,
           code: 422,
@@ -65,7 +65,7 @@ export default function validateRegisterIndividual(
       if (!isEmailValid(data.contact.email))
         reject({ status: false, code: 422, message: "Email is invalid" });
 
-      if (!data.contact.phoneNumber)
+      if (!data.contact?.phoneNumber)
         reject({
           status: false,
           code: 422,
@@ -104,6 +104,13 @@ export default function validateRegisterIndividual(
           code: 422,
           message: "Compartment field cannot be empty",
         });
+      
+      if (!data.subCompartmentId)
+        reject({
+          status: false,
+          code: 422,
+          message: "'subCompartmentId' field cannot be empty",
+        });
 
       if (!data.requestedServices?.length)
         reject({
@@ -119,21 +126,21 @@ export default function validateRegisterIndividual(
           message: "Diet field cannot be empty",
         });
 
-      if (!data.allergies.food)
+      if (!data.allergies?.food)
         reject({
           status: false,
           code: 422,
           message: "Food allergies field cannot be empty",
         });
 
-      if (!data.allergies.med)
+      if (!data.allergies?.med)
         reject({
           status: false,
           code: 422,
           message: "Med allergies field cannot be empty",
         });
 
-      if (!data.allergies.other)
+      if (!data.allergies?.other)
         reject({
           status: false,
           code: 422,

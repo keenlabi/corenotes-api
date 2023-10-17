@@ -22,8 +22,7 @@ export default function createNewCompartment(newCompartmentData:INewCompartmentD
                 compartmentId: createdCompartmentDocument.compartmentId,
                 title: createdCompartmentDocument.title,
                 image: createdCompartmentDocument.image,
-                staffRoles: createdCompartmentDocument.staffRoles,
-                assignedIndividuals: createdCompartmentDocument.assignedIndividuals,
+                subCompartmentsCount: createdCompartmentDocument.subCompartments.length,
                 meta: createdCompartmentDocument.meta,
                 createdAt: createdCompartmentDocument.createdAt.toString()
             })
