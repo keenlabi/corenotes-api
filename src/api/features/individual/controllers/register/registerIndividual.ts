@@ -5,9 +5,10 @@ import fetchIndividuals from "../fetchIndividuals";
 import { sendFailureResponse } from "@globals/server/serverResponse";
 import { updateServiceAssignedIndividualsById } from "src/api/shared/services/db/service.service";
 import { individualModel } from "@individual/models/individual.model";
+import addIndividualToCompartment from "src/api/features/compartment/services/addIndividualToCompartment";
 
 export default function registerIndividual(req: Request, res: Response) {
-  validateRegisterIndividual({ ...req.body, ...req.file })
+  validateRegisterIndividual({ ...req.body })
     .then(({ requestBody }: validateRegisterIndividualRequestBodyType) => {
       individualModel
         .create({
@@ -32,6 +33,7 @@ export default function registerIndividual(req: Request, res: Response) {
 
           codeAlert: requestBody.codeAlert,
           compartment: requestBody.compartment,
+          subCompartment: requestBody.subCompartmentId,
           services: requestBody.requestedServices,
           diet: requestBody.diet,
           allergies: {
@@ -42,12 +44,14 @@ export default function registerIndividual(req: Request, res: Response) {
         })
         .then((newIndividual) => {
           console.log(`REGISTRATION: New individual registered successfully`);
+          
+          addIndividualToCompartment(requestBody.compartment, requestBody.subCompartmentId, newIndividual.id)
+          .then(()=> console.log("Individual added to subcompartment successfully"))
+          .catch(()=> console.log("Individual wasn't added to subcompartment successfully"))
 
           requestBody.requestedServices.forEach(async (service) => {
-            await updateServiceAssignedIndividualsById(
-              service.service,
-              newIndividual._id.toString()
-            ).finally(() => fetchIndividuals(req, res));
+            await updateServiceAssignedIndividualsById(service.service, newIndividual._id.toString())
+            .finally(() => fetchIndividuals(req, res));
           });
         })
         .catch((error) => {

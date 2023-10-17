@@ -17,18 +17,18 @@ export function updateServiceAssignedIndividualsById(serviceId:string, individua
         const updateObj = { $push: { assignedIndividuals:  individualId } }
 
         serviceModel.findOneAndUpdate(query, updateObj, { new: true })
-        .then((updatedService:IService)=> resolve(updatedService))
+        .then((updatedService)=> resolve(updatedService))
         .catch((error)=> reject(error))
     })
 }
 
-export function updateServiceCompartmentsById({compartmentId, serviceId}:{compartmentId:string, serviceId:string}) {
-    return new Promise((resolve, reject)=> {
+export function updateServiceCompartmentsById(serviceId:string, compartmentId:string) {
+    return new Promise<IService|null>((resolve, reject)=> {
         const query = { _id: serviceId };
         const updateObj = { $push: { compartments: compartmentId } }
     
         serviceModel.findOneAndUpdate(query, updateObj, { new: true })
-        .then((updatedService:IService)=> resolve(updatedService))
+        .then((updatedService)=> resolve(updatedService))
         .catch((error)=> reject(error))
     })
 }

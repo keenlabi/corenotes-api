@@ -7,6 +7,7 @@ export interface IIndividualServicesList {
     id:string;
     serviceId:number;
     title:string;
+    refName:string;
     category:string;
     startDate:string;
     time:string;
@@ -34,6 +35,7 @@ export default function fetchAllIndividualServices(individualId:number) {
                             id: foundService._id.toString(),
                             serviceId: foundService.serviceId,
                             title: foundService.title,
+                            refName: foundService.refName,
                             category: foundService.category,
                             startDate: service.schedule.startDate,
                             time: service.schedule.time,

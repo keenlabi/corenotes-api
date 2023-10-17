@@ -2,12 +2,12 @@ import compartmentModel from "../../models/compartment.model"
 import { ICompartment } from "../../models/types"
 
 export default function getCompartmentByCompartmentId(compartmentId:number) {
-    return new Promise<ICompartment>((resolve, reject)=> {
+    return new Promise<ICompartment|null>((resolve, reject)=> {
 
         const query = { compartmentId }
         
         compartmentModel.findOne(query)
-        .then((foundCompartment:ICompartment)=> resolve(foundCompartment))
+        .then((foundCompartment)=> resolve(foundCompartment))
         .catch((error)=> reject(error))
     })
 }

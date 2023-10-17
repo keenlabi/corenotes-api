@@ -1,4 +1,4 @@
-import createService from "./createServices";
+import createService from "./createService";
 import fetchServices from "./fetchServices";
 import fetchServiceDetails from "./fetchServiceDetails";
 import fetchProvidedServices from "./fetchProvidedServices";
