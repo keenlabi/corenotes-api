@@ -24,5 +24,13 @@ export default function routes() {
     router.use('/medications', medicationRouter);
     router.use('/tasks', taskRouter);
 
+    router.get('/health', (req, res, next) => {
+        res.json({
+            application: "Corenotes API",
+            message: "Endpoint working",
+            version: "1.0.0"
+        })
+    });
+
     return router;
 }
